@@ -1,0 +1,151 @@
+/* Change the color of the active dot */
+.swiper-pagination-bullet {
+  background-color: #57bffc !important; /* Change this to your desired color */
+  opacity: 1; /* Ensure bullets are fully opaque */
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #ff3477 !important; /* Change this to your active dot color */
+}
+
+/* Change the size of the navigation arrows */
+.swiper-button-next,
+.swiper-button-prev {
+  width: 40px !important; /* Set the desired width */
+  height: 40px !important; /* Set the desired height */
+  background-size: contain !important; /* Ensures the background image scales properly */
+  border-radius: 100% !important;
+  background-color: rgba(67, 91, 134, 0.596);
+  color: lightcyan !important;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background-color: rgba(67, 106, 179, 0.801);
+}
+
+/* Optional: If you want to customize arrow icons */
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 20px !important; /* Set the font size for arrow icons */
+}
+
+.image-container {
+  position: relative;
+  width: 100%; /* Ensure it takes full width of the slide */
+}
+
+.gradient-overlay::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Blackish gradient */
+  z-index: 1; /* Place it above the image but below other content */
+}
+
+.image-container img {
+  position: relative; /* Position images to allow layering with the overlay */
+  z-index: 0; /* Ensure images are below the overlay */
+}
+
+.coupleImg {
+  box-shadow: -12px -12px 1px #566f9e;
+}
+
+/* Custom Spinner (Imported) */
+.spinner {
+  position: relative;
+  width: 6.7px;
+  height: 6.7px;
+}
+
+.spinner div {
+  animation: spinner-4t3wzl 1.5s infinite backwards;
+  background-color: #a7a8f8;
+  border-radius: 50%;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+.spinner div:nth-child(1) {
+  animation-delay: 0.12s;
+  background-color: rgba(167, 168, 248, 0.9);
+}
+
+.spinner div:nth-child(2) {
+  animation-delay: 0.24s;
+  background-color: rgba(167, 168, 248, 0.8);
+}
+
+.spinner div:nth-child(3) {
+  animation-delay: 0.36000000000000004s;
+  background-color: rgba(167, 168, 248, 0.7);
+}
+
+.spinner div:nth-child(4) {
+  animation-delay: 0.48s;
+  background-color: rgba(167, 168, 248, 0.6);
+}
+
+.spinner div:nth-child(5) {
+  animation-delay: 0.6000000000000001s;
+  background-color: rgba(167, 168, 248, 0.5);
+}
+
+@keyframes spinner-4t3wzl {
+  0% {
+    transform: rotate(0deg) translateY(-200%);
+  }
+
+  60%,
+  100% {
+    transform: rotate(360deg) translateY(-200%);
+  }
+}
+
+/* Toast CSS  */
+
+.custom-toast-body {
+  color: #040511 !important; /* Custom text color */
+  font-family: "Poppins", system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: #adc0ff !important;
+}
+
+.Toastify__toast {
+  background-color: #adc0ff !important;
+}
+
+.navBar {
+  background: rgb(30, 30, 47);
+  background: linear-gradient(
+    0deg,
+    rgba(30, 30, 47, 0.753) 0%,
+    rgba(23, 23, 34, 0.747) 39%,
+    rgba(30, 30, 47, 0.808) 83%
+  );
+  backdrop-filter: 80px;
+}
+
+.accomodation {
+  background: rgb(206, 212, 240);
+  background: radial-gradient(
+    circle,
+    rgb(205, 211, 238) 0%,
+    rgb(215, 222, 238) 80%
+  );
+}
+
+.darkbg {
+  background: rgb(50, 56, 84);
+  background: radial-gradient(
+    circle,
+    rgba(50, 56, 84, 1) 0%,
+    rgba(31, 44, 70, 1) 72%
+  );
+}
