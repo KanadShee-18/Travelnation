@@ -12,7 +12,7 @@ const SignUp = () => {
           alt="Sign Up"
           className="object-cover w-full h-full "
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-800 to-slate-900 opacity-85"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-slate-950 to-slate-900 opacity-85"></div>
       </div>
 
       {/* Content Area */}

@@ -59,22 +59,22 @@ const LogIn = () => {
             stiffness: 40,
             // damping: 20,
           }}
-          className="relative z-20 max-w-[500px] mx-auto mt-32 flex flex-col p-8 mb-20 rounded-xl shadow-md bg-opacity-20 bg-[#4953a5]  shadow-[#4953a5]"
+          className="relative z-20 max-w-[500px] mx-auto mt-32 flex flex-col p-8 mb-20 rounded-xl shadow-md bg-opacity-15  bg-[#4953a5]  shadow-[#4953a5]"
         >
           <div className="absolute -z-10 w-3/4 h-4/5 bg-gradient-to-br from-[#6644ff] via-[#615fff] to-[#ff1f88]  rounded-t-2xl rounded-br-3xl blur-[90px] opacity-15 bottom-0 right-0 translate-x-[50%] translate-y-[50%]"></div>
-          <p className="text-4xl font-semibold text-center text-transparent font-poppins bg-gradient-to-r from-[#6644ff] via-[#615fff] to-[#ff1f88] drop-shadow-2xl bg-clip-text">
+          <p className="text-4xl font-semibold text-center text-transparent font-poppins bg-gradient-to-r from-[#6644ff] via-[#615fff] to-[#6644ff] drop-shadow-2xl bg-clip-text">
             Ready to Discover More
           </p>
-          <p className="my-6 text-base font-medium tracking-wide text-transparent bg-gradient-to-br from-purple-400 to-blue-500 drop-shadow-2xl bg-clip-text text-start">
-            Sign in to explore unique stays, exclusive deals, and make your next
-            trip unforgettable.
+          <p className="my-6 text-base font-medium tracking-wide text-transparent bg-gradient-to-br from-slate-400 to-slate-300 drop-shadow-2xl bg-clip-text text-start">
+            <span className="text-pink-500">Sign in</span> to explore unique
+            stays, exclusive deals, and make your next trip unforgettable.
           </p>
 
           <form onSubmit={handleOnSubmit} className="px-1 my-5">
             <div className="flex flex-col pb-10 gap-y-5 place-items-center items-center justify-around py-5 bg-[#5460be] bg-opacity-25 rounded-xl shadow-md shadow-slate-950 w-full m-auto text-[#937aff]">
               <div className="w-full px-5">
                 <label className="space-y-1">
-                  <p className="text-base tracking-wide text-blue-400 text-start">
+                  <p className="text-base tracking-wide text-slate-300 text-start">
                     Email <sup className="text-lg text-pink-500">*</sup>{" "}
                   </p>
                   <div className="rounded-md shadow-md focus-within:shadow-sm focus-within:shadow-[#595ce0] bg-[#464e7e] bg-opacity-35 shadow-slate-950">
@@ -92,7 +92,7 @@ const LogIn = () => {
               </div>
               <div className="w-full px-5">
                 <label className="space-y-1">
-                  <p className="text-base tracking-wider text-blue-400 text-start">
+                  <p className="text-base tracking-wider text-slate-300 text-start">
                     Password <sup className="text-lg text-pink-500">*</sup>{" "}
                   </p>
                   <div className="rounded-md flex items-center relative shadow-md focus-within:shadow-sm focus-within:shadow-[#595ce0] bg-[#464e7e] bg-opacity-35 shadow-slate-950">
@@ -127,7 +127,7 @@ const LogIn = () => {
           <div className="flex flex-row justify-between px-2 mt-5">
             <Link
               to={"/signup"}
-              className="font-semibold text-center text-transparent font-poppins bg-gradient-to-r from-[#7455ff] to-[#0bb6c2] bg-clip-text hover:-translate-x-2 transition-all duration-200 ease-in-out"
+              className="font-semibold text-center text-transparent font-poppins bg-gradient-to-r from-[#757ca1] to-[#878fb8] bg-clip-text hover:-translate-x-2 transition-all duration-200 ease-in-out"
             >
               &larr; No Account ?
             </Link>
@@ -135,7 +135,7 @@ const LogIn = () => {
               onClick={() => navigate("/reset-password")}
               className="flex flex-row items-center transition-all duration-200 ease-in-out gap-x-2 hover:translate-x-2"
             >
-              <p className="font-semibold text-center text-transparent font-poppins bg-gradient-to-r from-[#349aa1] to-[#7455ff] bg-clip-text ">
+              <p className="font-semibold text-center text-transparent font-poppins bg-gradient-to-r from-[#878fb8] to-[#757ca1] bg-clip-text ">
                 {" "}
                 Forget Password &rarr;
               </p>
