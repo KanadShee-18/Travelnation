@@ -15,7 +15,7 @@ export const fetchListingCategories = async () => {
       throw new Error(response.data.message);
     }
 
-    toast("All Listing Fetched Successfully");
+    toast("All Categories Fetched Successfully");
     result = response;
   } catch (error) {
     console.log("GET LISTING GATEGORIES API ERROR: ", error);
