@@ -11,8 +11,27 @@ export const authEndPoints = {
   RESET_PASSWORD_API: BASE_URL + "/auth/resetPassword",
 };
 
-// Listing Category Endpoints:
+// Category Endpoints:
 export const categoryEndpoints = {
   GET_CATEGORIES_API: BASE_URL + "/category/allCategories",
   GET_CATEGORYPAGE_DETAILS_API: BASE_URL + "/categoryPageDetails",
+};
+
+// Listing Endpoints:
+export const listingEndpoints = {
+  FETCH_ALL_LISTINGS: BASE_URL + "/listing/getListings",
+  FETCH_SINGLE_LISTINGS: BASE_URL + "/listing/viewListing",
+  FETCH_OWNER_LISTINGS: BASE_URL + "/listing/owner-listing",
+  CREATE_LISTING_API: BASE_URL + "/listing/createListing",
+  MODIFY_LISTING_API: BASE_URL + "/listing/modifyListing",
+  DELETE_LISTING_API: BASE_URL + "/listing/destroyListing",
+};
+
+// Rating and Reviews Endpoints:
+
+export const ratingEndpoints = {
+  FETCH_ALL_REVIEWS: BASE_URL + "/review/allReviews",
+  CREATE_REVIEW: BASE_URL + "/review/createReview",
+  MODIFY_REVIEW: BASE_URL + "/review/updateReview",
+  DELETE_REVIEW: BASE_URL + "/review/deleteReview",
 };

@@ -1,13 +1,19 @@
 exports.fileUploadAuth = async (req, res, next) => {
   try {
-    if (req.files && req.files.images) {
-      let images = req.files.images;
+    // Initialize an array to hold the images
+    console.log("Req files are: ", req.files);
 
-      if (!Array.isArray(images)) {
-        images = [images];
-      }
+    let images = [];
 
-      const maxFileSize = 1 * 1024 * 1024;
+    // Loop through the keys in req.files
+    for (const key in req.files) {
+      images.push(req.files[key]);
+    }
+
+    console.log("Images are after pushing in array: ", images);
+
+    if (images.length > 0) {
+      const maxFileSize = 1 * 1024 * 1024; // 1MB size limit
 
       for (const image of images) {
         if (image.size > maxFileSize) {
@@ -17,9 +23,10 @@ exports.fileUploadAuth = async (req, res, next) => {
           });
         }
       }
-      req.imagesArray = images;
+      req.imagesArray = images; // Attach the array to req
       console.log("Passed from file upload auth ...");
     }
+
     next();
   } catch (error) {
     return res.status(500).json({

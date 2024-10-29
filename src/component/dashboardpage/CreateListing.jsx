@@ -4,9 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchListingCategories } from "../../services/servercalls/categoryApis";
 import { RiMoneyRupeeCircleLine } from "react-icons/ri";
 import UploadImages from "../common/UploadImages";
+import { createListing } from "../../services/servercalls/listingApis";
+import Spinner from "../common/Spinner";
+import { useNavigate } from "react-router-dom";
 
 const CreateListing = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { token } = useSelector((state) => state.auth);
   const [loading, setLoading] = useState(false);
   const [listingCategories, setListingCategories] = useState([]);
@@ -15,6 +19,7 @@ const CreateListing = () => {
     register,
     handleSubmit,
     setValue,
+    reset,
     getValues,
     formState: { errors },
   } = useForm();
@@ -39,16 +44,49 @@ const CreateListing = () => {
 
   console.log("Listing categories comes as: ", listingCategories);
 
-  const onSubmit = () => {};
+  const onSubmit = async (data) => {
+    const listingValues = getValues();
+    console.log("Listing Values are: ", listingValues);
+
+    const formData = new FormData();
+
+    formData.append("title", listingValues?.title);
+    formData.append("description", listingValues?.description);
+    formData.append("price", listingValues?.price);
+    formData.append("location", listingValues?.location);
+    formData.append("country", listingValues?.country);
+    formData.append("categoryId", listingValues?.category);
+
+    listingValues?.images.forEach((file, index) => {
+      formData.append(`images[${index}]`, file);
+    });
+
+    console.log("Formdata coming as: ", formData);
+
+    setLoading(true);
+    const result = await createListing(formData, token);
+
+    if (result) {
+      console.log("Result in listing page: ", result);
+      reset();
+      navigate("/dashboard/listings");
+    } else {
+      console.log("Error in creating listing");
+    }
+    setLoading(false);
+  };
 
   return (
-    <div className="mt-6 ">
+    <div className="relative mt-6">
       <div className="max-w-[500px] mx-auto flex items-center justify-center">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col pb-10 gap-y-5 place-items-center items-center justify-around py-5 bg-[#5460be] bg-opacity-25 rounded-xl shadow-md shadow-slate-950 w-full m-auto text-[#937aff] p-5"
+          className="flex flex-col pb-10 gap-y-5 place-items-center items-center justify-around py-5 bg-[#4954a5] bg-opacity-25 backdrop-blur-md rounded-xl shadow-md shadow-slate-950 w-full m-auto text-[#937aff] p-5"
         >
-          <div className="w-full flex flex-col gap-y-2">
+          <h1 className="text-3xl font-semibold text-start text-transparent font-poppins bg-gradient-to-r from-[#6644ff] via-[#615fff] to-[#6644ff] drop-shadow-2xl bg-clip-text">
+            Create Your Listing
+          </h1>
+          <div className="flex flex-col w-full gap-y-2">
             <label
               htmlFor="title"
               className="text-[15px] tracking-wide text-slate-300 text-start"
@@ -71,20 +109,20 @@ const CreateListing = () => {
             )}
           </div>
 
-          <div className="w-full flex flex-col gap-y-2">
+          <div className="flex flex-col w-full gap-y-2">
             <label
               htmlFor="description"
               className="text-[15px] tracking-wide text-slate-300 text-start"
             >
               Listing Description <sup className="text-pink-500">*</sup>
             </label>
-            <div className="rounded-md shadow-md focus-within:shadow-sm focus-within:shadow-[#595ce0] bg-[#464e7e] bg-opacity-35 shadow-slate-950">
-              <input
+            <div className="rounded-md shadow-md focus-within:shadow-sm focus-within:shadow-[#595ce0] bg-[#464e7e] bg-opacity-35 h-[70px] shadow-slate-950">
+              <textarea
                 type="text"
                 placeholder="Enter a crisp description"
                 id="description"
-                {...register("title", { required: true })}
-                className="w-full text-sm p-3 rounded-md tracking-wide text-blue-300 text-[15px] placeholder-purple-400 bg-transparent outline-none placeholder-opacity-70 backdrop-blur-lg"
+                {...register("description", { required: true })}
+                className="w-full min-h-full text-sm p-3 rounded-md tracking-wide text-blue-300 text-[15px] placeholder-purple-400 bg-transparent outline-none placeholder-opacity-70 backdrop-blur-lg"
               />
             </div>
             {errors.description && (
@@ -93,17 +131,18 @@ const CreateListing = () => {
               </span>
             )}
           </div>
-          <div className="w-full flex flex-col md:flex-row gap-3">
-            <div className="w-full flex flex-col gap-y-2">
+          <div className="flex flex-col w-full gap-3 md:flex-row">
+            <div className="flex flex-col w-full gap-y-2">
               <label
                 htmlFor="price"
                 className="text-[15px] tracking-wide text-slate-300 text-start"
               >
                 Rent <sup className="text-pink-500">*</sup>
               </label>
-              <div className="rounded-md relative flex shadow-md focus-within:shadow-sm focus-within:shadow-[#595ce0] items-center bg-[#464e7e] bg-opacity-35 shadow-slate-950">
+              <div className="rounded-md relative justify-center flex shadow-md focus-within:shadow-sm focus-within:shadow-[#595ce0] items-center bg-[#464e7e] bg-opacity-35 shadow-slate-950">
                 <input
                   placeholder="Enter listing price"
+                  type="number"
                   id="price"
                   {...register("price", {
                     required: true,
@@ -111,7 +150,7 @@ const CreateListing = () => {
                   })}
                   className="w-full text-sm p-3 rounded-md tracking-wide text-blue-300 text-[15px] placeholder-purple-400 bg-transparent outline-none placeholder-opacity-70 backdrop-blur-lg"
                 />
-                <span className=" h-full text-2xl text-blue-300 mr-3">
+                <span className="absolute right-0 flex items-center h-full mr-3 text-2xl text-blue-300 ">
                   <RiMoneyRupeeCircleLine />
                 </span>
               </div>
@@ -121,7 +160,7 @@ const CreateListing = () => {
                 </span>
               )}
             </div>
-            <div className="w-full flex flex-col gap-y-2">
+            <div className="flex flex-col w-full gap-y-2">
               <label
                 htmlFor="category"
                 className="text-[15px] tracking-wide text-slate-300 text-start"
@@ -134,7 +173,7 @@ const CreateListing = () => {
                   id="category"
                   defaultValue={""}
                   {...register("category", { required: true })}
-                  className="w-full text-sm p-3 rounded-md tracking-wide text-blue-300 text-[15px] placeholder-purple-400 bg-transparent outline-none placeholder-opacity-70 backdrop-blur-lg"
+                  className="w-full text-sm p-3 rounded-md tracking-wide text-[15px] placeholder-purple-400 bg-transparent outline-none placeholder-opacity-70 backdrop-blur-lg"
                 >
                   <option
                     value=""
@@ -162,8 +201,8 @@ const CreateListing = () => {
               )}
             </div>
           </div>
-          <div className="w-full flex flex-col md:flex-row gap-3">
-            <div className="w-full flex flex-col gap-y-2">
+          <div className="flex flex-col w-full gap-3 md:flex-row">
+            <div className="flex flex-col w-full gap-y-2">
               <label
                 htmlFor="location"
                 className="text-[15px] tracking-wide text-slate-300 text-start"
@@ -184,7 +223,7 @@ const CreateListing = () => {
                 </span>
               )}
             </div>
-            <div className="w-full flex flex-col gap-y-2">
+            <div className="flex flex-col w-full gap-y-2">
               <label
                 htmlFor="country"
                 className="text-[15px] tracking-wide text-slate-300 text-start"
@@ -205,19 +244,25 @@ const CreateListing = () => {
                 </span>
               )}
             </div>
-
-           
-
           </div>
           <UploadImages
-            name="imagesArray"
-            label={"Listing Images"}
+            name="images"
+            label={"Listing Images (not more than 5)"}
             register={register}
             errors={errors}
             setValue={setValue}
             getValues={getValues}
-
-            />
+          />
+          {loading && (
+            <div className="flex items-center justify-center w-full mt-6">
+              <Spinner />
+            </div>
+          )}
+          <div className="w-full">
+            <button className="w-full xl:py-3 py-2 xl:mt-10 mt-5 bg-gradient-to-r from-[#3d3b97] via-[#615fff] to-[#3d3b97] rounded-lg text-sm text-slate-200 tracking-wider drop-shadow-xl transition-all duration-200 hover:scale-95 hover:bg-gradient-to-br hover:from-[#3d3b97] hover:via-[#615fff] hover:to-[#3d3b97] active:bg-gradient-to-bl active:from-[#3d3b97] active:via-[#615fff] active:to-[#3d3b97]">
+              CREATE NEW LISTING
+            </button>
+          </div>
         </form>
       </div>
     </div>

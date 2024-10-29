@@ -31,6 +31,36 @@ exports.getAllListings = async (req, res) => {
   }
 };
 
+exports.userSpecificListings = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const userSpecificListings = await Listing.find({
+      owner: userId,
+    });
+
+    if (!userSpecificListings) {
+      return res.status(404).json({
+        success: false,
+        message: "No listings found for this owner.",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Listings has been fetched successfully.",
+      listings: userSpecificListings,
+    });
+  } catch (error) {
+    console.log("User specific listing error: ", error);
+    return res.status(500).json({
+      success: false,
+      message: "Your own listings has been fetched successfully.",
+      error: error.message,
+    });
+  }
+};
+
 // Get each listing by id:
 
 exports.getEachLising = async (req, res) => {
@@ -74,6 +104,8 @@ exports.createNewListing = async (req, res) => {
   try {
     const { title, description, price, location, country, categoryId } =
       req.body;
+
+    console.log("Req coming in backend as: ", req.body);
 
     const userId = req.user.id;
     // const { userId } = req.body;

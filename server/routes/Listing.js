@@ -8,6 +8,7 @@ const {
   deleteListing,
   getAllListings,
   getEachLising,
+  userSpecificListings,
 } = require("../controllers/Listing");
 
 // Auth Middlewares:
@@ -17,8 +18,9 @@ const { fileUploadAuth } = require("../middlewares/FileUploadAuth");
 // Listing routes:
 
 router.get("/getListings", getAllListings);
-router.get("/viewListing", getEachLising);
 
+router.get("/viewListing", getEachLising);
+router.get("/owner-listing", auth, isOwner, userSpecificListings);
 router.post("/createListing", auth, fileUploadAuth, isOwner, createNewListing);
 router.post("/modifyListing", auth, fileUploadAuth, isOwner, updateListing);
 router.post("/destroyListing", auth, isOwner, deleteListing);
