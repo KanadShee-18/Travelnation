@@ -24,6 +24,7 @@ import CreateListing from "./component/dashboardpage/CreateListing";
 import UserFeedBacks from "./component/dashboardpage/UserFeedBacks";
 import UserStay from "./component/dashboardpage/UserStay";
 import ContactUs from "./mainPages/ContactUs";
+import ViewListing from "./listingPages/ViewListing";
 
 // Lazy Loading Components:
 const Homepage = lazy(() => import("./mainPages/Homepage"));
@@ -88,6 +89,7 @@ function App() {
                 </OpenRoute>
               }
             />
+            <Route path="/listing-insider/:id" element={<ViewListing />} />
             <Route
               path="/dashboard" // Change the path to /dashboard/*
               element={

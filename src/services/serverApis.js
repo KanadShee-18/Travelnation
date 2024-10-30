@@ -20,7 +20,7 @@ export const categoryEndpoints = {
 // Listing Endpoints:
 export const listingEndpoints = {
   FETCH_ALL_LISTINGS: BASE_URL + "/listing/getListings",
-  FETCH_SINGLE_LISTINGS: BASE_URL + "/listing/viewListing",
+  FETCH_SINGLE_LISTING: BASE_URL + "/listing/viewListing",
   FETCH_OWNER_LISTINGS: BASE_URL + "/listing/owner-listing",
   CREATE_LISTING_API: BASE_URL + "/listing/createListing",
   MODIFY_LISTING_API: BASE_URL + "/listing/modifyListing",

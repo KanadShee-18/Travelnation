@@ -19,7 +19,7 @@ const { fileUploadAuth } = require("../middlewares/FileUploadAuth");
 
 router.get("/getListings", getAllListings);
 
-router.get("/viewListing", getEachLising);
+router.post("/viewListing", getEachLising);
 router.get("/owner-listing", auth, isOwner, userSpecificListings);
 router.post("/createListing", auth, fileUploadAuth, isOwner, createNewListing);
 router.post("/modifyListing", auth, fileUploadAuth, isOwner, updateListing);

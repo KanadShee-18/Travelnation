@@ -67,13 +67,18 @@ exports.getEachLising = async (req, res) => {
   try {
     let { listingId } = req.body;
 
-    const listing = await Listing.findById(listingId).populate({
-      path: "reviews",
-      populate: {
-        path: "author",
-        select: "name email",
-      },
-    });
+    const listing = await Listing.findById(listingId)
+      .populate({
+        path: "reviews",
+        populate: {
+          path: "author",
+          select: "name email",
+        },
+      })
+      .populate({
+        path: "owner",
+        select: { name: 1 },
+      });
 
     if (!listing) {
       return res.status(404).json({
@@ -300,7 +305,7 @@ exports.updateListing = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Listing has been updated successfully.",
-      updated_listing: { data: updatedListing },
+      updated_listing: updatedListing,
     });
   } catch (error) {
     return res.status(500).json({
@@ -313,7 +318,7 @@ exports.updateListing = async (req, res) => {
 
 exports.deleteListing = async (req, res) => {
   try {
-    const { listingId } = req.body;
+    const { listingId, ownerId } = req.body;
 
     if (!listingId) {
       // Return to stop further execution after sending the response
@@ -333,11 +338,26 @@ exports.deleteListing = async (req, res) => {
       });
     }
 
+    if (listing.owner !== ownerId) {
+      return res.status(401).json({
+        success: false,
+        message: "You are not the owner of this listing.",
+      });
+    }
+
     // Delete images from Cloudinary if listing exists
     for (const image of listing.image) {
       const publicId = image.public_id;
       await deleteImageFromCloudinary(publicId);
     }
+
+    // Remove the listing also from its category.
+    const categoryId = listing.category;
+    await Category.findByIdAndUpdate(categoryId, {
+      $pull: {
+        listings: listing._id,
+      },
+    });
 
     // Delete the listing
     const deletedListing = await Listing.findByIdAndDelete(listingId);

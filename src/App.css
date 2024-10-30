@@ -149,3 +149,37 @@
     rgba(31, 44, 70, 1) 72%
   );
 }
+
+/* mapbox marker style */
+
+/* styles.css */
+.popup-title {
+  font-family: "Poppins", system-ui, -apple-system, sans-serif !important;
+  margin: 0 !important;
+  color: #ff1a67 !important;
+}
+
+.popup-container {
+  text-align: center !important;
+  background-color: #d6f0ff !important;
+  border-radius: 5px !important;
+  padding: 4px 5px !important;
+}
+
+.mapboxgl-popup-close-button {
+  background-color: transparent !important; /* Background color */
+  color: red; /* Icon color */
+  font-size: 20px;
+  border: none; /* Remove border */
+  cursor: pointer; /* Change cursor on hover */
+  padding: 2px; /* Add padding */
+  transition: color 0.3s ease; /* Add transition for smooth color change */
+}
+
+.mapboxgl-popup-close-button:hover {
+  color: darkred; /* Change color on hover */
+}
+
+.mapboxgl-popup-close-button:focus {
+  outline: none; /* Remove focus outline */
+}

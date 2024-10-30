@@ -4,13 +4,16 @@ import { ownerListings } from "../../services/servercalls/listingApis";
 import Spinner from "../common/Spinner";
 import { MdEditDocument } from "react-icons/md";
 import { BsTrash2Fill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 const OwnerListings = () => {
   const { token } = useSelector((state) => state.auth);
-
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [listings, setListings] = useState([]);
   const [imagesNumber, setImagesNumber] = useState(0);
+
+  const truncatedWords = 15;
 
   console.log("Listings comes as: ", listings);
 
@@ -37,12 +40,16 @@ const OwnerListings = () => {
       {listings?.map((listing, index) => {
         const images = listing?.image || [];
         const firstImage = images[0]?.url;
+        const listingId = listing?._id;
+        console.log("Listing id is: ", listingId);
+
         const remainingImagesCount = images.length > 1 ? images.length - 1 : 0;
 
         return (
           <div
+            onClick={() => navigate(`/listing-insider/${listingId}`)}
             key={index}
-            className="flex relative flex-col max-w-[300px] gap-y-1 bg-[#464e7e] bg-opacity-35 backdrop-blur-md rounded-md shadow-md shadow-slate-950 transition-all  cursor-pointer duration-300 mx-auto hover:shadow-slate-700"
+            className="flex relative flex-col max-w-[300px] h-[420px] gap-y-1 bg-[#464e7e] bg-opacity-35 backdrop-blur-md rounded-md shadow-md shadow-slate-950 transition-all  cursor-pointer duration-300 mx-auto hover:shadow-slate-700"
           >
             <div className="relative">
               {firstImage && (
@@ -55,7 +62,7 @@ const OwnerListings = () => {
                 </>
               )}
               {remainingImagesCount > 0 && (
-                <span className="absolute p-1 text-sm text-white bg-black rounded bg-opacity-70 top-2 left-2">
+                <span className="absolute p-1 text-sm text-blue-300 rounded backdrop-blur-sm bg-slate-800 bg-opacity-70 top-2 left-2">
                   +{remainingImagesCount}
                 </span>
               )}
@@ -64,8 +71,13 @@ const OwnerListings = () => {
               <h2 className="text-lg mb-2 font-semibold text-transparent font-poppins bg-gradient-to-r from-[#7e61ff] via-[#8381ff] to-[#8971f7] drop-shadow-2xl bg-clip-text">
                 {listing?.title}
               </h2>
-              <h3 className="text-base mb-1 font-semibold text-transparent font-inter bg-gradient-to-br from-[#aba0e0] via-[#9d9bdb] to-[#ada1e6] drop-shadow-2xl bg-clip-text">
-                {listing?.description}
+              <h3 className="text-[15px] mb-1 font-semibold text-transparent font-inter bg-gradient-to-br from-[#aba0e0] via-[#9d9bdb] to-[#ada1e6] drop-shadow-2xl bg-clip-text">
+                {listing?.description?.split(" ").length > truncatedWords
+                  ? `${listing?.description
+                      .split(" ")
+                      .slice(0, truncatedWords)
+                      .join(" ")} ...`
+                  : `${listing?.description}`}
               </h3>
               <div className="flex flex-row items-center justify-between">
                 <div className="flex flex-col my-1 font-medium text-blue-300 gap-x-1">

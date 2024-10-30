@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  listing: null,
+  listingData: null,
   modifyListing: false,
 };
 
@@ -9,8 +9,8 @@ const listingSlice = createSlice({
   name: "listing",
   initialState: initialState,
   reducers: {
-    setListing: (state, action) => {
-      state.listing = action.payload;
+    setListingData: (state, action) => {
+      state.listingData = action.payload;
     },
     setModifyListing: (state, action) => {
       state.modifyListing = action.payload;
@@ -18,6 +18,6 @@ const listingSlice = createSlice({
   },
 });
 
-export const { setListing, setModifyListing } = listingSlice.actions;
+export const { setListingData, setModifyListing } = listingSlice.actions;
 
 export default listingSlice.reducer;

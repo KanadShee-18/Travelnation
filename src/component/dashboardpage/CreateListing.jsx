@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 const CreateListing = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { listingData, modifyListing } = useSelector((state) => state.listing);
   const { token } = useSelector((state) => state.auth);
   const [loading, setLoading] = useState(false);
   const [listingCategories, setListingCategories] = useState([]);
@@ -39,14 +40,74 @@ const CreateListing = () => {
 
       setLoading(false);
     };
+
+    if (modifyListing) {
+      setValue("title", listingData?.title);
+      setValue("description", listingData?.description);
+      setValue("price", listingData?.price);
+      setValue("location", listingData?.location);
+      setValue("country", listingData?.country);
+      setValue("categoryId", listingData?.category);
+      const imageUrls = listingData?.images?.map((image) => image.url || image);
+      setValue("images", imageUrls);
+    }
+
     getAllCategories();
   }, []);
 
   console.log("Listing categories comes as: ", listingCategories);
 
+  const isFormUpdated = () => {
+    const currentValues = getValues();
+    if (
+      currentValues.title !== listingData.title ||
+      currentValues.description !== listingData.description ||
+      currentValues.price !== listingData.price ||
+      currentValues.location !== listingData.location ||
+      currentValues.country !== listingData.country ||
+      currentValues.categoryId !== listingData.category
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   const onSubmit = async (data) => {
     const listingValues = getValues();
     console.log("Listing Values are: ", listingValues);
+
+    if (modifyListing) {
+      if (isFormUpdated()) {
+        const currentValues = getValues();
+        const formData = new FormData();
+        if (currentValues.title !== listingData.title) {
+          formData.append("title", currentValues.title);
+        }
+        if (currentValues.description !== listingData.description) {
+          formData.append("description", currentValues.description);
+        }
+        if (currentValues.price !== listingData.price) {
+          formData.append("price", currentValues.price);
+        }
+        if (currentValues.location !== listingData.location) {
+          formData.append("location", currentValues.location);
+        }
+        if (currentValues.country !== listingData.country) {
+          formData.append("country", currentValues.country);
+        }
+        if (currentValues?.images) {
+          currentValues?.images.forEach((file, index) => {
+            formData.append(`images[${index}]`, file);
+          });
+        }
+      }
+
+      console.log("In edit data listing is coming as: ", formData);
+
+      setLoading(true);
+      // const result =
+    }
 
     const formData = new FormData();
 
@@ -122,7 +183,7 @@ const CreateListing = () => {
                 placeholder="Enter a crisp description"
                 id="description"
                 {...register("description", { required: true })}
-                className="w-full min-h-full text-sm p-3 rounded-md tracking-wide text-blue-300 text-[15px] placeholder-purple-400 bg-transparent outline-none placeholder-opacity-70 backdrop-blur-lg"
+                className="w-full scrollbar-hide min-h-full text-sm p-3 rounded-md tracking-wide text-blue-300 text-[15px] placeholder-purple-400 bg-transparent outline-none placeholder-opacity-70 backdrop-blur-lg"
               />
             </div>
             {errors.description && (
@@ -252,6 +313,11 @@ const CreateListing = () => {
             errors={errors}
             setValue={setValue}
             getValues={getValues}
+            editData={
+              modifyListing
+                ? listingData?.image?.map((image) => image.url)
+                : null
+            }
           />
           {loading && (
             <div className="flex items-center justify-center w-full mt-6">
