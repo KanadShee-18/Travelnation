@@ -147,16 +147,9 @@ exports.createNewListing = async (req, res) => {
       });
     }
 
-    // if (!Array.isArray(images)) {
-    //   return res.status(400).json({
-    //     success: false,
-    //     message: "Images should be an array.",
-    //   });
-    // }
-
     let mapboxResponse = await geocodingClient
       .forwardGeocode({
-        query: "Paris, France",
+        query: location,
         limit: 1,
       })
       .send();
@@ -220,7 +213,9 @@ exports.createNewListing = async (req, res) => {
 exports.updateListing = async (req, res) => {
   try {
     const { listingId } = req.body;
-    const { userId } = req.body;
+    console.log("Req body is : ", req.body);
+
+    const userId = req.user.id;
 
     const listing = await Listing.findById(listingId);
 
@@ -242,23 +237,27 @@ exports.updateListing = async (req, res) => {
     const { title, description, price, location, country, categoryId } =
       req.body;
 
-    const categoryDetails = await Category.findById(categoryId);
-    if (!categoryDetails) {
-      return res.status(400).json({
-        success: false,
-        message:
-          "This is not a valid category or the category id is not provided.",
-      });
-    }
+    console.log("Category id in backend coming as: ", categoryId);
 
-    const updateData = {};
+    let updateData = {};
 
     if (title) updateData.title = title;
     if (description) updateData.description = description;
     if (price) updateData.price = price;
     if (location) updateData.location = location;
     if (country) updateData.country = country;
-    if (categoryId) updateData.category = categoryDetails._id;
+    if (categoryId) {
+      const categoryDetails = await Category.findById(categoryId);
+      if (!categoryDetails) {
+        return res.status(400).json({
+          success: false,
+          message:
+            "This is not a valid category or the category id is not provided.",
+        });
+      } else {
+        updateData.category = categoryDetails._id;
+      }
+    }
 
     if (req.imagesArray) {
       const images = req.imagesArray;
@@ -302,6 +301,8 @@ exports.updateListing = async (req, res) => {
       { new: true }
     );
 
+    console.log("Listing has been updated from backend.", updatedListing);
+
     return res.status(200).json({
       success: true,
       message: "Listing has been updated successfully.",
@@ -319,6 +320,9 @@ exports.updateListing = async (req, res) => {
 exports.deleteListing = async (req, res) => {
   try {
     const { listingId, ownerId } = req.body;
+    console.log("Listing and owner id: ", req.body);
+
+    const owner = req.user.id;
 
     if (!listingId) {
       // Return to stop further execution after sending the response
@@ -338,7 +342,7 @@ exports.deleteListing = async (req, res) => {
       });
     }
 
-    if (listing.owner !== ownerId) {
+    if (ownerId !== owner) {
       return res.status(401).json({
         success: false,
         message: "You are not the owner of this listing.",

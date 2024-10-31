@@ -20,6 +20,12 @@ const userSchema = new mongoose.Schema({
     enum: ["Admin", "Owner", "Visitor"],
     required: true,
   },
+  wishLists: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Listing",
+    },
+  ],
   reviews: [
     {
       type: mongoose.Schema.Types.ObjectId,

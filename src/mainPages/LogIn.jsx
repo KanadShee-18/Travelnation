@@ -57,7 +57,6 @@ const LogIn = () => {
             duration: 1,
             type: "spring",
             stiffness: 40,
-            // damping: 20,
           }}
           className="relative z-20 max-w-[400px] mx-auto xl:mt-32 mt-16 flex flex-col p-8 mb-20 rounded-xl shadow-md bg-opacity-15  bg-[#4953a5]  shadow-[#4953a5]"
         >

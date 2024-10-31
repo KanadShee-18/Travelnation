@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import coupleImg from "../../assets/explorePics/coupleInBeach.jpg";
 import { exploreCards } from "../../utils/constants";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Mousewheel, FreeMode, Autoplay, EffectCreative } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/effect-creative";
-import "swiper/css/free-mode";
 import ExploreCard from "./core/ExploreCard";
 import mainBg from "../../assets/explorePics/mainBg.jpg";
 import { MdArrowLeft, MdArrowRight } from "react-icons/md";
+import { motion } from "framer-motion";
 
 const Explore = () => {
   const slideLeft = () => {
@@ -33,20 +29,58 @@ const Explore = () => {
       </div>
 
       {/* Content */}
-      <h2 className="text-5xl pt-12 text-[#bde4ff] font-semibold text-center drop-shadow-lg font-imprima">
+      <motion.h2
+        initial={{ y: 100, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{
+          type: "tween",
+          duration: 1.2,
+          ease: [0.25, 0.25, 0.25, 0.75],
+        }}
+        viewport={{
+          once: true,
+        }}
+        className="text-5xl pt-12 text-[#bde4ff] font-semibold text-center drop-shadow-lg font-imprima"
+      >
         Explore Your Next Getaway
-      </h2>
+      </motion.h2>
 
       <div className="flex flex-col w-10/12 mx-auto">
         <div className="flex flex-col-reverse justify-between w-full mx-auto mt-20 md:flex-row">
-          <div className="relative flex items-center justify-center w-full md:w-1/2">
+          <motion.div
+            initial={{ x: -200, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{
+              type: "tween",
+              duration: 1.2,
+              delay: 1.2,
+              ease: [0.25, 0.25, 0.25, 0.75],
+            }}
+            viewport={{
+              once: true,
+            }}
+            className="relative flex items-center justify-center w-full md:w-1/2"
+          >
             <img
               src={coupleImg}
               className="coupleImg object-cover max-w-[320px] rounded-md aspect-square"
               alt="Image"
             />
-          </div>
-          <div className="flex items-start justify-center w-full md:w-1/2">
+          </motion.div>
+          <motion.div
+            initial={{ x: 200, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{
+              type: "tween",
+              duration: 1.2,
+              delay: 1.2,
+              ease: [0.25, 0.25, 0.25, 0.75],
+            }}
+            viewport={{
+              once: true,
+            }}
+            className="flex items-start justify-center w-full md:w-1/2"
+          >
             <p className="w-full mx-auto text-lg font-medium text-blue-200 backdrop-blur-sm md:w-4/5 text-start text-balance font-imprima drop-shadow-xl">
               "At WanderLust, we believe that every journey is an opportunity
               for discovery and connection. Whether you’re planning a relaxing
@@ -57,12 +91,25 @@ const Explore = () => {
               unforgettable travel experience, filled with comfort, culture, and
               adventure."
             </p>
-          </div>
+          </motion.div>
         </div>
 
         {/* Swiper Section */}
         <div className="flex flex-col items-center justify-between w-10/12 pb-32 mx-auto mt-10 scroll-smooth md:flex-row">
-          <div className="flex items-center w-full mx-auto md:w-1/2 ">
+          <motion.div
+            initial={{ x: -200, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{
+              type: "tween",
+              duration: 1.2,
+              delay: 2.2,
+              ease: [0.25, 0.25, 0.25, 0.75],
+            }}
+            viewport={{
+              once: true,
+            }}
+            className="flex items-center w-full mx-auto md:w-1/2 "
+          >
             <p className="text-[#d8e9ff] w-full backdrop-blur-sm md:w-4/5 text-start text-lg font-imprima drop-shadow-2xl">
               Dive deep into local culture as you immerse yourself in the unique
               essence of each destination. Experience the charm of vibrant
@@ -73,45 +120,22 @@ const Explore = () => {
               waves, or simply enjoying the beauty of nature, our selection of
               adventurous stays will guide you to your next great escape.
             </p>
-          </div>
-          <div className="flex flex-row items-center justify-center w-full md:w-1/2 bg-slate-400">
-            {/* <Swiper
-              effect={"creative"}
-              grabCursor={true}
-              initialSlide={0}
-              loop={true}
-              freeMode={true}
-              autoplay={{
-                delay: 4000,
-                disableOnInteraction: false,
+          </motion.div>
+          <motion.div className="flex flex-row items-center justify-center w-full md:w-1/2 bg-slate-400">
+            <motion.div
+              initial={{ x: 200, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              transition={{
+                type: "tween",
+                duration: 1.2,
+                delay: 2.2,
+                ease: [0.25, 0.25, 0.25, 0.75],
               }}
-              speed={1500}
-              modules={[EffectCreative, FreeMode, Mousewheel, Autoplay]}
-              mousewheel={{
-                invert: true,
+              viewport={{
+                once: true,
               }}
-              creativeEffect={{
-                prev: {
-                  translate: ["-120%", 0, -500],
-                  rotate: [0, 100, 0],
-                },
-                next: {
-                  translate: ["120%", 0, -500],
-                  rotate: [0, -100, 0],
-                },
-              }}
-              className="w-1/2 mySwiper"
+              className="relative w-[300px] "
             >
-              {exploreCards.map((card) => (
-                <SwiperSlide
-                  key={card.id}
-                  className="flex justify-center rounded-xl"
-                >
-                  <ExploreCard data={card} />
-                </SwiperSlide>
-              ))}
-            </Swiper> */}
-            <div className="relative w-[300px] ">
               <div className="absolute z-[70] flex justify-between w-full top-[150px] gap-2 md:right-0 sm:right-4 right-6">
                 <button
                   onClick={slideLeft}
@@ -137,8 +161,8 @@ const Explore = () => {
               </div>
               <div className="absolute rounded-l-xl top-0 left-0 z-30 h-full w-[30%] bg-gradient-to-r from-[#0b1528] to-transparent"></div>
               <div className="absolute rounded-r-xl top-0 right-0 z-30 h-full w-[30%] bg-gradient-to-l from-[#0b1528] to-transparent"></div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </div>

@@ -1,7 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { fetchListing } from "../services/servercalls/listingApis";
+import {
+  deleteListing,
+  fetchListing,
+} from "../services/servercalls/listingApis";
+import { motion } from "framer-motion";
 import Spinner from "../component/common/Spinner";
 import viewpageImg from "../assets/explorePics/viewpage.jpg";
 import ImageGallery from "./ImageGallery";
@@ -45,6 +49,8 @@ const ViewListing = () => {
 
   useEffect(() => {
     if (listing && mapContainerRef.current) {
+      console.log("Coordinates : ", listing.geometry.coordinates);
+
       const map = new mapboxgl.Map({
         container: mapContainerRef.current,
         style: "mapbox://styles/mapbox/streets-v12",
@@ -70,21 +76,24 @@ const ViewListing = () => {
   const handleEditClick = () => {
     if (listing) {
       dispatch(setModifyListing(true));
-      navigate("/dashboard/add-listing");
+      navigate(`/dashboard/modify-listing/${listing?._id}`);
     } else {
       toast("You can't edit this listing right now!");
     }
   };
 
-  const handleDeleteClick = () => {};
+  const handleDeleteClick = async () => {
+    console.log("Owner id is: ", listing.owner?._id);
 
-  if (loading) {
-    return (
-      <div className="grid w-full h-[60vh] place-items-center">
-        <Spinner />
-      </div>
-    );
-  }
+    if (listing) {
+      setLoading(true);
+      await deleteListing(token, listing?._id, listing?.owner?._id);
+      setLoading(false);
+      navigate("/dashboard/listings");
+    } else {
+      toast("Not Able to Delete Your Listing.");
+    }
+  };
 
   return (
     <div className="w-screen h-full mb-32">
@@ -96,9 +105,25 @@ const ViewListing = () => {
         />
         <div className="absolute inset-0 opacity-75 bg-gradient-to-t from-black via-slate-950 to-slate-900"></div>
       </div>
+
+      {loading && (
+        <div className="grid w-full h-[20vh] absolute z-50 place-items-center">
+          <Spinner />
+        </div>
+      )}
+
       <div className="flex flex-col items-start justify-center gap-4 mx-10 lg:mx-auto xl:w-10/12 lg:w-11/12 lg:flex-row">
-        <div className="relative lg:w-1/2 w-full mx-auto  mt-24 flex flex-col gap-y-3 items-start justify-center p-5 bg-[#3b405c] bg-opacity-85 rounded-md shadow-md shadow-slate-950 backdrop-blur-sm text-[#937aff]">
-          <h2 className="text-4xl font-semibold text-start text-transparent md:text-start font-poppins bg-gradient-to-r from-[#9077ff] via-[#a8a6ff] to-[#a89be6] drop-shadow-2xl bg-clip-text">
+        <motion.div
+          initial={{ opacity: 0, x: "50%", y: "20%", scale: 0.3 }}
+          whileInView={{ opacity: 1, x: "0%", y: "0%", scale: 1 }}
+          transition={{
+            duration: 1,
+            type: "spring",
+            stiffness: 40,
+          }}
+          className="relative lg:w-1/2 w-full mx-auto  mt-24 flex flex-col gap-y-3 items-start justify-center p-5 bg-[#3b405c] bg-opacity-85 shadow-sm shadow-slate-950 backdrop-blur-sm text-[#937aff]"
+        >
+          <h2 className="text-4xl font-semibold text-start text-transparent md:text-start font-poppins bg-gradient-to-r from-pink-600 via-[#ff4372] to-[#ff4d79] drop-shadow-2xl bg-clip-text">
             Insides of {listing?.title}
           </h2>
           <div className="imgsContainer w-full h-[450px] bg-slate-200 flex items-center justify-center">
@@ -157,9 +182,9 @@ const ViewListing = () => {
               )}
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="relative w-full lg:w-2/5 lg:h-[50vh] h-[500px] mx-auto  mt-24 flex flex-col gap-y-3 items-start justify-center p-5 bg-[#3b405c] bg-opacity-85 rounded-md shadow-md shadow-slate-950 backdrop-blur-sm text-[#937aff]">
+        <motion.div className="relative w-full lg:w-2/5 lg:h-[50vh] h-[500px] mx-auto  mt-24 flex flex-col gap-y-3 items-start justify-center p-5 bg-[#3b405c] bg-opacity-85 shadow-sm shadow-slate-950 backdrop-blur-sm text-[#937aff]">
           <h2 className="text-3xl font-semibold text-start text-transparent md:text-start font-poppins bg-gradient-to-r from-[#9077ff] via-[#a8a6ff] to-[#a89be6] drop-shadow-2xl bg-clip-text">
             Have a Look in its Exact Location
           </h2>
@@ -167,7 +192,7 @@ const ViewListing = () => {
             ref={mapContainerRef}
             className="w-full h-full rounded-md shadow-md shadow-slate-950"
           ></div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

@@ -11,10 +11,10 @@ const ImageGallery = ({ images }) => {
 
   return (
     <div className="relative w-full h-full">
-      <div className="grid w-full h-full">
+      <div className="grid w-full h-full bg-slate-500">
         {/* Layout for 1 image */}
         {imageCount === 1 && (
-          <div className="h-full col-span-2">
+          <div className="w-full h-[450px] col-span-1">
             <img
               src={images[0]}
               alt={`Image 1`}
@@ -26,7 +26,7 @@ const ImageGallery = ({ images }) => {
 
         {/* Layout for 2 images */}
         {imageCount === 2 && (
-          <>
+          <div className="grid w-full h-full grid-cols-2">
             {images.map((image, index) => (
               <div key={index} className="h-full col-span-1">
                 <img
@@ -37,13 +37,13 @@ const ImageGallery = ({ images }) => {
                 />
               </div>
             ))}
-          </>
+          </div>
         )}
 
         {/* Layout for 3 images */}
         {imageCount === 3 && (
           <div className="grid w-full h-full grid-cols-2">
-            <div className="h-full col-span-1">
+            <div className="h-[450px] col-span-1">
               <img
                 src={images[0]}
                 alt={`Image 1`}
@@ -51,7 +51,7 @@ const ImageGallery = ({ images }) => {
                 onClick={() => handleImageClick(images[0])}
               />
             </div>
-            <div className="grid h-full col-span-1 grid-rows-2 ">
+            <div className="grid h-[450px] col-span-1 grid-rows-2 ">
               {images.slice(1).map((img, index) => (
                 <div key={index} className="h-full">
                   <img

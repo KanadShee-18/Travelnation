@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect, useRef, useState } from "react";
+import hotelImg from "../assets/explorePics/dashhotel.jpg";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchListingCategories } from "../../services/servercalls/categoryApis";
-import { RiMoneyRupeeCircleLine } from "react-icons/ri";
-import UploadImages from "../common/UploadImages";
-import {
-  createListing,
-  editExistingListing,
-} from "../../services/servercalls/listingApis";
-import Spinner from "../common/Spinner";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { useForm, useWatch } from "react-hook-form";
+import { fetchListingCategories } from "../services/servercalls/categoryApis";
+import UploadImages from "../component/common/UploadImages";
+import Spinner from "../component/common/Spinner";
+import { RiMoneyRupeeCircleLine } from "react-icons/ri";
+import { editExistingListing } from "../services/servercalls/listingApis";
+import { setListingData, setModifyListing } from "../slices/listingSlice";
 
-const CreateListing = () => {
+const ModifyListing = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { listingData, modifyListing } = useSelector((state) => state.listing);
@@ -27,6 +25,7 @@ const CreateListing = () => {
     reset,
     getValues,
     formState: { errors },
+    watch,
   } = useForm();
 
   // Taking all categories
@@ -48,41 +47,95 @@ const CreateListing = () => {
     getAllCategories();
   }, []);
 
+  // console.log("Listing data is: ", listingData);
+  const selectedCategory = watch("category");
+  // console.log("Selected Category:", selectedCategory);
+
+  useEffect(() => {
+    if (modifyListing && listingData) {
+      reset({
+        title: listingData.title,
+        description: listingData.description,
+        price: listingData.price,
+        location: listingData.location,
+        country: listingData.country,
+        category: listingData.category,
+        images: listingData.image,
+      });
+    }
+  }, [modifyListing, listingData, reset]);
+
   const onSubmit = async (data) => {
     const listingValues = getValues();
-    console.log("Listing Values are: ", listingValues);
-
+    // console.log("Listing Values are: ", listingValues);
+    // console.log("Listing Value category are: ", listingValues.category);
     const formData = new FormData();
+    formData.append("listingId", listingData?._id);
+    if (listingValues.title !== listingData.title) {
+      formData.append("title", listingValues?.title);
+    }
+    if (listingValues.description !== listingData.description) {
+      formData.append("description", listingValues?.description);
+    }
+    if (listingValues.price !== listingData.price) {
+      formData.append("price", listingValues?.price);
+    }
+    if (listingValues.location !== listingData.location) {
+      formData.append("location", listingValues?.location);
+    }
+    if (listingValues.country !== listingData.country) {
+      formData.append("country", listingValues?.country);
+    }
+    if (JSON.stringify(listingValues.category) !== selectedCategory) {
+      formData.append("categoryId", selectedCategory);
+    }
+    console.log("Images in listing values: ", listingValues.images);
+    console.log("Other listing values are: ", listingValues);
 
-    formData.append("title", listingValues?.title);
-    formData.append("description", listingValues?.description);
-    formData.append("price", listingValues?.price);
-    formData.append("location", listingValues?.location);
-    formData.append("country", listingValues?.country);
-    formData.append("categoryId", listingValues?.category);
+    const existingImageIds = listingData.image.map((img) => img.public_id);
 
-    listingValues?.images.forEach((file, index) => {
-      formData.append(`images[${index}]`, file);
+    // console.log("Existing Public Ids: ", existingImageIds);
+
+    const newImages = listingValues.images.filter((file) => {
+      return file instanceof File;
     });
+    // console.log("New Images: ", newImages);
 
-    console.log("Formdata coming as: ", formData);
+    if (newImages.length > 0) {
+      newImages.forEach((file, index) => {
+        formData.append(`images[${index}]`, file);
+      });
+    }
 
+    // console.log("Formdata coming as: ", formData);
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}: ${value instanceof File ? value.name : value}`);
+    }
     setLoading(true);
-    const result = await createListing(formData, token);
-
+    const result = await editExistingListing(formData, token);
     if (result) {
       console.log("Result in listing page: ", result);
       reset();
       navigate("/dashboard/listings");
     } else {
-      console.log("Error in creating listing");
+      console.log("Error in Editing listing");
     }
+    dispatch(setModifyListing(false));
+    dispatch(setListingData(null));
     setLoading(false);
   };
 
   return (
-    <div className="relative mt-6">
-      <div className="max-w-[500px] mx-auto flex items-center justify-center">
+    <div className="w-full h-full mx-auto mt-6 mb-32 ">
+      <div className="fixed inset-0 max-w-full opacity-65">
+        <img
+          src={hotelImg}
+          alt="Sign Up"
+          className="object-cover w-full h-full "
+        />
+        <div className="absolute inset-0 opacity-75 bg-gradient-to-t from-black via-slate-950 to-slate-900"></div>
+      </div>
+      <div className="max-w-[500px]  mx-auto flex items-center justify-center">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col pb-10 gap-y-5 place-items-center items-center justify-around py-5 bg-[#4954a5] bg-opacity-25 backdrop-blur-md rounded-xl shadow-md shadow-slate-950 w-full m-auto text-[#937aff] p-5"
@@ -264,7 +317,7 @@ const CreateListing = () => {
             }
           />
           {loading && (
-            <div className="flex items-center justify-center w-full mt-10">
+            <div className="flex items-center justify-center w-full mt-6">
               <Spinner />
             </div>
           )}
@@ -279,4 +332,4 @@ const CreateListing = () => {
   );
 };
 
-export default CreateListing;
+export default ModifyListing;

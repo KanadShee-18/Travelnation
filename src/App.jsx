@@ -25,6 +25,7 @@ import UserFeedBacks from "./component/dashboardpage/UserFeedBacks";
 import UserStay from "./component/dashboardpage/UserStay";
 import ContactUs from "./mainPages/ContactUs";
 import ViewListing from "./listingPages/ViewListing";
+import ModifyListing from "./listingPages/ModifyListing";
 
 // Lazy Loading Components:
 const Homepage = lazy(() => import("./mainPages/Homepage"));
@@ -103,6 +104,10 @@ function App() {
                 <>
                   <Route path="listings" element={<OwnerListings />} />
                   <Route path="add-listing" element={<CreateListing />} />
+                  <Route
+                    path="modify-listing/:id"
+                    element={<ModifyListing />}
+                  />
                   <Route path="user-feedbacks" element={<UserFeedBacks />} />
                 </>
               )}

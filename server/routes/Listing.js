@@ -22,7 +22,7 @@ router.get("/getListings", getAllListings);
 router.post("/viewListing", getEachLising);
 router.get("/owner-listing", auth, isOwner, userSpecificListings);
 router.post("/createListing", auth, fileUploadAuth, isOwner, createNewListing);
-router.post("/modifyListing", auth, fileUploadAuth, isOwner, updateListing);
-router.post("/destroyListing", auth, isOwner, deleteListing);
+router.put("/modifyListing", auth, fileUploadAuth, isOwner, updateListing);
+router.delete("/destroyListing", auth, isOwner, deleteListing);
 
 module.exports = router;

@@ -6,6 +6,8 @@ import { logOut } from "../services/servercalls/authApis";
 import { FiSun } from "react-icons/fi";
 import { FaMoon } from "react-icons/fa";
 import { ThemeContext } from "../context/ThemeContextProvider";
+import { RxDropdownMenu } from "react-icons/rx";
+import { motion } from "framer-motion";
 
 const Navbar = () => {
   const { toggleTheme } = useContext(ThemeContext);
@@ -14,6 +16,9 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const [home, setHome] = useState(true);
+  const [openDash, setOpenDash] = useState(false);
+
+  console.log("Opendash ", openDash);
 
   const { theme } = useSelector((state) => state.theme);
 
@@ -119,17 +124,46 @@ const Navbar = () => {
               </button>
             </>
           ) : (
-            <div>
+            <div className="relative">
               <button
-                onClick={() => dispatch(logOut(navigate))}
-                className={`
-                shadow-[#6c8ece] bg-opacity-35 hover:bg-opacity-90 hover:bg-[#ee135c]"
-                     "shadow-blue-400  hover:bg-[#ee135c]
-                }
-                px-3 py-2 rounded-xl bg-slate-800 shadow-inner `}
+                onClick={() => setOpenDash(!openDash)}
+                className="text-xl text-blue-300"
               >
-                Log Out
+                <RxDropdownMenu />
               </button>
+
+              <motion.div
+                initial={{ opacity: 0, y: "-40%", scale: 0.3 }}
+                whileInView={{ opacity: 1, y: "0%", scale: 1 }}
+                transition={{
+                  duration: 0.6,
+                  type: "spring",
+                  stiffness: 40,
+                }}
+                className={`absolute flex flex-col top-12 bg-[#94b6f5] backdrop-blur-xl bg-opacity-40 px-2 py-4 rounded-lg -right-2 gap-y-2 shadow-md shadow-slate-950
+                ${openDash ? "block" : "hidden"}`}
+              >
+                <button
+                  onClick={() => dispatch(logOut(navigate))}
+                  className={`
+                  shadow-[#6c8ece] bg-opacity-35 hover:bg-opacity-90 hover:bg-[#ee135c]"
+                       "shadow-blue-400  hover:bg-[#ee135c]
+                  }
+                  px-3 py-2 rounded-lg bg-slate-800 shadow-inner `}
+                >
+                  Log Out
+                </button>
+                <button
+                  onClick={() => navigate("/dashboard/profile")}
+                  className={`
+                  shadow-[#6c8ece] bg-opacity-35 hover:bg-opacity-90 hover:bg-[#ee135c]"
+                       "shadow-blue-400  hover:bg-[#ee135c]
+                  }
+                  px-3 py-2 rounded-lg bg-slate-800 shadow-inner `}
+                >
+                  Dashboard
+                </button>
+              </motion.div>
             </div>
           )}
         </div>

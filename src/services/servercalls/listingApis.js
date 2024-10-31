@@ -40,7 +40,7 @@ export const createListing = async (data, token) => {
 export const editExistingListing = async (data, token) => {
   let result = null;
   try {
-    const response = await apiConnect("POST", MODIFY_LISTING_API, data, {
+    const response = await apiConnect("PUT", MODIFY_LISTING_API, data, {
       "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${token}`,
     });
@@ -64,9 +64,12 @@ export const editExistingListing = async (data, token) => {
 };
 
 export const deleteListing = async (token, listingId, ownerId) => {
+  console.log("Listing id in delete api: ", listingId);
+  console.log("Listing id in delete api: ", ownerId);
+
   try {
     const response = await apiConnect(
-      "POST",
+      "DELETE",
       DELETE_LISTING_API,
       {
         listingId: listingId,
@@ -83,7 +86,7 @@ export const deleteListing = async (token, listingId, ownerId) => {
       throw new Error("Error occurred while delete listing is: ", error);
     }
 
-    toast("Listing has been deleted successfully for you");
+    toast("Listing has been deleted successfully for You");
   } catch (error) {
     console.log("Error occurred while deleting listing: ", error);
     toast("Not able to delete your listing. Try again!");

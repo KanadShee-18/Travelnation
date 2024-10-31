@@ -1,21 +1,9 @@
 import React from "react";
-import banner2Video from "../../../assets/beach.mp4";
 import hotelImg from "../../../assets/hotel.jpg";
 
 const BannerVideo = () => {
   return (
     <div className="relative w-full h-screen">
-      {/* <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute top-0 left-0 object-cover w-full h-full"
-      >
-        <source src={banner2Video} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video> */}
-
       <img
         src={hotelImg}
         alt=""
