@@ -26,7 +26,7 @@ const VisitorSidebarLinks = () => {
         </li>
         <li className="w-full">
           <NavLink
-            to="/favorites"
+            to="/dashboard/wishlists"
             className={({ isActive }) =>
               `px-2 py-4 rounded transition items-center gap-x-2 flex duration-200 hover:bg-[#3d3b97] ${
                 isActive

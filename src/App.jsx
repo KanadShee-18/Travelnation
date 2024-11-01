@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import OtpVerification from "./component/authroutes/OtpVerification";
 import ForgetPassword from "./component/authroutes/ForgetPassword";
 import UpdatePassword from "./component/authroutes/UpdatePassword";
-import Accomodations from "./mainPages/Accomodations";
+// import Accomodations from "./mainPages/Accomodations";
 import ThemeContextProvider from "./context/ThemeContextProvider";
 import { useSelector } from "react-redux";
 import { ACCOUNT_TYPE } from "./utils/constants";
@@ -26,6 +26,10 @@ import UserStay from "./component/dashboardpage/UserStay";
 import ContactUs from "./mainPages/ContactUs";
 import ViewListing from "./listingPages/ViewListing";
 import ModifyListing from "./listingPages/ModifyListing";
+import Accomodations from "./mainPages/Accomodations";
+import CategoryPage from "./component/categoryPages/CategoryPage";
+import WishLists from "./component/categoryPages/WishLists";
+import AboutPage from "./mainPages/Aboutpage";
 
 // Lazy Loading Components:
 const Homepage = lazy(() => import("./mainPages/Homepage"));
@@ -50,6 +54,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/accomodations" element={<Accomodations />} />
+            <Route path="/about" element={<AboutPage />} />
             <Route
               path="/signup"
               element={
@@ -90,6 +95,7 @@ function App() {
                 </OpenRoute>
               }
             />
+            <Route path="/:categoryName/stays" element={<CategoryPage />} />
             <Route path="/listing-insider/:id" element={<ViewListing />} />
             <Route
               path="/dashboard" // Change the path to /dashboard/*
@@ -113,7 +119,7 @@ function App() {
               )}
               {user?.accountType === ACCOUNT_TYPE.VISITOR && (
                 <>
-                  <Route path="wishlist" element={<VisitorWishlist />} />
+                  <Route path="wishlists" element={<WishLists />} />
                   <Route path="stay" element={<UserStay />} />
                   <Route path="contact" element={<ContactUs />} />
                 </>

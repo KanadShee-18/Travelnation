@@ -18,7 +18,7 @@ const Navbar = () => {
   const [home, setHome] = useState(true);
   const [openDash, setOpenDash] = useState(false);
 
-  console.log("Opendash ", openDash);
+  // console.log("Opendash ", openDash);
 
   const { theme } = useSelector((state) => state.theme);
 
@@ -62,9 +62,12 @@ const Navbar = () => {
             >
               Explore
             </Link>
-            <p className="px-4 py-2 hover:text-[#ff4784] drop-shadow-xl rounded-2xl hover:cursor-pointer">
+            <Link
+              to={"/about"}
+              className="px-4 py-2 hover:text-[#ff4784] drop-shadow-xl rounded-2xl hover:cursor-pointer"
+            >
               About
-            </p>
+            </Link>
             <p className="px-4 py-2 hover:text-[#ff4784] drop-shadow-xl rounded-2xl hover:cursor-pointer">
               Contact Us
             </p>

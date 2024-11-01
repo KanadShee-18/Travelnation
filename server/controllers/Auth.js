@@ -270,3 +270,74 @@ exports.changePassword = async (req, res) => {
     });
   }
 };
+
+// Add listing as wishlist:
+exports.addToWishlist = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { listingId } = req.body;
+
+    // Search user:
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "User is not authorized.",
+      });
+    }
+    let isLisitngWishlisted;
+    if (user) {
+      isLisitngWishlisted = user.wishLists.includes(listingId);
+
+      if (isLisitngWishlisted) {
+        user.wishLists.pull(listingId);
+      } else {
+        user.wishLists.push(listingId);
+      }
+    }
+
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Listing has been added to your wishlist",
+      wishListed: !isLisitngWishlisted,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Some error occurred to add this listing to wishlist.",
+      error: error.message,
+    });
+  }
+};
+
+exports.allWishListedData = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const user = await User.findById(userId).populate("wishLists").exec();
+
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "User not found!",
+      });
+    }
+
+    user.password = undefined;
+    user.token = undefined;
+
+    return res.status(200).json({
+      success: true,
+      messgae: "User wishlists have been fetched successfully.",
+      data: user,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Some error occurred while fetching all wishlisted listings.",
+      error: error.message,
+    });
+  }
+};

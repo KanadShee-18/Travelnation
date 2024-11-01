@@ -7,6 +7,8 @@ const {
   signUp,
   logIn,
   changePassword,
+  addToWishlist,
+  allWishListedData,
 } = require("../controllers/Auth");
 
 // Reset Password Controllers
@@ -16,7 +18,7 @@ const {
 } = require("../controllers/ResetPassword");
 
 // Auth Middleware
-const { auth } = require("../middlewares/Auth");
+const { auth, isViewer } = require("../middlewares/Auth");
 
 // Authentication Routes:
 
@@ -28,5 +30,7 @@ router.post("/changePassword", auth, changePassword);
 // Reset Password Routes:
 router.post("/reset-password-token", resetPasswordToken);
 router.post("/resetPassword", resetPassword);
+router.post("/addToWishlist", auth, addToWishlist);
+router.post("/wishlistedItems", auth, allWishListedData);
 
 module.exports = router;

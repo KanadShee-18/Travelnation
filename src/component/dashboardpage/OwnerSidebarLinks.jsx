@@ -3,6 +3,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { CgProfile, CgListTree } from "react-icons/cg";
 import { VscGitPullRequestCreate, VscFeedback } from "react-icons/vsc";
 import { MdOutlineSettingsPhone } from "react-icons/md";
+import { BsBalloonHeartFill } from "react-icons/bs";
 
 const OwnerSidebarLinks = () => {
   const location = useLocation();
@@ -54,6 +55,21 @@ const OwnerSidebarLinks = () => {
           >
             <CgListTree className="text-xl" />
             Your Listings
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/dashboard/wishlists"
+            className={({ isActive }) =>
+              `px-2 py-4 rounded transition items-center gap-x-2 flex duration-200 hover:bg-[#3d3b97] ${
+                isActive
+                  ? "items-center justify-start  bg-[#5460be] bg-opacity-25 rounded-md shadow-md shadow-slate-950 w-full m-auto text-sm font-poppins font-medium"
+                  : " items-center justify-start shadow-inner shadow-[#545bb9] bg-[#3e4264] bg-opacity-25 rounded-md opacity-75 w-full m-auto text-sm font-poppins font-medium"
+              }`
+            }
+          >
+            <BsBalloonHeartFill className="text-xl" />
+            Wishlists
           </NavLink>
         </li>
         <li>

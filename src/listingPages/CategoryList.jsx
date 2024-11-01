@@ -8,6 +8,7 @@ import { FaMountainCity } from "react-icons/fa6";
 import { SiAdventofcode } from "react-icons/si";
 import { MdPool } from "react-icons/md";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const categories = [
   {
@@ -59,30 +60,34 @@ const fadeInAnimationVariants = {
   }),
 };
 
-const CategoryList = () => (
-  <motion.div
-    transition={{
-      delay: 6,
-    }}
-    className="flex flex-row mx-auto mt-6 w-fit gap-x-3 lg:gap-x-6"
-  >
-    {categories.map((category, index) => (
-      <motion.div
-        key={index}
-        variants={fadeInAnimationVariants}
-        initial="initial"
-        whileInView="animate"
-        viewport={{
-          once: true,
-        }}
-        custom={index}
-        className="flex flex-col items-center text-xs font-poppins text-[#ff4d79] hover:text-[#afc1ff] tracking-wider opacity-90 hover:opacity-100 hover:cursor-pointer"
-      >
-        {category.icon}
-        <span>{category.name}</span>
-      </motion.div>
-    ))}
-  </motion.div>
-);
+const CategoryList = () => {
+  const navigate = useNavigate();
+  return (
+    <motion.div
+      transition={{
+        delay: 6,
+      }}
+      className="flex flex-row mx-auto mt-6 w-fit gap-x-3 lg:gap-x-6"
+    >
+      {categories.map((category, index) => (
+        <motion.div
+          key={index}
+          variants={fadeInAnimationVariants}
+          initial="initial"
+          whileInView="animate"
+          viewport={{
+            once: true,
+          }}
+          custom={index}
+          className="flex flex-col items-center text-xs font-poppins text-[#ff4d79] hover:text-[#afc1ff] tracking-wider opacity-90 hover:opacity-100 hover:cursor-pointer"
+          onClick={() => navigate(`/${category.name}/stays`)}
+        >
+          {category.icon}
+          <span>{category.name}</span>
+        </motion.div>
+      ))}
+    </motion.div>
+  );
+};
 
 export default CategoryList;

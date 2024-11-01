@@ -5,6 +5,9 @@ const initialState = {
     ? JSON.parse(localStorage.getItem("user"))
     : null,
   loading: false,
+  userWishlists: localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user")).wishLists || []
+    : [],
 };
 
 const userSlice = createSlice({
@@ -17,9 +20,12 @@ const userSlice = createSlice({
     setLoading(state, action) {
       state.loading = action.payload;
     },
+    setUserWishLists(state, action) {
+      state.userWishlists = action.payload;
+    },
   },
 });
 
-export const { setLoading, setUser } = userSlice.actions;
+export const { setLoading, setUser, setUserWishLists } = userSlice.actions;
 
 export default userSlice.reducer;

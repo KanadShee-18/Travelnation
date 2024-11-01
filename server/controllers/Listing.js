@@ -197,6 +197,13 @@ exports.createNewListing = async (req, res) => {
       geometry: geometryRes,
     });
 
+    //Push the listing in its category
+    await Category.findByIdAndUpdate(categoryId, {
+      $push: {
+        listings: createdListing._id,
+      },
+    });
+
     res.status(200).json({
       success: true,
       message: "New Listing has been created successfully.",

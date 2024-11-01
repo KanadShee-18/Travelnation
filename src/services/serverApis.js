@@ -9,12 +9,14 @@ export const authEndPoints = {
   CHANGE_PASSWORD_API: BASE_URL + "/auth/changePassword",
   RESET_PASSWORD_TOKEN_API: BASE_URL + "/auth/reset-password-token",
   RESET_PASSWORD_API: BASE_URL + "/auth/resetPassword",
+  ADD_TO_WISHLIST_API: BASE_URL + "/auth/addToWishlist",
+  WISHLIST_DATA_API: BASE_URL + "/auth/wishlistedItems",
 };
 
 // Category Endpoints:
 export const categoryEndpoints = {
   GET_CATEGORIES_API: BASE_URL + "/category/allCategories",
-  GET_CATEGORYPAGE_DETAILS_API: BASE_URL + "/categoryPageDetails",
+  GET_CATEGORYPAGE_DETAILS_API: BASE_URL + "/category/categoryPageDetails",
 };
 
 // Listing Endpoints:

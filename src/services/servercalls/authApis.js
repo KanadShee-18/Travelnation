@@ -11,7 +11,57 @@ const {
   CHANGE_PASSWORD_API,
   RESET_PASSWORD_TOKEN_API,
   RESET_PASSWORD_API,
+  ADD_TO_WISHLIST_API,
+  WISHLIST_DATA_API,
 } = authEndPoints;
+
+export const wishListData = async (token) => {
+  try {
+    const response = await apiConnect("POST", WISHLIST_DATA_API, null, {
+      Authorization: `Bearer ${token}`,
+    });
+    console.log("WISHLISTS DATA API RESPONSE: ", response);
+
+    if (!response.data.success) {
+      throw new Error("ERROR IN WISHLIST API: ", error);
+    }
+
+    toast("Wishlisted Items have been fetched successfully for you.");
+    return response.data;
+  } catch (error) {
+    console.log("WISHLISTS DATA API ERROR: ", error);
+    toast("Not able to fetch wishlist data.");
+  }
+};
+
+export const addToWishList = async (token, listingId) => {
+  try {
+    const response = await apiConnect(
+      "POST",
+      ADD_TO_WISHLIST_API,
+      { listingId },
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    );
+
+    if (!response.data.success) {
+      throw new Error("ERROR IN ADDING TO WISHLIST: ", erorr);
+    }
+
+    if (response.data.wishListed) {
+      toast("Listing Has Been Added to Wishlisted");
+    } else {
+      toast("Listing Has Been Removed to Wishlisted");
+    }
+    console.log(response);
+
+    return response.data.wishListed;
+  } catch (error) {
+    console.log("ADD TO WISHLIST API ERROR: ", error);
+    toast("Not able to add this listing to your Wishlist");
+  }
+};
 
 export function sendOtp(email, navigate) {
   console.log("Req coming to authapi ....");

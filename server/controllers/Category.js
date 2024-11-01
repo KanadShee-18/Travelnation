@@ -116,9 +116,10 @@ exports.showCategories = async (req, res) => {
 
 exports.categoryPageDetails = async (req, res) => {
   try {
-    const { categoryId } = req.body;
+    const { categoryName } = req.query;
+    console.log("REQ params is: ", categoryName);
 
-    const selectedCategory = await Category.findById(categoryId)
+    const selectedCategory = await Category.find({ name: categoryName })
       .populate("listings")
       .exec();
 
@@ -129,24 +130,17 @@ exports.categoryPageDetails = async (req, res) => {
       });
     }
 
-    const otherCategories = await Category.find({
-      _id: { $ne: categoryId },
-    })
-      .populate("listings")
-      .exec();
+    // const otherCategories = await Category.find({
+    //   _id: { $ne: categoryId },
+    // })
+    //   .populate("listings")
+    //   .exec();
 
     return res.status(200).json({
       success: true,
       message: "All listings of this category has been fetched successfully.",
-      categoryDetails: {
-        data: [
-          {
-            selected: selectedCategory,
-          },
-          {
-            others: otherCategories,
-          },
-        ],
+      categoryPageDetails: {
+        data: selectedCategory,
       },
     });
   } catch (error) {

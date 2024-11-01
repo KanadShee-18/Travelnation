@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import exploremainImg from "../assets/explorePics/exploremain.jpg";
 import { fetchAllListings } from "../services/servercalls/listingApis";
 import { FaStaylinked } from "react-icons/fa";
@@ -10,21 +10,28 @@ import CategoryList from "../listingPages/CategoryList";
 import Spinner from "../component/common/Spinner";
 import ShimmerCardNumber from "../component/common/ShimmerCardNumber";
 import { FaArrowUp } from "react-icons/fa";
+import { IoBagCheckOutline } from "react-icons/io5";
+import { BsHeart, BsHeartFill } from "react-icons/bs";
+import { addToWishList } from "../services/servercalls/authApis";
+import { toast } from "react-toastify";
+import { setUserWishLists } from "../slices/userSlice";
 
-const Accomodations = () => {
+const Accommodations = () => {
+  const dispatch = useDispatch();
   const { theme } = useSelector((state) => state.theme);
-  const [loading, setLoading] = useState(false);
+  const { token } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.user);
   const [listings, setListings] = useState([]);
-  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
+  const { userWishlists } = useSelector((state) => state.user);
+  const [fillLove, setFillLove] = useState(false);
   const navigate = useNavigate();
-  const truncatedWords = 15;
   const limit = 8;
 
   useEffect(() => {
-    fetchListings(page);
-
     const handleScroll = () => {
       if (window.scrollY > 200) {
         setShowScrollToTop(true);
@@ -34,25 +41,34 @@ const Accomodations = () => {
     };
 
     window.addEventListener("scroll", handleScroll);
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  const fetchListings = async (currentPage) => {
+  // Fetch listings based on the current page
+  const fetchListings = useCallback(async () => {
     setLoading(true);
     const data = await fetchAllListings(page, limit);
     if (data?.listingsData?.data) {
-      setListings((prevData) =>
-        currentPage === 1
-          ? data.listingsData.data
-          : [...prevData, ...data.listingsData.data]
-      );
-      setHasMore(currentPage < data.listingsData.totalPages);
-      setPage(currentPage + 1);
+      setListings((prevListings) => [
+        ...prevListings,
+        ...data.listingsData.data,
+      ]);
+      setHasMore(page < data.listingsData.totalPages);
     }
     setLoading(false);
+  }, [page]);
+
+  // Load initial listings when the component mounts or when the page changes
+  useEffect(() => {
+    fetchListings();
+  }, [fetchListings]); // Dependency array includes fetchListings only
+
+  const loadMoreListings = () => {
+    if (hasMore) {
+      setPage((prevPage) => prevPage + 1);
+    }
   };
 
   const scrollToTop = () => {
@@ -62,21 +78,42 @@ const Accomodations = () => {
     });
   };
 
-  console.log("All listings are: ", listings);
+  console.log("Listings are: ", listings);
 
-  if (loading)
+  const handleLoveClick = async (ownerId, listingId) => {
+    if (!user) {
+      toast("You must log in to add this listing to your wishlist");
+      return;
+    }
+    if (user._id === ownerId) {
+      toast("As the owner, you can't add this listing to your wishlist.");
+      return;
+    }
+    const response = await addToWishList(token, listingId);
+    console.log("RESPONSE OF ADDWISHLIST: ", response);
+
+    if (response) {
+      setFillLove(true);
+      const newWishlists = [...userWishlists, listingId];
+      dispatch(setUserWishLists(newWishlists));
+    } else {
+      const filteredLists = userWishlists.filter((id) => id !== listingId);
+      dispatch(setUserWishLists(filteredLists));
+    }
+    toast("See your wishlist in your wishlist section");
+  };
+
+  if (loading && listings.length === 0) {
     return (
       <div className="grid w-full place-items-center">
         <Spinner />
       </div>
     );
+  }
+  console.log("User wishlists: ", userWishlists);
 
   return (
-    <div
-      className="w-screen h-full min-h-screen pt-16 text-blue-500 accomodation
-    dark:bg-[#0b101b]
-    "
-    >
+    <div className="w-screen h-full min-h-screen pt-16 text-blue-500 accomodation dark:bg-[#0b101b]">
       <div className="fixed inset-0 max-w-full opacity-65">
         <img
           src={exploremainImg}
@@ -92,7 +129,6 @@ const Accomodations = () => {
             <div className="flex flex-col items-start gap-2">
               <div className="flex gap-3">
                 <FaStaylinked className="text-3xl text-pink-600" />
-
                 <h1 className="text-start text-3xl font-semibold text-transparent font-poppins bg-gradient-to-r from-pink-600 via-[#ff4372] to-[#ff4d79] drop-shadow-2xl bg-clip-text">
                   Find Your Perfect Stay
                 </h1>
@@ -106,116 +142,109 @@ const Accomodations = () => {
             </div>
           </div>
         </div>
-        {loading ? (
-          <div className="relative h-full min-w-full py-6">
-            <ShimmerCardNumber num={6} />
-          </div>
-        ) : (
-          <div className="relative h-full min-w-full py-6">
-            <InfiniteScroll
-              dataLength={listings.length}
-              next={() => fetchListings(page)}
-              hasMore={hasMore}
-              loader={<Spinner />}
-              endMessage={
-                <div className="w-full mx-auto text-center">
-                  No more listings to show
-                </div>
-              }
-              className="relative grid w-10/12 h-full grid-cols-1 gap-4 py-2 mx-auto scroll-smooth place-items-center lg:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4 xl:w-3/4 scrollbar-hide"
-            >
-              {listings?.map((listing, index) => {
-                const images = listing?.image || [];
-                const firstImage = images[0]?.url;
-                const listingId = listing?._id;
 
-                const remainingImagesCount =
-                  images.length > 1 ? images.length - 1 : 0;
+        <div className="relative h-full min-w-full py-6">
+          <InfiniteScroll
+            dataLength={listings.length}
+            next={loadMoreListings}
+            hasMore={hasMore}
+            loader={<Spinner />}
+            endMessage={
+              <div className="w-full mx-auto text-center">
+                No more listings to show
+              </div>
+            }
+            className="relative grid w-10/12 h-full grid-cols-1 gap-4 py-2 mx-auto scroll-smooth place-items-center lg:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4 xl:w-3/4 scrollbar-hide"
+          >
+            {listings.map((listing, index) => {
+              const images = listing?.image || [];
+              const firstImage = images[0]?.url;
+              const listingId = listing?._id;
+              const remainingImagesCount =
+                images.length > 1 ? images.length - 1 : 0;
 
-                return (
-                  <motion.div
-                    initial={{ y: 20 }}
-                    whileInView={{ y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      duration: 0.3,
-                      ease: "easeInOut",
-                      // stiffness: 40,
-                    }}
-                    onClick={() => navigate(`/listing-insider/${listingId}`)}
-                    key={index}
-                    className="flex relative flex-col max-w-[300px] h-[420px] bg-[#464e7e] bg-opacity-35 backdrop-blur-md rounded-md shadow-md shadow-slate-950 transition-all  cursor-pointer duration-300 hover:shadow-slate-700"
-                  >
-                    <div className="relative">
-                      {firstImage && (
-                        <>
-                          <motion.img
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            transition={{ duration: 1.2 }}
-                            src={firstImage}
-                            alt="image"
-                            className="min-w-[150px] w-full object-cover rounded-t-md h-[210px] rounded-br-3xl hover:opacity-85 shadow-sm shadow-slate-900"
-                          />
-                        </>
-                      )}
-                      {remainingImagesCount > 0 && (
-                        <span className="absolute p-1 text-sm text-blue-300 rounded backdrop-blur-sm bg-slate-800 bg-opacity-70 top-2 left-2">
-                          +{remainingImagesCount}
-                        </span>
-                      )}
+              return (
+                <motion.div
+                  initial={{ y: 20 }}
+                  whileInView={{ y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  key={index}
+                  className="flex relative flex-col max-w-[300px] h-[420px] bg-[#324de7] bg-opacity-35 backdrop-blur-md rounded-md shadow-md shadow-slate-950 transition-all cursor-pointer duration-300 hover:shadow-slate-700"
+                >
+                  <div className="relative">
+                    {firstImage && (
+                      <motion.img
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ duration: 1.2 }}
+                        src={firstImage}
+                        alt="image"
+                        className="min-w-[150px] w-full object-cover rounded-t-md h-[210px] rounded-br-3xl hover:opacity-85 shadow-sm shadow-slate-900"
+                      />
+                    )}
+                    {remainingImagesCount > 0 && (
+                      <span className="absolute p-1 text-sm text-blue-300 rounded backdrop-blur-sm bg-slate-800 bg-opacity-70 top-2 left-2">
+                        +{remainingImagesCount}
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex relative flex-col px-4 py-2 bg-[#464e7e] shadow-md shadow-slate-900 rounded-b-md h-full m-2 rounded-tl-2xl bg-opacity-35">
+                    <div
+                      onClick={() =>
+                        handleLoveClick(listing.owner, listing._id)
+                      }
+                      className="absolute right-2 top-2 z-[100]"
+                    >
+                      <button className="text-2xl text-pink-500 transition-all duration-200 hover:cursor-pointer hover:scale-95">
+                        {userWishlists &&
+                        userWishlists.includes(listing?._id) ? (
+                          <BsHeartFill />
+                        ) : (
+                          <BsHeart />
+                        )}
+                      </button>
                     </div>
-                    <div className="flex flex-col px-4 py-2 bg-[#464e7e] shadow-md shadow-slate-900 rounded-b-md h-full m-2 rounded-tl-2xl bg-opacity-35">
-                      <h2 className="text-lg mb-2 font-semibold text-transparent font-poppins bg-gradient-to-r from-[#c4b7ff] via-[#8381ff] to-[#8971f7] drop-shadow-2xl bg-clip-text">
-                        {listing?.title}
-                      </h2>
-                      <h3 className="text-[15px] mb-1 font-semibold text-transparent font-inter bg-gradient-to-br from-[#c9beff] via-[#b5b2fd] to-[#c0b6f1] drop-shadow-2xl bg-clip-text">
-                        {listing?.description?.split(" ").length >
-                        truncatedWords
-                          ? `${listing?.description
-                              .split(" ")
-                              .slice(0, truncatedWords)
-                              .join(" ")} ...`
-                          : `${listing?.description}`}
-                      </h3>
-                      <div className="flex flex-row items-center justify-between">
-                        <div className="flex flex-col my-1 overflow-hidden font-medium text-[#9796e6] gap-x-1">
-                          <p className="w-11/12 text-sm font-semibold text-nowrap text-ellipsis">
-                            {listing?.location}, {listing?.country}
-                          </p>
-
-                          <p className="text-lg font-medium text-slate-300">
-                            &#8377; {listing?.price.toLocaleString()}
-                          </p>
-                        </div>
-                        {/* <div className="flex flex-row gap-x-2">
-                  <button>
-                    <MdEditDocument className="text-2xl text-[#8381ff]" />
-                  </button>
-                  <button>
-                    <BsTrash2Fill className="text-2xl text-[#7e88b4]" />
-                  </button>
-                </div> */}
+                    <h2 className="text-lg mb-2 font-semibold text-transparent font-poppins bg-gradient-to-r from-[#c4b7ff] via-[#8381ff] to-[#8971f7] drop-shadow-2xl bg-clip-text">
+                      {listing?.title}
+                    </h2>
+                    <h3 className="text-[15px] scrollbar-hide mb-3 h-[40px] overflow-y-hidden font-semibold text-transparent font-inter bg-gradient-to-br from-[#c9beff] via-[#b5b2fd] to-[#c0b6f1] drop-shadow-2xl bg-clip-text">
+                      {listing?.description.split(" ").length > 15
+                        ? `${listing?.description
+                            .split(" ")
+                            .slice(0, 15)
+                            .join(" ")} ...`
+                        : `${listing?.description}`}
+                    </h3>
+                    <div className="flex flex-row items-center justify-between">
+                      <div className="flex flex-col my-1 overflow-hidden font-medium text-[#9796e6] gap-x-1">
+                        <span>
+                          ${listing?.price}{" "}
+                          <span className="text-xs">/night</span>
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1 text-sm font-semibold text-blue-200">
+                        <IoBagCheckOutline className="text-blue-400" />
+                        <span>Book Now</span>
                       </div>
                     </div>
-                  </motion.div>
-                );
-              })}
-            </InfiniteScroll>
-
-            {showScrollToTop && (
-              <button
-                onClick={scrollToTop}
-                className="fixed p-3 rounded-full bg-slate-800 bg-opacity-65 bottom-2 right-10 text-slate-50"
-              >
-                <FaArrowUp size={20} />
-              </button>
-            )}
-          </div>
-        )}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </InfiniteScroll>
+        </div>
       </div>
+      {showScrollToTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed p-3 text-3xl text-blue-700 transition-all duration-300 bg-white rounded-full shadow-lg bottom-10 right-10 hover:shadow-xl"
+        >
+          <FaArrowUp />
+        </button>
+      )}
     </div>
   );
 };
 
-export default Accomodations;
+export default Accommodations;

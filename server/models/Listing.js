@@ -42,6 +42,16 @@ const listingSchema = new mongoose.Schema({
       ref: "Review",
     },
   ],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  visitor: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+    },
+  ],
   category: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category",
