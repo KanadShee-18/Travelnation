@@ -13,13 +13,20 @@ const {
 // Get all listing handler
 exports.getAllListings = async (req, res) => {
   try {
-    const allListings = await Listing.find({});
+    const { page = 1, limit = 5 } = req.query;
+    const allListings = await Listing.find({})
+      .skip((page - 1) * limit)
+      .limit(Number(limit));
+
+    const totalListings = await Listing.countDocuments();
 
     return res.status(200).json({
       success: true,
       message: "All listings fetched successfully.",
       listingsData: {
         data: allListings,
+        totalPages: Math.ceil(totalListings / limit),
+        currentPage: page,
       },
     });
   } catch (error) {

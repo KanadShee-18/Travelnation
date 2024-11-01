@@ -136,14 +136,17 @@ export const fetchListing = async (listingId) => {
   }
 };
 
-export const fetchAllListings = async () => {
+export const fetchAllListings = async (page, limit) => {
   let result;
   try {
-    const response = await apiConnect("GET", FETCH_ALL_LISTINGS);
+    const response = await apiConnect("GET", FETCH_ALL_LISTINGS, null, null, {
+      page,
+      limit,
+    });
     console.log("FETCHING ALL LISTINGS API RESPONSE: ", response);
 
     if (!response.data.success) {
-      throw new Error("ERROR OF FETCHING ALL LISTINGS: ", error);
+      throw new Error(response.data.message || "Failed to fetch listings.");
     }
 
     toast("All listings fetched successfully.");

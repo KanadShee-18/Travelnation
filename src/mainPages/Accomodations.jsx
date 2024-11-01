@@ -3,38 +3,78 @@ import { useSelector } from "react-redux";
 import exploremainImg from "../assets/explorePics/exploremain.jpg";
 import { fetchAllListings } from "../services/servercalls/listingApis";
 import { FaStaylinked } from "react-icons/fa";
-
+import InfiniteScroll from "react-infinite-scroll-component";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import CategoryList from "../listingPages/CategoryList";
 import Spinner from "../component/common/Spinner";
 import ShimmerCardNumber from "../component/common/ShimmerCardNumber";
+import { FaArrowUp } from "react-icons/fa";
 
 const Accomodations = () => {
   const { theme } = useSelector((state) => state.theme);
   const [loading, setLoading] = useState(false);
-  const [listings, setListings] = useState(null);
+  const [listings, setListings] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(1);
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
   const navigate = useNavigate();
   const truncatedWords = 15;
+  const limit = 8;
 
   useEffect(() => {
-    const fetchListings = async () => {
-      setLoading(true);
-      const data = await fetchAllListings();
-      // console.log(data);
-      setListings(data?.listingsData?.data);
-      setLoading(false);
+    fetchListings(page);
+
+    const handleScroll = () => {
+      if (window.scrollY > 200) {
+        setShowScrollToTop(true);
+      } else {
+        setShowScrollToTop(false);
+      }
     };
 
-    fetchListings();
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
+  const fetchListings = async (currentPage) => {
+    setLoading(true);
+    const data = await fetchAllListings(page, limit);
+    if (data?.listingsData?.data) {
+      setListings((prevData) =>
+        currentPage === 1
+          ? data.listingsData.data
+          : [...prevData, ...data.listingsData.data]
+      );
+      setHasMore(currentPage < data.listingsData.totalPages);
+      setPage(currentPage + 1);
+    }
+    setLoading(false);
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   console.log("All listings are: ", listings);
+
+  if (loading)
+    return (
+      <div className="grid w-full place-items-center">
+        <Spinner />
+      </div>
+    );
 
   return (
     <div
       className="w-screen h-full min-h-screen pt-16 text-blue-500 accomodation
-    dark:bg-[#0f172a]
+    dark:bg-[#0b101b]
     "
     >
       <div className="fixed inset-0 max-w-full opacity-65">
@@ -46,7 +86,7 @@ const Accomodations = () => {
         <div className="absolute inset-0 opacity-50 bg-gradient-to-t from-black via-slate-950 to-slate-900"></div>
       </div>
 
-      <div className="relative flex flex-col min-w-full bg-[#30334d] bg-opacity-65 min-h-screen scroll-smooth">
+      <div className="relative flex flex-col min-w-full bg-[#1f2131] bg-opacity-85 min-h-screen scroll-smooth">
         <div className="relative min-w-full h-fit bg-[#1e2141] bg-opacity-45 pb-6">
           <div className="w-11/12 pt-10 mx-auto md:w-10/12">
             <div className="flex flex-col items-start gap-2">
@@ -72,7 +112,18 @@ const Accomodations = () => {
           </div>
         ) : (
           <div className="relative h-full min-w-full py-6">
-            <div className="relative grid w-10/12 h-full grid-cols-1 gap-4 py-2 mx-auto scroll-smooth place-items-center lg:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4 xl:w-3/4">
+            <InfiniteScroll
+              dataLength={listings.length}
+              next={() => fetchListings(page)}
+              hasMore={hasMore}
+              loader={<Spinner />}
+              endMessage={
+                <div className="w-full mx-auto text-center">
+                  No more listings to show
+                </div>
+              }
+              className="relative grid w-10/12 h-full grid-cols-1 gap-4 py-2 mx-auto scroll-smooth place-items-center lg:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4 xl:w-3/4 scrollbar-hide"
+            >
               {listings?.map((listing, index) => {
                 const images = listing?.image || [];
                 const firstImage = images[0]?.url;
@@ -150,7 +201,16 @@ const Accomodations = () => {
                   </motion.div>
                 );
               })}
-            </div>
+            </InfiniteScroll>
+
+            {showScrollToTop && (
+              <button
+                onClick={scrollToTop}
+                className="fixed p-3 rounded-full bg-slate-800 bg-opacity-65 bottom-2 right-10 text-slate-50"
+              >
+                <FaArrowUp size={20} />
+              </button>
+            )}
           </div>
         )}
       </div>
