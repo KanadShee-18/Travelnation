@@ -23,7 +23,7 @@ app.use(cookieParser());
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://wanderlust-ivory.vercel.app/",
+  "https://wanderlust-ivory.vercel.app",
 ];
 
 app.use(
