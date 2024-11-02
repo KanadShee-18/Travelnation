@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import hotelImg from "../assets/explorePics/dashhotel.jpg";
 import { motion, useScroll, useTransform } from "framer-motion";
