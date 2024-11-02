@@ -29,7 +29,7 @@ import ModifyListing from "./listingPages/ModifyListing";
 import Accomodations from "./mainPages/Accomodations";
 import CategoryPage from "./component/categoryPages/CategoryPage";
 import WishLists from "./component/categoryPages/WishLists";
-import AboutPage from "./mainPages/Aboutpage";
+import About from "./mainPages/About";
 
 // Lazy Loading Components:
 const Homepage = lazy(() => import("./mainPages/Homepage"));
@@ -54,7 +54,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/accomodations" element={<Accomodations />} />
-            <Route path="/about" element={<AboutPage />} />
+            <Route path="/about" element={<About />} />
             <Route
               path="/signup"
               element={
