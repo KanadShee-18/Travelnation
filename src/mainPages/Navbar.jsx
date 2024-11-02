@@ -288,7 +288,7 @@ const Navbar = () => {
             <div className="flex gap-x-2">
               <button
                 onClick={() => navigate("/signup")}
-                className={`px-3 py-2 rounded-xl shadow-md shadow-slate-900 text-sm md:text-base ${
+                className={`px-3 py-2 rounded-xl shadow-md shadow-slate-900 text-sm  ${
                   home
                     ? "bg-slate-700 text-blue-200 hover:bg-[#ee135c]"
                     : "bg-slate-400 hover:bg-[#ee135c]"
@@ -298,7 +298,7 @@ const Navbar = () => {
               </button>
               <button
                 onClick={() => navigate("/login")}
-                className={`px-3 py-2 rounded-xl shadow-md shadow-slate-900 text-sm md:text-base ${
+                className={`px-3 py-2 rounded-xl shadow-md shadow-slate-900 text-sm  ${
                   home
                     ? "bg-slate-700 text-blue-200 hover:bg-[#ee135c]"
                     : "bg-slate-400 hover:bg-[#ee135c]"
