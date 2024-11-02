@@ -16,7 +16,7 @@ const SignUp = () => {
       </div>
 
       {/* Content Area */}
-      <div className="relative z-10 flex justify-center w-10/12 p-8 text-center md:flex-row">
+      <div className="relative z-10 flex justify-center w-11/12 mt-16 text-center md:w-10/12 md:flex-row">
         <div className="w-full md:w-[500px]">
           <SignUpForm />
         </div>

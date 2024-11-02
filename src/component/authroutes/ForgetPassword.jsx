@@ -37,21 +37,21 @@ const LogIn = () => {
         </div>
       ) : (
         <motion.div
-          initial={{ opacity: 0, x: "-90%", y: "-60%", scale: 0.3 }}
-          whileInView={{ opacity: 1, x: "0%", y: "0%", scale: 1 }}
+          initial={{ opacity: 0, scale: 0.3 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           transition={{
             duration: 1,
             type: "spring",
             stiffness: 40,
             // damping: 20,
           }}
-          className="relative z-20 max-w-[450px] mx-auto mt-32 flex flex-col p-8 mb-20 rounded-xl shadow-md bg-opacity-20 bg-[#4953a5]  shadow-[#4953a5]"
+          className="relative z-20 md:max-w-[450px] max-w-[320px] mx-auto mt-32 flex flex-col md:p-8 p-4 mb-20 rounded-xl shadow-md bg-opacity-20 bg-[#4953a5]  shadow-[#4953a5]"
         >
           <div className="absolute -z-10 w-3/4 h-4/5 bg-gradient-to-br from-[#6644ff] via-[#615fff] to-[#ff1f88]  rounded-t-2xl rounded-br-3xl blur-[90px] opacity-15 bottom-0 right-0 translate-x-[50%] translate-y-[50%]"></div>
-          <p className="text-4xl font-semibold text-center text-transparent font-poppins bg-gradient-to-r from-[#6644ff] via-[#615fff] to-[#6644ff] drop-shadow-2xl bg-clip-text">
+          <p className="md:text-4xl text-2xl font-semibold text-center text-transparent font-poppins bg-gradient-to-r from-[#6644ff] via-[#615fff] to-[#6644ff] drop-shadow-2xl bg-clip-text">
             {emailSent ? "Check Your Email" : "Reset Your Password"}
           </p>
-          <p className="my-6 text-base font-medium tracking-wide text-transparent bg-gradient-to-br from-purple-400 to-blue-500 drop-shadow-2xl bg-clip-text text-start">
+          <p className="my-6 text-xs font-medium tracking-wide text-transparent md:text-base bg-gradient-to-br from-purple-400 to-blue-500 drop-shadow-2xl bg-clip-text text-start">
             {emailSent
               ? "Password Reset link has been sent to your gmail. Kindly check your Inbox."
               : "Don't panic. We'll sent a reset password link to your email."}
@@ -89,7 +89,7 @@ const LogIn = () => {
           <div className="flex flex-row justify-between px-2 mt-5">
             <Link
               to={"/login"}
-              className="font-semibold text-center text-transparent font-poppins bg-gradient-to-r from-[#7455ff] to-[#0bb6c2] bg-clip-text hover:-translate-x-2 transition-all duration-200 ease-in-out"
+              className="font-semibold text-xs md:text-sm text-center text-transparent font-poppins bg-gradient-to-r from-[#7455ff] to-[#0bb6c2] bg-clip-text hover:-translate-x-2 transition-all duration-200 ease-in-out"
             >
               &larr; Back to Login
             </Link>

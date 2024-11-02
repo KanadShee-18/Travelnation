@@ -22,7 +22,7 @@ const HomeVideoSlider = () => {
         viewport={{
           once: true,
         }}
-        className="flex justify-center items-center p-1 text-[#aec7f5] font-medium tracking-wide mx-auto text-sm rounded-full bg-[#798db9] bg-opacity-40 font-poppins w-fit "
+        className="flex justify-center items-center p-1 text-[#aec7f5] font-medium tracking-wide mx-auto md:text-sm text-xs rounded-full bg-[#798db9] bg-opacity-40 font-poppins w-fit "
       >
         <button
           onClick={() => navigate("/signup")}

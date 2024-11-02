@@ -51,22 +51,22 @@ const LogIn = () => {
         </div>
       ) : (
         <motion.div
-          initial={{ opacity: 0, x: "50%", y: "20%", scale: 0.3 }}
-          whileInView={{ opacity: 1, x: "0%", y: "0%", scale: 1 }}
+          initial={{ opacity: 0, scale: 0.3 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           transition={{
             duration: 1,
             type: "spring",
             stiffness: 40,
           }}
-          className="relative z-20 max-w-[400px] mx-auto xl:mt-32 mt-16 flex flex-col p-8 mb-20 rounded-xl shadow-md bg-opacity-15  bg-[#4953a5]  shadow-[#4953a5]"
+          className="relative z-20 md:max-w-[400px] max-w-[320px] mx-auto xl:mt-32 mt-16 flex flex-col md:p-8 p-3 mb-20 rounded-xl shadow-md bg-opacity-15  bg-[#4953a5]  shadow-[#4953a5]"
         >
           <div className="absolute -z-10 w-3/4 h-4/5 bg-gradient-to-br from-[#6644ff] via-[#615fff] to-[#ff1f88]  rounded-t-2xl rounded-br-3xl blur-[90px] opacity-15 bottom-0 right-0 translate-x-[50%] translate-y-[50%]"></div>
-          <p className="text-2xl font-semibold text-center text-transparent font-poppins bg-gradient-to-r from-[#6644ff] via-[#615fff] to-[#6644ff] drop-shadow-2xl bg-clip-text">
+          <p className="md:text-2xl text-xl font-semibold text-center text-transparent font-poppins bg-gradient-to-r from-[#6644ff] via-[#615fff] to-[#6644ff] drop-shadow-2xl bg-clip-text">
             Ready to Discover More
           </p>
-          <p className="my-3 text-sm font-medium tracking-wide text-transparent xl:my-6 bg-gradient-to-br from-slate-400 to-slate-300 drop-shadow-2xl bg-clip-text text-start">
-            <span className="text-base text-pink-500">Sign in</span> to explore
-            unique stays, exclusive deals, and make your next trip
+          <p className="my-3 text-xs font-medium tracking-wide text-transparent md:text-sm xl:my-6 bg-gradient-to-br from-slate-400 to-slate-300 drop-shadow-2xl bg-clip-text text-start">
+            <span className="text-sm text-pink-500 md:text-base">Sign in</span>{" "}
+            to explore unique stays, exclusive deals, and make your next trip
             unforgettable.
           </p>
 
@@ -124,7 +124,7 @@ const LogIn = () => {
             </button>
           </form>
 
-          <div className="flex flex-row justify-between px-2 mt-5">
+          <div className="flex flex-row justify-between px-2 my-5">
             <Link
               to={"/signup"}
               className="font-semibold text-center text-xs text-transparent font-poppins bg-gradient-to-r from-[#757ca1] to-[#878fb8] bg-clip-text hover:-translate-x-2 transition-all duration-200 ease-in-out"

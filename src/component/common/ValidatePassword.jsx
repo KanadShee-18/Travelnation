@@ -2,7 +2,7 @@ import React from "react";
 import { TiTick } from "react-icons/ti";
 const PassValidator = () => {
   return (
-    <div className="flex flex-col justify-between px-2 text-sm text-[#8b92d1] sm:flex-row">
+    <div className="flex flex-col justify-between px-2 md:text-sm text-xs text-[#8b92d1] sm:flex-row">
       <div>
         <span className="flex flex-row items-center gap-x-1">
           <TiTick className="bg-blue-300 rounded-full size-3 text-slate-700" />

@@ -82,33 +82,36 @@ const SignUpForm = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: "-70%", scale: 0.3 }}
-      whileInView={{ opacity: 1, x: "0%", scale: 1 }}
+      initial={{ opacity: 0, scale: 0.3 }}
+      whileInView={{ opacity: 1, scale: 1 }}
       transition={{
         duration: 1,
         type: "spring",
         stiffness: 40,
         // damping: 20,
       }}
-      className="relative flex flex-col p-8 mt-10 mb-20 bg-opacity-50 rounded-lg shadow-md bg-slate-900 backdrop-blur-sm shadow-slate-950"
+      className="relative flex flex-col p-3 mt-10 mb-20 bg-opacity-50 rounded-lg shadow-md md:p-8 bg-slate-900 backdrop-blur-sm shadow-slate-950"
     >
       {/* <div className="absolute top-14 -z-10 -right-20 h-[30%] w-[50%] bg-gradient-to-br  from-pink-500 via-blue-500 to-[#cf58ec] rounded-tl-lg rounded-br-md blur-[60px] opacity-25 rounded-bl-xl"></div> */}
       <div>
-        <h1 className="text-4xl font-semibold text-center text-transparent md:text-start font-poppins bg-gradient-to-r from-[#6644ff] via-[#615fff] to-[#6644ff] drop-shadow-2xl bg-clip-text">
+        <h1 className="md:text-4xl text-xl font-semibold text-center text-transparent md:text-start font-poppins bg-gradient-to-r from-[#6644ff] via-[#615fff] to-[#6644ff] drop-shadow-2xl bg-clip-text">
           Discover Your Next Stay
         </h1>
-        <p className="mt-2 mb-4 text-lg font-medium tracking-wide text-transparent bg-gradient-to-br from-slate-400 to-blue-100 drop-shadow-2xl bg-clip-text text-start">
-          <span className="text-transparent md:text-start font-poppins bg-gradient-to-br from-[#ff1f88] via-[#ff3e98] to-[#ff0766] bg-clip-text">
+        <p className="mt-2 mb-4 text-sm font-medium tracking-wide text-transparent md:text-lg bg-gradient-to-br from-slate-400 to-blue-100 drop-shadow-2xl bg-clip-text text-start">
+          <span className=" text-transparent md:text-start font-poppins bg-gradient-to-br from-[#ff1f88] via-[#ff3e98] to-[#ff0766] bg-clip-text">
             Sign up
           </span>{" "}
           to unlock exclusive offers and unique stays tailored for you.
         </p>
       </div>
       <Tab tabData={tabData} field={accountType} setField={setAccountType} />
-      <form onSubmit={handleOnSubmit} className="flex flex-col mt-5 gap-y-3">
+      <form
+        onSubmit={handleOnSubmit}
+        className="flex flex-col mt-5 md:gap-y-3 gap-y-2"
+      >
         <div>
           <label className="space-y-1">
-            <p className="text-base tracking-wide text-slate-300 text-start">
+            <p className="text-sm tracking-wide md:text-base text-slate-300 text-start">
               Name <sup className="text-lg text-pink-500">*</sup>{" "}
             </p>
             <div className="rounded-md shadow-md focus-within:shadow-sm focus-within:shadow-[#595ce0] bg-[#464e7e] bg-opacity-35 shadow-slate-950">
@@ -126,7 +129,7 @@ const SignUpForm = () => {
         </div>
         <div>
           <label className="space-y-1">
-            <p className="text-base tracking-wide text-slate-300 text-start">
+            <p className="text-sm tracking-wide md:text-base text-slate-300 text-start">
               Email <sup className="text-lg text-pink-500">*</sup>{" "}
             </p>
             <div className="rounded-md shadow-md focus-within:shadow-sm focus-within:shadow-[#595ce0] bg-[#464e7e] bg-opacity-35 shadow-slate-950">
@@ -144,7 +147,7 @@ const SignUpForm = () => {
         </div>
         <div>
           <label className="space-y-1">
-            <p className="text-base tracking-wide text-slate-300 text-start">
+            <p className="text-sm tracking-wide md:text-base text-slate-300 text-start">
               Password <sup className="text-lg text-pink-500">*</sup>{" "}
             </p>
             <div className="rounded-md flex flex-row items-center relative shadow-md focus-within:shadow-sm focus-within:shadow-[#595ce0] bg-[#464e7e] bg-opacity-35 shadow-slate-950">
@@ -168,7 +171,7 @@ const SignUpForm = () => {
         </div>
         <div>
           <label className="space-y-1">
-            <p className="text-base tracking-wide text-slate-300 text-start">
+            <p className="text-sm tracking-wide md:text-base text-slate-300 text-start">
               Confirm Password <sup className="text-lg text-pink-500">*</sup>{" "}
             </p>
             <div className="rounded-md relative  flex flex-row items-center shadow-md focus-within:shadow-sm focus-within:shadow-[#595ce0] bg-[#464e7e] bg-opacity-35 shadow-slate-950">
