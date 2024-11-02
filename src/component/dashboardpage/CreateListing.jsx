@@ -34,13 +34,13 @@ const CreateListing = () => {
     const getAllCategories = async () => {
       setLoading(true);
       const result = await fetchListingCategories();
-      console.log("Result: ", result);
+      // console.log("Result: ", result);
 
       const categories = await result?.data?.data?.categories?.details;
       if (categories?.length > 0) {
         setListingCategories(categories);
       }
-      console.log(result);
+      // console.log(result);
 
       setLoading(false);
     };
@@ -50,7 +50,7 @@ const CreateListing = () => {
 
   const onSubmit = async (data) => {
     const listingValues = getValues();
-    console.log("Listing Values are: ", listingValues);
+    // console.log("Listing Values are: ", listingValues);
 
     const formData = new FormData();
 
@@ -65,17 +65,17 @@ const CreateListing = () => {
       formData.append(`images[${index}]`, file);
     });
 
-    console.log("Formdata coming as: ", formData);
+    // console.log("Formdata coming as: ", formData);
 
     setLoading(true);
     const result = await createListing(formData, token);
 
     if (result) {
-      console.log("Result in listing page: ", result);
+      // console.log("Result in listing page: ", result);
       reset();
       navigate("/dashboard/listings");
     } else {
-      console.log("Error in creating listing");
+      // console.log("Error in creating listing");
     }
     setLoading(false);
   };

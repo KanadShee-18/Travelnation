@@ -20,7 +20,7 @@ export const wishListData = async (token) => {
     const response = await apiConnect("POST", WISHLIST_DATA_API, null, {
       Authorization: `Bearer ${token}`,
     });
-    console.log("WISHLISTS DATA API RESPONSE: ", response);
+    // console.log("WISHLISTS DATA API RESPONSE: ", response);
 
     if (!response.data.success) {
       throw new Error("ERROR IN WISHLIST API: ", error);
@@ -29,7 +29,7 @@ export const wishListData = async (token) => {
     toast("Wishlisted Items have been fetched successfully for you.");
     return response.data;
   } catch (error) {
-    console.log("WISHLISTS DATA API ERROR: ", error);
+    // console.log("WISHLISTS DATA API ERROR: ", error);
     toast("Not able to fetch wishlist data.");
   }
 };
@@ -54,17 +54,17 @@ export const addToWishList = async (token, listingId) => {
     } else {
       toast("Listing Has Been Removed to Wishlisted");
     }
-    console.log(response);
+    // console.log(response);
 
     return response.data.wishListed;
   } catch (error) {
-    console.log("ADD TO WISHLIST API ERROR: ", error);
+    // console.log("ADD TO WISHLIST API ERROR: ", error);
     toast("Not able to add this listing to your Wishlist");
   }
 };
 
 export function sendOtp(email, navigate) {
-  console.log("Req coming to authapi ....");
+  // console.log("Req coming to authapi ....");
 
   return async (dispatch) => {
     dispatch(setLoading(true));
@@ -74,8 +74,8 @@ export function sendOtp(email, navigate) {
         email,
         checkUserPresent: true,
       });
-      console.log("Sendotp api response: ", response);
-      console.log(response.data.success);
+      // console.log("Sendotp api response: ", response);
+      // console.log(response.data.success);
 
       if (!response.data.success) {
         throw new Error(response.data.message);
@@ -84,7 +84,7 @@ export function sendOtp(email, navigate) {
       toast("OTP sent successfully to your gmail.");
       navigate("/verify-otp");
     } catch (error) {
-      console.log("SENDOTP API error: ", error);
+      // console.log("SENDOTP API error: ", error);
       toast("Could not send OTP.");
     }
     dispatch(setLoading(false));
@@ -135,7 +135,7 @@ export function logIn(email, password, navigate) {
         email,
         password,
       });
-      console.log("LOGIN API RESPONSE: ", response);
+      // console.log("LOGIN API RESPONSE: ", response);
 
       if (!response.data.success) {
         throw new Error(response.data.message);
@@ -180,7 +180,7 @@ export function getResetPasswordToken(email, setEmailSent) {
       const response = await apiConnect("POST", RESET_PASSWORD_TOKEN_API, {
         email,
       });
-      console.log("RESET PASSWORD TOKEN API RESPONSE: ", response);
+      // console.log("RESET PASSWORD TOKEN API RESPONSE: ", response);
 
       if (!response.data.success) {
         throw new Error(response.data.message);
@@ -190,7 +190,7 @@ export function getResetPasswordToken(email, setEmailSent) {
 
       setEmailSent(true);
     } catch (error) {
-      console.log("RESET PASSWORD TOKEN API ERROR: ", error);
+      // console.log("RESET PASSWORD TOKEN API ERROR: ", error);
       toast("Failed to sent mail. Try again!");
     }
     dispatch(setLoading(false));
@@ -212,7 +212,7 @@ export function resetPassword(
         token,
       });
 
-      console.log("RESET PASSWORD RESPONSE: ", response);
+      // console.log("RESET PASSWORD RESPONSE: ", response);
 
       if (!response.data.success) {
         throw new Error(response.data.message);
@@ -221,7 +221,7 @@ export function resetPassword(
       toast("Password has been reset successfully!");
       navigate("/login");
     } catch (error) {
-      console.log("RESET PASSWORD ERROR: ", error);
+      // console.log("RESET PASSWORD ERROR: ", error);
       toast.error("Unable to reset your password.");
     }
     dispatch(setLoading(false));

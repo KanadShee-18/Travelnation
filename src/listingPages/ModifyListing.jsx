@@ -33,13 +33,13 @@ const ModifyListing = () => {
     const getAllCategories = async () => {
       setLoading(true);
       const result = await fetchListingCategories();
-      console.log("Result: ", result);
+      // console.log("Result: ", result);
 
       const categories = await result?.data?.data?.categories?.details;
       if (categories?.length > 0) {
         setListingCategories(categories);
       }
-      console.log(result);
+      // console.log(result);
 
       setLoading(false);
     };
@@ -108,17 +108,17 @@ const ModifyListing = () => {
     }
 
     // console.log("Formdata coming as: ", formData);
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value instanceof File ? value.name : value}`);
-    }
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(`${key}: ${value instanceof File ? value.name : value}`);
+    // }
     setLoading(true);
     const result = await editExistingListing(formData, token);
     if (result) {
-      console.log("Result in listing page: ", result);
+      // console.log("Result in listing page: ", result);
       reset();
       navigate("/dashboard/listings");
     } else {
-      console.log("Error in Editing listing");
+      // console.log("Error in Editing listing");
     }
     dispatch(setModifyListing(false));
     dispatch(setListingData(null));

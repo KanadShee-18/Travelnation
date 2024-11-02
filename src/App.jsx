@@ -109,6 +109,7 @@ function App() {
               {user?.accountType === ACCOUNT_TYPE.OWNER && (
                 <>
                   <Route path="listings" element={<OwnerListings />} />
+                  <Route path="wishlists" element={<WishLists />} />
                   <Route path="add-listing" element={<CreateListing />} />
                   <Route
                     path="modify-listing/:id"

@@ -22,13 +22,13 @@ const ReviewModal = ({ listingId }) => {
   }, []);
 
   const ratingChanged = (newRating) => {
-    console.log("New rating comes as: ", newRating);
+    // console.log("New rating comes as: ", newRating);
 
     setValue("rating", newRating);
   };
 
   const onSubmit = async (data) => {
-    console.log("Data from form comes as: ", data);
+    // console.log("Data from form comes as: ", data);
 
     const newCreatedRating = await createRating(
       {
@@ -38,7 +38,7 @@ const ReviewModal = ({ listingId }) => {
       },
       token
     );
-    console.log(newCreatedRating);
+    // console.log(newCreatedRating);
 
     toast(newCreatedRating);
 

@@ -72,7 +72,7 @@ const OwnerSidebarLinks = () => {
             Wishlists
           </NavLink>
         </li>
-        <li>
+        {/* <li>
           <NavLink
             to="/dashboard/user-feedbacks"
             className={({ isActive }) =>
@@ -101,7 +101,7 @@ const OwnerSidebarLinks = () => {
             <VscFeedback className="text-xl" />
             Feedbacks
           </NavLink>
-        </li>
+        </li> */}
         {/* Add more links as needed */}
       </ul>
     </div>

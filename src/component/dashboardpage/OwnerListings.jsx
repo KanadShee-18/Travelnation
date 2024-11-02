@@ -16,7 +16,7 @@ const OwnerListings = () => {
 
   const truncatedWords = 15;
 
-  console.log("Listings comes as: ", listings);
+  // console.log("Listings comes as: ", listings);
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -38,7 +38,7 @@ const OwnerListings = () => {
 
   return (
     <div className="relative flex flex-col w-10/12 min-h-screen gap-4 mx-auto my-6">
-      <h1 className="text-4xl font-semibold text-start text-transparent md:text-start font-poppins bg-gradient-to-r from-[#9077ff] via-[#a8a6ff] to-[#a89be6] drop-shadow-2xl bg-clip-text">
+      <h1 className="md:text-4xl text-2xl font-semibold text-start text-transparent md:text-start font-poppins bg-gradient-to-r from-[#9077ff] via-[#a8a6ff] to-[#a89be6] drop-shadow-2xl bg-clip-text">
         Your Listings
       </h1>
       <br />
@@ -47,7 +47,7 @@ const OwnerListings = () => {
           const images = listing?.image || [];
           const firstImage = images[0]?.url;
           const listingId = listing?._id;
-          console.log("Listing id is: ", listingId);
+          // console.log("Listing id is: ", listingId);
 
           const remainingImagesCount =
             images.length > 1 ? images.length - 1 : 0;

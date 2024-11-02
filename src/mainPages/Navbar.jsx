@@ -39,7 +39,7 @@ const Navbar = () => {
       } z-[100] backdrop-blur-sm`}
     >
       <div className="flex items-center justify-between w-11/12 h-full mx-auto">
-        <div className="flex gap-x-10">
+        <div className="flex md:gap-x-10 gap-x-5">
           <div className={`${home ? "w-20" : "w-14"} h-full`}>
             <img src={logo} className={`aspect-square`} alt="WanderLust" />
           </div>
@@ -68,9 +68,9 @@ const Navbar = () => {
             >
               About
             </Link>
-            <p className="px-4 py-2 hover:text-[#ff4784] drop-shadow-xl rounded-2xl hover:cursor-pointer">
+            {/* <p className="px-4 py-2 hover:text-[#ff4784] drop-shadow-xl rounded-2xl hover:cursor-pointer">
               Contact Us
-            </p>
+            </p> */}
           </div>
         </div>
         <div
@@ -78,7 +78,7 @@ const Navbar = () => {
             home ? "text-[#aec7f5]" : "text-[#78a3f1]"
           }  drop-shadow-2xl font-medium`}
         >
-          <div
+          {/* <div
             onClick={() => toggleTheme()}
             className="relative flex items-center p-1 rounded-full w-14 h-7 dark:bg-slate-800 bg-blue-200 text-[#878fff]"
           >
@@ -96,7 +96,7 @@ const Navbar = () => {
                 {theme === "light" ? <FiSun /> : <FaMoon />}
               </button>
             </div>
-          </div>
+          </div> */}
 
           {!user ? (
             <>

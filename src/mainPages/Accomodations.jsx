@@ -15,6 +15,7 @@ import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { addToWishList } from "../services/servercalls/authApis";
 import { toast } from "react-toastify";
 import { setUserWishLists } from "../slices/userSlice";
+import Footer from "../component/common/Footer";
 
 const Accommodations = () => {
   const dispatch = useDispatch();
@@ -45,24 +46,35 @@ const Accommodations = () => {
     };
   }, []);
 
-  // Fetch listings based on the current page
-  const fetchListings = useCallback(async () => {
+  useEffect(() => {
+    const loadInitialData = async () => {
+      setLoading(true);
+      const data = await fetchAllListings(1, limit);
+      if (data?.listingsData?.data) {
+        setListings(data.listingsData.data);
+        setHasMore(page < data.listingsData.totalPages);
+      }
+      setLoading(false);
+    };
+    loadInitialData();
+  }, []);
+
+  // Fetch additional data for infinite scroll
+  const fetchMoreData = useCallback(async () => {
+    const nextPage = page + 1;
     setLoading(true);
-    const data = await fetchAllListings(page, limit);
+
+    const data = await fetchAllListings(nextPage, limit);
     if (data?.listingsData?.data) {
       setListings((prevListings) => [
         ...prevListings,
         ...data.listingsData.data,
       ]);
-      setHasMore(page < data.listingsData.totalPages);
+      setPage(nextPage);
+      setHasMore(nextPage < data.listingsData.totalPages);
     }
     setLoading(false);
-  }, [page]);
-
-  // Load initial listings when the component mounts or when the page changes
-  useEffect(() => {
-    fetchListings();
-  }, [fetchListings]); // Dependency array includes fetchListings only
+  }, [page, limit]);
 
   const loadMoreListings = () => {
     if (hasMore) {
@@ -77,7 +89,7 @@ const Accommodations = () => {
     });
   };
 
-  console.log("Listings are: ", listings);
+  // console.log("Listings are: ", listings);
 
   const handleLoveClick = async (ownerId, listingId) => {
     if (!user) {
@@ -89,16 +101,16 @@ const Accommodations = () => {
       return;
     }
     const response = await addToWishList(token, listingId);
-    console.log("RESPONSE OF ADDWISHLIST: ", response);
+    // console.log("RESPONSE OF ADDWISHLIST: ", response);
 
-    if (response) {
-      setFillLove(true);
-      const newWishlists = [...userWishlists, listingId];
-      dispatch(setUserWishLists(newWishlists));
-    } else {
-      const filteredLists = userWishlists.filter((id) => id !== listingId);
-      dispatch(setUserWishLists(filteredLists));
-    }
+    // if (response) {
+    //   setFillLove(true);
+    //   const newWishlists = [...userWishlists, listingId];
+    //   dispatch(setUserWishLists(newWishlists));
+    // } else {
+    //   const filteredLists = userWishlists.filter((id) => id !== listingId);
+    //   dispatch(setUserWishLists(filteredLists));
+    // }
     toast("See your wishlist in your wishlist section");
   };
 
@@ -126,14 +138,14 @@ const Accommodations = () => {
         <div className="relative min-w-full h-fit bg-[#1e2141] bg-opacity-45 pb-6">
           <div className="w-11/12 pt-10 mx-auto md:w-10/12">
             <div className="flex flex-col items-start gap-2">
-              <div className="flex gap-3">
-                <FaStaylinked className="text-3xl text-pink-600" />
-                <h1 className="text-start text-3xl font-semibold text-transparent font-poppins bg-gradient-to-r from-pink-600 via-[#ff4372] to-[#ff4d79] drop-shadow-2xl bg-clip-text">
+              <div className="flex gap-3 text-xl md:text-3xl">
+                <FaStaylinked className="text-pink-600 " />
+                <h1 className="text-start  font-semibold text-transparent font-poppins bg-gradient-to-r from-pink-600 via-[#ff4372] to-[#ff4d79] drop-shadow-2xl bg-clip-text">
                   Find Your Perfect Stay
                 </h1>
               </div>
               <div className="w-full">
-                <p className="text-start text-lg ml-12 font-semibold text-transparent font-poppins bg-gradient-to-r from-[#afc1ff] via-[#b4caf1] to-[#a6aacc] drop-shadow-2xl bg-clip-text">
+                <p className="text-start md:text-lg text-sm md:ml-12 ml-8 font-semibold text-transparent font-poppins bg-gradient-to-r from-[#afc1ff] via-[#b4caf1] to-[#a6aacc] drop-shadow-2xl bg-clip-text">
                   Explore According to Categories
                 </p>
               </div>
@@ -145,7 +157,7 @@ const Accommodations = () => {
         <div className="relative h-full min-w-full py-6 mb-36">
           <InfiniteScroll
             dataLength={listings.length}
-            next={loadMoreListings}
+            next={fetchMoreData}
             hasMore={hasMore}
             loader={<Spinner className="z-[100]" />}
             endMessage={
@@ -169,7 +181,6 @@ const Accommodations = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                   key={index}
-                  onClick={() => navigate(`/listing-insider/${listing._id}`)}
                   className="flex relative flex-col max-w-[300px] h-[420px] bg-[#304df0] bg-opacity-25 backdrop-blur-md rounded-md shadow-md shadow-slate-950 transition-all cursor-pointer duration-300 hover:shadow-slate-700"
                 >
                   <div className="relative">
@@ -190,21 +201,6 @@ const Accommodations = () => {
                     )}
                   </div>
                   <div className="flex relative flex-col px-4 py-2 bg-[#464e7e] shadow-md shadow-slate-900 rounded-b-md h-full m-2 rounded-tl-2xl bg-opacity-35">
-                    <div
-                      onClick={() =>
-                        handleLoveClick(listing.owner, listing._id)
-                      }
-                      className="absolute right-2 top-2 z-[100]"
-                    >
-                      <button className="text-2xl text-pink-500 transition-all duration-200 hover:cursor-pointer hover:scale-95">
-                        {userWishlists &&
-                        userWishlists.includes(listing?._id) ? (
-                          <BsHeartFill />
-                        ) : (
-                          <BsHeart />
-                        )}
-                      </button>
-                    </div>
                     <h2 className="text-lg mb-2 font-semibold text-transparent font-poppins bg-gradient-to-r from-[#c4b7ff] via-[#8381ff] to-[#8971f7] drop-shadow-2xl bg-clip-text">
                       {listing?.title}
                     </h2>
@@ -217,15 +213,32 @@ const Accommodations = () => {
                         : `${listing?.description}`}
                     </h3>
                     <div className="flex flex-row items-center justify-between">
-                      <div className="flex flex-col my-1 overflow-hidden font-medium text-[#9796e6] gap-x-1">
+                      <div className="flex flex-col my-1 overflow-hidden font-medium text-[#b8b6ff] gap-x-1">
                         <span>
                           ${listing?.price}{" "}
                           <span className="text-xs">/night</span>
                         </span>
                       </div>
-                      <div className="flex items-center gap-1 text-sm font-semibold text-blue-200">
+                    </div>
+                    <div className="flex flex-row items-center justify-between w-full my-3">
+                      <div
+                        onClick={() =>
+                          handleLoveClick(listing.owner, listing._id)
+                        }
+                        className="relative z-[100]"
+                      >
+                        <button className="text-sm bg-[#383868] px-2 py-2  tracking-wide rounded-md shadow-sm shadow-slate-800 font-medium text-pink-400 font-poppins transition-all duration-200 hover:cursor-pointer hover:scale-95">
+                          Wishlist+
+                        </button>
+                      </div>
+                      <div
+                        onClick={() =>
+                          navigate(`/listing-insider/${listing._id}`)
+                        }
+                        className="flex items-center gap-1 p-2 text-sm font-semibold text-blue-200 rounded-md shadow-md bg-slate-600 shadow-slate-900 hover:bg-slate-700 active:bg-slate-800"
+                      >
                         <IoBagCheckOutline className="text-blue-400" />
-                        <span>Book Now</span>
+                        <span>Check Out</span>
                       </div>
                     </div>
                   </div>
@@ -234,6 +247,7 @@ const Accommodations = () => {
             })}
           </InfiniteScroll>
         </div>
+        <Footer />
       </div>
       {showScrollToTop && (
         <button

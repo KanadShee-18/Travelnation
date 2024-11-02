@@ -22,7 +22,7 @@ const HomeVideoSlider = () => {
         viewport={{
           once: true,
         }}
-        className="flex justify-center p-1 text-[#aec7f5] font-medium tracking-wide mx-auto text-sm rounded-full bg-[#798db9] bg-opacity-40 font-poppins w-fit "
+        className="flex justify-center items-center p-1 text-[#aec7f5] font-medium tracking-wide mx-auto text-sm rounded-full bg-[#798db9] bg-opacity-40 font-poppins w-fit "
       >
         <button
           onClick={() => navigate("/signup")}
@@ -52,7 +52,7 @@ const HomeVideoSlider = () => {
           viewport={{
             once: true,
           }}
-          className=" mx-auto lg:text-6xl md:text-5xl font-bold text-[#ceebff] font-inter drop-shadow-2xl"
+          className=" mx-auto text-xl lg:text-6xl md:text-5xl font-bold text-[#ceebff] font-inter drop-shadow-2xl"
         >
           Welcome to Your Next Adventure
         </motion.h1>
@@ -68,7 +68,7 @@ const HomeVideoSlider = () => {
           viewport={{
             once: true,
           }}
-          className="mx-auto text-xl font-medium text-[#aec7f5] md:w-3/4 lg:w-3/5 font-imprima mt-11 drop-shadow-xl"
+          className="mx-auto md:text-xl text-base text-center font-medium text-[#aec7f5] md:w-3/4 lg:w-3/5 font-imprima mt-11 drop-shadow-xl"
         >
           "Discover unique stays and unforgettable experiences, handpicked for
           your perfect getaway. Whether you're looking for a cozy cabin in the
@@ -90,7 +90,7 @@ const HomeVideoSlider = () => {
         viewport={{
           once: true,
         }}
-        className="mb-8 text-3xl pt-24 font-semibold text-center font-edu text-[#94bbba]"
+        className="mb-8 md:text-3xl text-xl pt-24 font-semibold text-center font-edu text-[#94bbba]"
       >
         "From Beachfront Bliss to Mountain Hideaways, Find Your Escape"
       </motion.h1>

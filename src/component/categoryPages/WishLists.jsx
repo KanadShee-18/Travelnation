@@ -9,23 +9,37 @@ import { setUserWishLists } from "../../slices/userSlice";
 import { motion } from "framer-motion";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { IoBagCheckOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 const WishLists = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { token } = useSelector((state) => state.auth);
   const [listings, setListings] = useState([]);
   const { theme } = useSelector((state) => state.theme);
   const { user } = useSelector((state) => state.user);
   const { userWishlists } = useSelector((state) => state.user);
 
-  useEffect(() => {
-    const fetchWishlists = async (token) => {
+  const fetchWishlists = async () => {
+    try {
       const response = await wishListData(token);
-      console.log(response);
       setListings(response?.data?.wishLists);
-    };
-    fetchWishlists(token);
+    } catch (error) {
+      console.error("Error fetching wishlists:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchWishlists();
   }, []);
+
+  const handleLoveClick = async (ownerId, listingId) => {
+    const response = await addToWishList(token, listingId);
+    // console.log("RESPONSE OF ADDWISHLIST: ", response);
+
+    toast("Listing Has Been Removed Form Your Wishlist");
+    fetchWishlists();
+  };
 
   //   const handleLoveClick = async (ownerId, listingId) => {
   //     if (!user) {
@@ -54,6 +68,10 @@ const WishLists = () => {
   return (
     <div>
       <div className="w-full p-4 mx-auto mt-16">
+        <h2 className="relative w-10/12 mx-auto mb-4 text-4xl font-semibold text-blue-400 xl:w-3/4">
+          Your Wishlists
+        </h2>
+        {/* <h2>Your Wishlists</h2> */}
         {listings.length > 0 ? (
           <div className="relative grid w-10/12 h-full grid-cols-1 gap-4 py-2 mx-auto scroll-smooth place-items-center lg:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4 xl:w-3/4 scrollbar-hide">
             {listings.map((listing, index) => {
@@ -123,9 +141,30 @@ const WishLists = () => {
                           <span className="text-xs">/night</span>
                         </span>
                       </div>
-                      <div className="flex items-center gap-1 text-sm font-semibold text-blue-200">
+                      {/* <div className="flex items-center gap-1 text-sm font-semibold text-blue-200">
                         <IoBagCheckOutline className="text-blue-400" />
                         <span>Book Now</span>
+                      </div> */}
+                    </div>
+                    <div className="flex flex-row items-center justify-between w-full my-3">
+                      <div
+                        onClick={() =>
+                          handleLoveClick(listing.owner, listing._id)
+                        }
+                        className="relative z-[100]"
+                      >
+                        <button className="text-sm bg-[#383868] px-2 py-2  tracking-wide rounded-md shadow-sm shadow-slate-800 font-medium text-pink-400 font-poppins transition-all duration-200 hover:cursor-pointer hover:scale-95">
+                          Wishlist -
+                        </button>
+                      </div>
+                      <div
+                        onClick={() =>
+                          navigate(`/listing-insider/${listing._id}`)
+                        }
+                        className="flex items-center gap-1 p-2 text-sm font-semibold text-blue-200 rounded-md shadow-md bg-slate-600 shadow-slate-900 hover:bg-slate-700 active:bg-slate-800"
+                      >
+                        <IoBagCheckOutline className="text-blue-400" />
+                        <span>Check Out</span>
                       </div>
                     </div>
                   </div>

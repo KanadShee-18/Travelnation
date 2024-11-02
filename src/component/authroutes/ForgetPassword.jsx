@@ -14,13 +14,13 @@ const LogIn = () => {
 
   const [emailSent, setEmailSent] = useState(false);
 
-  console.log("Email coming as: ", email);
+  // console.log("Email coming as: ", email);
 
   useEffect(() => {}, [location.pathname]);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    console.log("Call coming in fom submit event.");
+    // console.log("Call coming in fom submit event.");
 
     dispatch(getResetPasswordToken(email, setEmailSent));
   };

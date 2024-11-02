@@ -23,7 +23,7 @@ app.use(cookieParser());
 
 const allowedOrigins = [
   "http://localhost:5173",
-  // "https://learn-sphere-edui.vercel.app",
+  // frontend-link,
 ];
 
 app.use(

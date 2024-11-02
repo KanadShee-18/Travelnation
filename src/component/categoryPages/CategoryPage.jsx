@@ -17,14 +17,14 @@ const CategoryPage = () => {
   const { user } = useSelector((state) => state.user);
   const { userWishlists } = useSelector((state) => state.user);
   const { categoryName } = useParams();
-  console.log(categoryName);
+  // console.log(categoryName);
   const [listings, setListings] = useState([]);
   const [categoryDetails, setCategoryDetails] = useState(null);
 
   useEffect(() => {
     const categoryPageData = async (categoryName) => {
       let response = await fetchCategoryPage(categoryName);
-      console.log(response);
+      // console.log(response);
       setCategoryDetails(response?.data?.categoryPageDetails?.data[0]);
       setListings(response?.data?.categoryPageDetails?.data?.[0]?.listings);
     };
@@ -32,8 +32,8 @@ const CategoryPage = () => {
     categoryPageData(categoryName);
   }, []);
 
-  console.log("Category page data is: ", listings);
-  console.log("Category categoryDetails is: ", categoryDetails);
+  // console.log("Category page data is: ", listings);
+  // console.log("Category categoryDetails is: ", categoryDetails);
 
   const handleLoveClick = async (ownerId, listingId) => {
     if (!user) {
@@ -45,7 +45,7 @@ const CategoryPage = () => {
       return;
     }
     const response = await addToWishList(token, listingId);
-    console.log("RESPONSE OF ADDWISHLIST: ", response);
+    // console.log("RESPONSE OF ADDWISHLIST: ", response);
 
     if (response) {
       const newWishlists = [...userWishlists, listingId];

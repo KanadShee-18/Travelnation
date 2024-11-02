@@ -55,6 +55,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 
 const Explore = lazy(() => import("../component/homepage/Explore"));
 import BannerVideo from "../component/homepage/core/BannerVideo";
+import Footer from "../component/common/Footer";
 
 const Homepage = () => {
   const targetRef = useRef(null);
@@ -87,6 +88,7 @@ const Homepage = () => {
       >
         <Explore />
       </Suspense>
+      <Footer />
     </div>
   );
 };

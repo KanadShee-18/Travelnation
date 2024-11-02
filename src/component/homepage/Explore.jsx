@@ -40,13 +40,13 @@ const Explore = () => {
         viewport={{
           once: true,
         }}
-        className="text-5xl pt-12 text-[#bde4ff] font-semibold text-center drop-shadow-lg font-imprima"
+        className="md:text-5xl text-2xl pt-12 text-[#bde4ff] font-semibold text-center drop-shadow-lg font-imprima"
       >
         Explore Your Next Getaway
       </motion.h2>
 
       <div className="flex flex-col w-10/12 mx-auto">
-        <div className="flex flex-col-reverse justify-between w-full mx-auto mt-20 md:flex-row">
+        <div className="flex flex-col-reverse justify-between w-full mx-auto mt-20 gap-y-6 md:flex-row">
           <motion.div
             initial={{ x: -200, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
@@ -81,7 +81,7 @@ const Explore = () => {
             }}
             className="flex items-start justify-center w-full md:w-1/2"
           >
-            <p className="w-full mx-auto text-lg font-medium text-blue-200 backdrop-blur-sm md:w-4/5 text-start text-balance font-imprima drop-shadow-xl">
+            <p className="w-full mx-auto text-sm font-medium text-blue-200 md:text-lg backdrop-blur-sm md:w-4/5 text-start text-balance font-imprima drop-shadow-xl">
               "At WanderLust, we believe that every journey is an opportunity
               for discovery and connection. Whether you’re planning a relaxing
               retreat or an exhilarating adventure, our platform is designed to
@@ -95,7 +95,7 @@ const Explore = () => {
         </div>
 
         {/* Swiper Section */}
-        <div className="flex flex-col items-center justify-between w-10/12 pb-32 mx-auto mt-10 scroll-smooth md:flex-row">
+        <div className="flex flex-col items-center justify-between w-10/12 pb-32 mx-auto mt-10 scroll-smooth md:flex-row gap-y-6">
           <motion.div
             initial={{ x: -200, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
@@ -110,7 +110,7 @@ const Explore = () => {
             }}
             className="flex items-center w-full mx-auto md:w-1/2 "
           >
-            <p className="text-[#d8e9ff] w-full backdrop-blur-sm md:w-4/5 text-start text-lg font-imprima drop-shadow-2xl">
+            <p className="text-[#d8e9ff] w-full backdrop-blur-sm md:w-4/5 text-start md:text-lg text-sm font-imprima drop-shadow-2xl">
               Dive deep into local culture as you immerse yourself in the unique
               essence of each destination. Experience the charm of vibrant
               neighborhoods, savor authentic cuisines, and connect with the

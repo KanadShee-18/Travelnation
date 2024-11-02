@@ -67,7 +67,7 @@ const CategoryList = () => {
       transition={{
         delay: 6,
       }}
-      className="flex flex-row mx-auto mt-6 w-fit gap-x-3 lg:gap-x-6"
+      className="flex flex-wrap items-center justify-center mx-auto mt-6 md:flex-row w-fit gap-x-3 lg:gap-x-6 gap-y-3"
     >
       {categories.map((category, index) => (
         <motion.div

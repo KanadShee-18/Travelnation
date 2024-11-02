@@ -34,17 +34,12 @@ const ViewListing = () => {
   const [loading, setLoading] = useState(false);
   const [ratings, setRatings] = useState([]);
   const mapContainerRef = useRef(null);
-  console.log("Listing id in view listing: ", listingId);
-  console.log("Owner id from state: ", ownerId);
-
-  console.log("Listing in state is: ", listing);
-  console.log("Reviews in state is: ", ratings);
 
   useEffect(() => {
     const fetchFullListingDetails = async (listingId) => {
       setLoading(true);
       const response = await fetchListing(listingId);
-      console.log("Response of full listing: ", response);
+      // console.log("Response of full listing: ", response);
       setListing(response?.listing_details?.data);
       setRatings(response?.listing_details?.data?.reviews);
       dispatch(setListingData(response?.listing_details?.data));
@@ -55,7 +50,7 @@ const ViewListing = () => {
 
   useEffect(() => {
     if (listing && mapContainerRef.current) {
-      console.log("Coordinates : ", listing.geometry.coordinates);
+      // console.log("Coordinates : ", listing.geometry.coordinates);
 
       const map = new mapboxgl.Map({
         container: mapContainerRef.current,
@@ -89,7 +84,7 @@ const ViewListing = () => {
   };
 
   const handleDeleteClick = async () => {
-    console.log("Owner id is: ", listing.owner?._id);
+    // console.log("Owner id is: ", listing.owner?._id);
 
     if (listing) {
       setLoading(true);

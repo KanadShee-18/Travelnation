@@ -11,7 +11,7 @@ export const createRating = async (data, token) => {
       Authorization: `Bearer ${token}`,
     });
 
-    console.log("Response is: ", response);
+    // console.log("Response is: ", response);
 
     if (!response.data.success) {
       throw new Error("Could not create review.");
@@ -19,7 +19,7 @@ export const createRating = async (data, token) => {
 
     return "Review has been created";
   } catch (error) {
-    console.log("Create rating error: ", error);
+    // console.log("Create rating error: ", error);
     return error.response.data.message;
   }
 };
