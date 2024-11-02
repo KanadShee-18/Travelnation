@@ -29,7 +29,7 @@ exports.getAllReviews = async (req, res) => {
 exports.createReview = async (req, res) => {
   try {
     // const userId = req.user.id;
-    const { userId } = req.body;
+    const userId = req.user.id;
 
     const checkUser = await User.findById(userId);
     if (!checkUser) {
@@ -60,8 +60,7 @@ exports.createReview = async (req, res) => {
     if (alreadyReviewed) {
       return res.status(400).json({
         success: false,
-        message:
-          "You have already reviewed for this listing. You can modify it.",
+        message: "You have already reviewed for this listing",
       });
     }
 

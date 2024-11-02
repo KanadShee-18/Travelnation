@@ -192,3 +192,7 @@
     rgba(31, 44, 70, 0.623) 72%
   );
 }
+
+.listingCard {
+  box-shadow: 10px 10px 1px rgb(74, 80, 134) !important;
+}

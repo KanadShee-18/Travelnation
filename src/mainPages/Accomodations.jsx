@@ -18,6 +18,7 @@ import { setUserWishLists } from "../slices/userSlice";
 
 const Accommodations = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { theme } = useSelector((state) => state.theme);
   const { token } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.user);
@@ -27,8 +28,6 @@ const Accommodations = () => {
   const [hasMore, setHasMore] = useState(true);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
   const { userWishlists } = useSelector((state) => state.user);
-  const [fillLove, setFillLove] = useState(false);
-  const navigate = useNavigate();
   const limit = 8;
 
   useEffect(() => {
@@ -120,7 +119,7 @@ const Accommodations = () => {
           alt=""
           className="object-cover w-full h-full"
         />
-        <div className="absolute inset-0 opacity-50 bg-gradient-to-t from-black via-slate-950 to-slate-900"></div>
+        <div className="absolute inset-0 opacity-25 bg-gradient-to-t from-black via-slate-950 to-slate-900"></div>
       </div>
 
       <div className="relative flex flex-col min-w-full bg-[#1f2131] bg-opacity-85 min-h-screen scroll-smooth">
@@ -143,18 +142,18 @@ const Accommodations = () => {
           </div>
         </div>
 
-        <div className="relative h-full min-w-full py-6">
+        <div className="relative h-full min-w-full py-6 mb-36">
           <InfiniteScroll
             dataLength={listings.length}
             next={loadMoreListings}
             hasMore={hasMore}
-            loader={<Spinner />}
+            loader={<Spinner className="z-[100]" />}
             endMessage={
               <div className="w-full mx-auto text-center">
                 No more listings to show
               </div>
             }
-            className="relative grid w-10/12 h-full grid-cols-1 gap-4 py-2 mx-auto scroll-smooth place-items-center lg:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4 xl:w-3/4 scrollbar-hide"
+            className="relative grid w-10/12 h-full grid-cols-1 gap-4 py-2 mx-auto mb-40 scroll-smooth place-items-center lg:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4 xl:w-3/4 scrollbar-hide"
           >
             {listings.map((listing, index) => {
               const images = listing?.image || [];
@@ -170,7 +169,8 @@ const Accommodations = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                   key={index}
-                  className="flex relative flex-col max-w-[300px] h-[420px] bg-[#324de7] bg-opacity-35 backdrop-blur-md rounded-md shadow-md shadow-slate-950 transition-all cursor-pointer duration-300 hover:shadow-slate-700"
+                  onClick={() => navigate(`/listing-insider/${listing._id}`)}
+                  className="flex relative flex-col max-w-[300px] h-[420px] bg-[#304df0] bg-opacity-25 backdrop-blur-md rounded-md shadow-md shadow-slate-950 transition-all cursor-pointer duration-300 hover:shadow-slate-700"
                 >
                   <div className="relative">
                     {firstImage && (
@@ -238,7 +238,7 @@ const Accommodations = () => {
       {showScrollToTop && (
         <button
           onClick={scrollToTop}
-          className="fixed p-3 text-3xl text-blue-700 transition-all duration-300 bg-white rounded-full shadow-lg bottom-10 right-10 hover:shadow-xl"
+          className="fixed p-2 text-2xl text-blue-500 transition-all duration-300 rounded-full shadow-lg bg-slate-500 bg-opacity-55 bottom-10 right-10 hover:shadow-xl"
         >
           <FaArrowUp />
         </button>

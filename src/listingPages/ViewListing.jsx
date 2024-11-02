@@ -16,6 +16,8 @@ import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { setModifyListing, setListingData } from "../slices/listingSlice";
 import { toast } from "react-toastify";
+import ReviewModal from "../component/common/ReviewModal";
+import ReviewSlider from "../component/common/ReviewSlider";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAP_TOKEN;
 
@@ -24,16 +26,19 @@ const ViewListing = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { token } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.user);
   const { _id } = useSelector((state) => state.user.user);
   const ownerId = _id;
   const [listing, setListing] = useState(null);
   const listingId = location.pathname.split("/").pop();
   const [loading, setLoading] = useState(false);
+  const [ratings, setRatings] = useState([]);
   const mapContainerRef = useRef(null);
   console.log("Listing id in view listing: ", listingId);
   console.log("Owner id from state: ", ownerId);
 
   console.log("Listing in state is: ", listing);
+  console.log("Reviews in state is: ", ratings);
 
   useEffect(() => {
     const fetchFullListingDetails = async (listingId) => {
@@ -41,6 +46,7 @@ const ViewListing = () => {
       const response = await fetchListing(listingId);
       console.log("Response of full listing: ", response);
       setListing(response?.listing_details?.data);
+      setRatings(response?.listing_details?.data?.reviews);
       dispatch(setListingData(response?.listing_details?.data));
       setLoading(false);
     };
@@ -106,13 +112,18 @@ const ViewListing = () => {
         <div className="absolute inset-0 opacity-75 bg-gradient-to-t from-black via-slate-950 to-slate-900"></div>
       </div>
 
+      <div className="fixed inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] z-10 h-[70vh]"></div>
+      <div className="fixed top-0 w-full h-full opacity-80">
+        <div className="absolute top-0 h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+      </div>
+
       {loading && (
         <div className="grid w-full h-[20vh] absolute z-50 place-items-center">
           <Spinner />
         </div>
       )}
 
-      <div className="flex flex-col items-start justify-center gap-4 mx-10 lg:mx-auto xl:w-10/12 lg:w-11/12 lg:flex-row">
+      <div className="relative z-40 flex flex-col items-start justify-center gap-4 mx-10 lg:mx-auto xl:w-10/12 lg:w-11/12 lg:flex-row">
         <motion.div
           initial={{ opacity: 0, x: "50%", y: "20%", scale: 0.3 }}
           whileInView={{ opacity: 1, x: "0%", y: "0%", scale: 1 }}
@@ -121,7 +132,7 @@ const ViewListing = () => {
             type: "spring",
             stiffness: 40,
           }}
-          className="relative lg:w-1/2 w-full mx-auto  mt-24 flex flex-col gap-y-3 items-start justify-center p-5 bg-[#3b405c] bg-opacity-85 shadow-sm shadow-slate-950 backdrop-blur-sm text-[#937aff]"
+          className="relative lg:w-1/2 w-full mx-auto  mt-24 flex flex-col gap-y-3 items-start justify-center p-5 bg-gradient-to-br from-[#232842] via-[#363c61] to-[#2c3252] shadow-sm shadow-slate-950 backdrop-blur-sm text-[#937aff] listingCard"
         >
           <h2 className="text-4xl font-semibold text-start text-transparent md:text-start font-poppins bg-gradient-to-r from-pink-600 via-[#ff4372] to-[#ff4d79] drop-shadow-2xl bg-clip-text">
             Insides of {listing?.title}
@@ -184,15 +195,27 @@ const ViewListing = () => {
           </div>
         </motion.div>
 
-        <motion.div className="relative w-full lg:w-2/5 lg:h-[50vh] h-[500px] mx-auto  mt-24 flex flex-col gap-y-3 items-start justify-center p-5 bg-[#3b405c] bg-opacity-85 shadow-sm shadow-slate-950 backdrop-blur-sm text-[#937aff]">
-          <h2 className="text-3xl font-semibold text-start text-transparent md:text-start font-poppins bg-gradient-to-r from-[#9077ff] via-[#a8a6ff] to-[#a89be6] drop-shadow-2xl bg-clip-text">
-            Have a Look in its Exact Location
-          </h2>
-          <div
-            ref={mapContainerRef}
-            className="w-full h-full rounded-md shadow-md shadow-slate-950"
-          ></div>
-        </motion.div>
+        <div className="flex flex-col w-full lg:w-1/2">
+          <motion.div className="relative w-full md:w-4/5  lg:h-[50vh] h-[500px] mx-auto  mt-24 flex flex-col gap-y-3 items-start justify-center p-5 bg-[#3b405c] bg-opacity-85 shadow-sm shadow-slate-950 backdrop-blur-sm text-[#937aff] listingCard">
+            <h2 className="text-3xl font-semibold text-start text-transparent md:text-start font-poppins bg-gradient-to-r from-[#9077ff] via-[#a8a6ff] to-[#a89be6] drop-shadow-2xl bg-clip-text">
+              Have a Look in its Exact Location
+            </h2>
+            <div
+              ref={mapContainerRef}
+              className="w-full h-full rounded-md shadow-md shadow-slate-950"
+            ></div>
+          </motion.div>
+          <div className="relative flex flex-col md:w-4/5 w-full  bg-[#3b405c] p-4 bg-opacity-65 rounded-md mx-auto mt-10 gap-y-3 shadow-md shadow-slate-950 listingCard">
+            <ReviewModal listingId={listingId} />
+          </div>
+        </div>
+      </div>
+      <div className="relative z-40 flex flex-col items-start justify-start gap-4 mx-10 my-10 text-blue-500 lg:mx-auto xl:w-10/12 lg:w-11/12">
+        <h2 className="text-lg font-semibold text-start text-transparent md:text-start font-poppins bg-gradient-to-r from-[#9077ff] via-[#a8a6ff] to-[#a89be6] drop-shadow-2xl bg-clip-text">
+          Reviews about this listing:{" "}
+        </h2>
+        <br />
+        <ReviewSlider Id={"ReviewSlider"} Reviews={ratings} />
       </div>
     </div>
   );

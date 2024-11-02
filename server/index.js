@@ -21,10 +21,25 @@ const port = process.env.PORT || 4000;
 app.use(express.json());
 app.use(cookieParser());
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  // "https://learn-sphere-edui.vercel.app",
+];
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
-    credentials: true,
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg = "CORS policy does not allow access from this origin.";
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS", // Include OPTIONS
+    allowedHeaders: "Content-Type,Authorization,Accept", // Ensure you include all necessary headers
+    optionsSuccessStatus: 204, // For legacy browsers
+    credentials: true, // Allow cookies or auth headers
   })
 );
 
