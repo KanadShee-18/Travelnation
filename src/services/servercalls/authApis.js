@@ -135,7 +135,7 @@ export function logIn(email, password, navigate) {
         email,
         password,
       });
-      // console.log("LOGIN API RESPONSE: ", response);
+      console.log("LOGIN API RESPONSE: ", response);
 
       if (!response.data.success) {
         throw new Error(response.data.message);

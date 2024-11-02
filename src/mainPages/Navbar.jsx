@@ -208,14 +208,21 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
-  const [home, setHome] = useState(location.pathname === "/");
+  const [home, setHome] = useState(true);
   const [openDash, setOpenDash] = useState(false);
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
+
+  // console.log("Opendash ", openDash);
+
   const { theme } = useSelector((state) => state.theme);
 
   useEffect(() => {
-    setHome(location.pathname === "/");
-  }, [location.pathname]);
+    if (location.pathname === "/") {
+      setHome(true);
+    } else {
+      setHome(false);
+    }
+  }, [location.pathname, user]);
 
   return (
     <div
