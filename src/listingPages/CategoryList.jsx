@@ -38,7 +38,7 @@ const categories = [
   },
   {
     icon: <SiAdventofcode className="text-2xl tracking-wider" />,
-    name: "Adventure",
+    name: "Adventure Stays",
   },
   { icon: <MdPool className="text-2xl tracking-wider" />, name: "Pool" },
 ];
