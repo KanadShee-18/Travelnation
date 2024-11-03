@@ -174,6 +174,8 @@ const Accommodations = () => {
               const remainingImagesCount =
                 images.length > 1 ? images.length - 1 : 0;
 
+              // let randomHeight = Math.floor(Math.random() * 150) + 400;
+
               return (
                 <motion.div
                   initial={{ y: 20 }}
@@ -181,7 +183,8 @@ const Accommodations = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                   key={index}
-                  className="flex relative flex-col max-w-[300px] h-[420px] bg-[#304df0] bg-opacity-25 backdrop-blur-md rounded-md shadow-md shadow-slate-950 transition-all cursor-pointer duration-300 hover:shadow-slate-700"
+                  // style={{ height: `${randomHeight}px` }}
+                  className={`flex relative flex-col max-w-[300px] h-[420px] bg-[#304df0] bg-opacity-25 backdrop-blur-md rounded-md shadow-md shadow-slate-950 transition-all cursor-pointer duration-300 hover:shadow-slate-700`}
                 >
                   <div className="relative">
                     {firstImage && (

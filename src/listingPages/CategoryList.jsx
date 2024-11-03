@@ -83,7 +83,7 @@ const CategoryList = () => {
           onClick={() => navigate(`/${category.name}/stays`)}
         >
           {category.icon}
-          <span>{category.name}</span>
+          <span>{category.name.split(" ")[0]}</span>
         </motion.div>
       ))}
     </motion.div>
