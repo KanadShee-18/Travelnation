@@ -32,43 +32,37 @@ const About = () => {
     scrollYProgress1,
     [0, 0.5, 0.8, 1],
     [0.2, 0.8, 1, 1],
-    (transition = {
-      duration: 1,
+    {
       type: "spring",
       stiffness: 40,
-    })
+    }
   );
-  const scale2 = useTransform(
-    scrollYProgress2,
-    [0, 0.5],
-    [0.2, 1],
-    (transition = {
-      duration: 1,
-      type: "spring",
-      stiffness: 40,
-    })
-  );
+  const scale2 = useTransform(scrollYProgress2, [0, 0.5], [0.2, 1], {
+    duration: 1,
+    type: "spring",
+    stiffness: 40,
+  });
   const scale3 = useTransform(
     scrollYProgress3,
     [0, 0.5, 0.8, 1],
     [0.2, 0.8, 1, 1],
-    (transition = {
+    {
       duration: 1,
       type: "spring",
       stiffness: 40,
-    })
+    }
   );
   const opacity1 = useTransform(scrollYProgress2, [0.7, 0.8, 1], [1, 0.8, 0.5]);
   const opacity2 = useTransform(scrollYProgress2, [0.5, 1], [1, 1]);
   const translateX = useTransform(
     scrollYProgress2,
-    [0, 0.4, 0.5],
-    ["-100%", "-50%", "0%"],
-    (transition = {
+    [0, 0.4, 0.6],
+    ["-70%", "-30%", "0%"],
+    {
       duration: 1,
       type: "spring",
       stiffness: 40,
-    })
+    }
   );
 
   const navigate = useNavigate();
@@ -122,7 +116,7 @@ const About = () => {
               className="relative flex flex-col items-center justify-center w-full min-h-screen"
             >
               <motion.div
-                style={{ scale }}
+                // style={{ scale }}
                 className="sticky flex flex-col items-center justify-center md:flex-row "
               >
                 <section className="relative w-full mb-16 md:w-1/2">

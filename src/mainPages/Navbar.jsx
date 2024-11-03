@@ -248,8 +248,8 @@ const Navbar = () => {
           {/* Nav links */}
           <div
             className={`${
-              isNavbarOpen ? "flex" : "hidden md:flex"
-            } md:flex-row flex-col font-imprima items-center gap-x-4 absolute md:relative left-16 md:left-0 top-12 md:top-0 bg-slate-800 backdrop-blur-md md:bg-transparent rounded-lg md:rounded-none bg-opacity-55 md:bg-opacity-100 ${
+              isNavbarOpen ? "flex bg-slate-900" : "hidden md:flex"
+            } md:flex-row flex-col font-imprima items-center gap-x-4 absolute md:relative left-16 md:left-0 top-12 md:top-0 md:bg-transparent rounded-lg md:rounded-none bg-opacity-55 md:bg-opacity-100 ${
               home ? "text-blue-200" : "text-blue-300 tracking-wide font-medium"
             }`}
           >
