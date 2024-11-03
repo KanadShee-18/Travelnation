@@ -199,7 +199,7 @@ const About = () => {
           {/* Call to Action Section */}
           <motion.div
             ref={targetRef3}
-            className="relative flex items-center min-h-screen"
+            className="relative flex z-[50] items-center min-h-screen"
           >
             <motion.section
               style={{ scale: scale3, opacity: opacity2 }}
@@ -216,7 +216,7 @@ const About = () => {
               </p>
               <button
                 onClick={() => navigate("/accomodations")}
-                className="px-6 py-3 font-semibold text-white transition duration-200 bg-indigo-600 rounded-md shadow-md cursor-pointer hover:bg-indigo-700"
+                className="relative px-6 py-3 font-semibold text-white transition duration-200 bg-indigo-600 rounded-md shadow-md cursor-pointer hover:bg-indigo-700"
               >
                 Explore Our Listings
               </button>
