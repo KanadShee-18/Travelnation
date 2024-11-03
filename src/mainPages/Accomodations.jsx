@@ -116,8 +116,8 @@ const Accommodations = () => {
 
   if (loading && listings.length === 0) {
     return (
-      <div className="grid w-full place-items-center">
-        <Spinner />
+      <div className="relative flex items-center justify-center w-screen min-h-screen mt-20">
+        <ShimmerCardNumber num={8} />
       </div>
     );
   }
