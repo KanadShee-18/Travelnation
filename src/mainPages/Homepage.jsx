@@ -19,11 +19,11 @@ const Homepage = () => {
 
   return (
     <div>
-      <motion.div className="relative h-screen overflow-hidden" ref={targetRef}>
+      <motion.div className="relative h-screen" ref={targetRef}>
         <BannerVideo />
 
         {/* Section 1 */}
-        <motion.div style={{ opacity }} className="sticky inset-0 z-50">
+        <motion.div style={{ opacity }} className="fixed inset-0 z-50">
           <HomeVideoSlider />
         </motion.div>
       </motion.div>

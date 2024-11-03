@@ -31,20 +31,44 @@ const About = () => {
   const scale = useTransform(
     scrollYProgress1,
     [0, 0.5, 0.8, 1],
-    [0.2, 0.8, 1, 1]
+    [0.2, 0.8, 1, 1],
+    (transition = {
+      duration: 1,
+      type: "spring",
+      stiffness: 40,
+    })
   );
-  const scale2 = useTransform(scrollYProgress2, [0, 0.5], [0.2, 1]);
+  const scale2 = useTransform(
+    scrollYProgress2,
+    [0, 0.5],
+    [0.2, 1],
+    (transition = {
+      duration: 1,
+      type: "spring",
+      stiffness: 40,
+    })
+  );
   const scale3 = useTransform(
     scrollYProgress3,
     [0, 0.5, 0.8, 1],
-    [0.2, 0.8, 1, 1]
+    [0.2, 0.8, 1, 1],
+    (transition = {
+      duration: 1,
+      type: "spring",
+      stiffness: 40,
+    })
   );
   const opacity1 = useTransform(scrollYProgress2, [0.7, 0.8, 1], [1, 0.8, 0.5]);
   const opacity2 = useTransform(scrollYProgress2, [0.5, 1], [1, 1]);
   const translateX = useTransform(
     scrollYProgress2,
     [0, 0.4, 0.5],
-    ["-100%", "-50%", "0%"]
+    ["-100%", "-50%", "0%"],
+    (transition = {
+      duration: 1,
+      type: "spring",
+      stiffness: 40,
+    })
   );
 
   const navigate = useNavigate();

@@ -257,7 +257,7 @@ const Navbar = () => {
               Home
             </Link>
             <Link
-              to="/accommodations"
+              to="/accomodations"
               className="px-4 py-2 hover:text-[#ff4784] rounded-2xl"
             >
               Explore

@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "../component/dashboardpage/Sidebar";
 import { useSelector } from "react-redux";
 import hotelImg from "../assets/explorePics/dashhotel.jpg";
+import Footer from "../component/common/Footer";
 
 const Dashboard = () => {
   const { user } = useSelector((state) => state.auth);
@@ -24,6 +25,7 @@ const Dashboard = () => {
           <Outlet />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
