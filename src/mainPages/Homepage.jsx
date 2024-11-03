@@ -23,7 +23,10 @@ const Homepage = () => {
         <BannerVideo />
 
         {/* Section 1 */}
-        <motion.div style={{ opacity }} className="fixed inset-0 z-50">
+        <motion.div
+          style={{ opacity }}
+          className="sticky inset-0 z-50 md:fixed"
+        >
           <HomeVideoSlider />
         </motion.div>
       </motion.div>
