@@ -18,6 +18,7 @@ import { setModifyListing, setListingData } from "../slices/listingSlice";
 import { toast } from "react-toastify";
 import ReviewModal from "../component/common/ReviewModal";
 import ReviewSlider from "../component/common/ReviewSlider";
+import Footer from "../component/common/Footer";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAP_TOKEN;
 
@@ -99,7 +100,7 @@ const ViewListing = () => {
   };
 
   return (
-    <div className="w-screen h-full mb-32">
+    <div className="w-screen h-full">
       <div className="fixed inset-0 max-w-full opacity-65">
         <img
           src={hotelImg}
@@ -213,6 +214,9 @@ const ViewListing = () => {
         </h2>
         <br />
         <ReviewSlider Id={"ReviewSlider"} Reviews={ratings} />
+      </div>
+      <div className="relative w-full bg-slate-900">
+        <Footer />
       </div>
     </div>
   );
