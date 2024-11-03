@@ -1,34 +1,21 @@
-import React, { lazy, Suspense, useRef } from "react";
+import React, { lazy, Suspense } from "react";
 import HomeVideoSlider from "../component/homepage/HomeVideoSlider";
 import Spinner from "../component/common/Spinner";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 
 const Explore = lazy(() => import("../component/homepage/Explore"));
 import BannerVideo from "../component/homepage/core/BannerVideo";
 import Footer from "../component/common/Footer";
 
 const Homepage = () => {
-  const targetRef = useRef(null);
-
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ["end end", "end start"],
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 0.7], [1, 0.1, 0]);
-
   return (
-    <div>
-      <motion.div className="relative h-screen" ref={targetRef}>
+    <div className="overflow-hidden">
+      <motion.div className="relative w-full h-screen">
         <BannerVideo />
-
-        {/* Section 1 */}
-        <motion.div
-          style={{ opacity }}
-          className="sticky inset-0 z-50 md:fixed"
-        >
+        {/* HomeVideoSlider now has a higher z-index to overlay BannerVideo */}
+        <div className="absolute inset-0 z-10">
           <HomeVideoSlider />
-        </motion.div>
+        </div>
       </motion.div>
 
       {/* Section: 2 */}

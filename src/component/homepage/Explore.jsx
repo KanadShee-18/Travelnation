@@ -54,7 +54,7 @@ const Explore = () => {
               type: "tween",
               duration: 1.2,
               delay: 1.2,
-              ease: [0.25, 0.25, 0.25, 0.75],
+              ease: "easeIn",
             }}
             viewport={{
               once: true,
@@ -74,7 +74,7 @@ const Explore = () => {
               type: "tween",
               duration: 1.2,
               delay: 1.2,
-              ease: [0.25, 0.25, 0.25, 0.75],
+              ease: "easeIn",
             }}
             viewport={{
               once: true,

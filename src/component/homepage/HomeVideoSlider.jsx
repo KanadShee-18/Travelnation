@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 const HomeVideoSlider = () => {
   const navigate = useNavigate();
   return (
-    <div className="relative z-50 flex flex-col items-center justify-center w-full h-full mx-auto mt-28">
+    <div className="relative z-[50] flex flex-col items-center justify-center w-screen h-screen mx-auto  mt-28">
       <motion.div
         initial={{ sacle: 0.2, opacity: 0 }}
         whileInView={{ scale: 1, opacity: 1 }}
