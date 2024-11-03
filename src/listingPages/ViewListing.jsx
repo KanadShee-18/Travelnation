@@ -27,8 +27,10 @@ const ViewListing = () => {
   const location = useLocation();
   const { token } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.user);
-  const { _id } = useSelector((state) => state.user.user);
-  const ownerId = _id;
+  let ownerId;
+  if (user) {
+    ownerId = user._id;
+  }
   const [listing, setListing] = useState(null);
   const listingId = location.pathname.split("/").pop();
   const [loading, setLoading] = useState(false);
