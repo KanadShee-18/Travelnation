@@ -204,7 +204,7 @@ const Accommodations = () => {
                     )}
                   </div>
                   <div className="flex relative flex-col px-4 py-2 bg-[#464e7e] shadow-md shadow-slate-900 rounded-b-md h-full m-2 rounded-tl-2xl bg-opacity-35">
-                    <h2 className="text-lg mb-2 font-semibold text-transparent font-poppins bg-gradient-to-r from-[#c4b7ff] via-[#8381ff] to-[#8971f7] drop-shadow-2xl bg-clip-text">
+                    <h2 className="text-lg mb-2 text-nowrap text-ellipsis font-semibold text-transparent font-poppins bg-gradient-to-r from-[#c4b7ff] via-[#8381ff] to-[#8971f7] drop-shadow-2xl bg-clip-text">
                       {listing?.title}
                     </h2>
                     <h3 className="text-[15px] scrollbar-hide mb-3 h-[40px] overflow-y-hidden font-semibold text-transparent font-inter bg-gradient-to-br from-[#c9beff] via-[#b5b2fd] to-[#c0b6f1] drop-shadow-2xl bg-clip-text">
