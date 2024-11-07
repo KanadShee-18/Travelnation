@@ -79,7 +79,7 @@ const CategoryList = () => {
             once: true,
           }}
           custom={index}
-          className="flex flex-col items-center text-xs font-poppins text-[#ff4d79] hover:text-[#afc1ff] tracking-wider opacity-90 hover:opacity-100 hover:cursor-pointer"
+          className="flex flex-col items-center text-xs font-poppins text-[#7094a8] hover:text-[#7a95f0] tracking-wider opacity-95 hover:opacity-100 hover:cursor-pointer"
           onClick={() => navigate(`/${category.name}/stays`)}
         >
           {category.icon}

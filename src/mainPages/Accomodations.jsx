@@ -125,27 +125,27 @@ const Accommodations = () => {
 
   return (
     <div className="w-screen h-full min-h-screen pt-16 text-blue-500 accomodation dark:bg-[#0b101b]">
-      <div className="fixed inset-0 max-w-full opacity-65">
+      {/* <div className="fixed inset-0 max-w-full opacity-65">
         <img
           src={exploremainImg}
           alt=""
           className="object-cover w-full h-full"
         />
         <div className="absolute inset-0 opacity-25 bg-gradient-to-t from-black via-slate-950 to-slate-900"></div>
-      </div>
+      </div> */}
 
-      <div className="relative flex flex-col min-w-full bg-[#1f2131] bg-opacity-85 min-h-screen scroll-smooth">
-        <div className="relative min-w-full h-fit bg-[#1e2141] bg-opacity-45 pb-6">
+      <div className="relative flex flex-col min-w-full min-h-screen bg-gradient-to-br from-slate-700 via-slate-800 to-slate-900 bg-opacity-95 scroll-smooth">
+        <div className="relative min-w-full h-fit bg-[#171a27] bg-opacity-45 pb-6">
           <div className="w-11/12 pt-10 mx-auto md:w-10/12">
             <div className="flex flex-col items-start gap-2">
               <div className="flex gap-3 text-xl md:text-3xl">
-                <FaStaylinked className="text-pink-600 " />
-                <h1 className="text-start  font-semibold text-transparent font-poppins bg-gradient-to-r from-pink-600 via-[#ff4372] to-[#ff4d79] drop-shadow-2xl bg-clip-text">
+                <FaStaylinked className="text-[#56a0ce] " />
+                <h1 className="text-start  font-semibold text-transparent font-poppins bg-gradient-to-r from-[#549bc7] via-[#56a0ce] to-[#4781a5] drop-shadow-2xl bg-clip-text">
                   Find Your Perfect Stay
                 </h1>
               </div>
               <div className="w-full">
-                <p className="text-start md:text-lg text-sm md:ml-12 ml-8 font-semibold text-transparent font-poppins bg-gradient-to-r from-[#afc1ff] via-[#b4caf1] to-[#a6aacc] drop-shadow-2xl bg-clip-text">
+                <p className="text-start md:text-lg text-sm md:ml-12 ml-8 font-semibold text-transparent font-poppins bg-gradient-to-r from-[#7981a5] via-[#788fb9] to-[#686d94] drop-shadow-2xl bg-clip-text">
                   Explore According to Categories
                 </p>
               </div>
@@ -184,7 +184,7 @@ const Accommodations = () => {
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                   key={index}
                   // style={{ height: `${randomHeight}px` }}
-                  className={`flex relative flex-col max-w-[300px] h-[420px] bg-[#304df0] bg-opacity-25 backdrop-blur-md rounded-md shadow-md shadow-slate-950 transition-all cursor-pointer duration-300 hover:shadow-slate-700`}
+                  className={`flex relative flex-col max-w-[300px] h-[420px] bg-[#616e8b] bg-opacity-85 backdrop-blur-md rounded-md shadow-md shadow-slate-950 transition-all cursor-pointer duration-300 hover:shadow-slate-700`}
                 >
                   <div className="relative">
                     {firstImage && (
@@ -203,11 +203,11 @@ const Accommodations = () => {
                       </span>
                     )}
                   </div>
-                  <div className="flex relative flex-col px-4 py-2 bg-[#464e7e] shadow-md shadow-slate-900 rounded-b-md h-full m-2 rounded-tl-2xl bg-opacity-35">
-                    <h2 className="text-lg mb-2 text-nowrap text-ellipsis font-semibold text-transparent font-poppins bg-gradient-to-r from-[#c4b7ff] via-[#8381ff] to-[#8971f7] drop-shadow-2xl bg-clip-text">
+                  <div className="flex relative flex-col px-4 py-2 bg-[#282d47] shadow-md shadow-slate-900 rounded-b-md h-full m-1 rounded-tl-2xl">
+                    <h2 className="text-lg mb-2 text-nowrap text-ellipsis font-semibold text-transparent font-poppins bg-gradient-to-r from-[#8a9dd1] via-[#9090ce] to-[#8aaace] drop-shadow-2xl bg-clip-text">
                       {listing?.title}
                     </h2>
-                    <h3 className="text-[15px] scrollbar-hide mb-3 h-[40px] overflow-y-hidden font-semibold text-transparent font-inter bg-gradient-to-br from-[#c9beff] via-[#b5b2fd] to-[#c0b6f1] drop-shadow-2xl bg-clip-text">
+                    <h3 className="text-[15px] scrollbar-hide mb-3 h-[40px] overflow-y-hidden font-semibold text-transparent font-inter bg-gradient-to-br from-[#7985aa] via-[#7978bb] to-[#7a87be] drop-shadow-2xl bg-clip-text">
                       {listing?.description.split(" ").length > 15
                         ? `${listing?.description
                             .split(" ")
@@ -216,7 +216,7 @@ const Accommodations = () => {
                         : `${listing?.description}`}
                     </h3>
                     <div className="flex flex-row items-center justify-between">
-                      <div className="flex flex-col my-1 overflow-hidden font-medium text-[#b8b6ff] gap-x-1">
+                      <div className="flex flex-col my-1 overflow-hidden font-medium text-[#59b7c4] gap-x-1">
                         <span>
                           ${listing?.price}{" "}
                           <span className="text-xs">/night</span>
@@ -230,7 +230,7 @@ const Accommodations = () => {
                         }
                         className="relative z-[100]"
                       >
-                        <button className="text-sm bg-[#383868] px-2 py-2  tracking-wide rounded-md shadow-sm shadow-slate-800 font-medium text-pink-400 font-poppins transition-all duration-200 hover:cursor-pointer hover:scale-95">
+                        <button className="text-sm bg-[#6093b1] px-2 py-2  tracking-wide rounded-md shadow-sm shadow-slate-800 font-medium text-slate-800 font-poppins transition-all duration-200 hover:cursor-pointer hover:scale-95">
                           Wishlist+
                         </button>
                       </div>

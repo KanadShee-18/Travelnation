@@ -196,3 +196,12 @@
 .listingCard {
   box-shadow: 10px 10px 1px rgb(74, 80, 134) !important;
 }
+
+.mainAcco {
+  background: rgb(56, 76, 77);
+  background: radial-gradient(
+    circle,
+    rgba(56, 76, 77, 1) 0%,
+    rgba(55, 59, 71, 1) 100%
+  );
+}
