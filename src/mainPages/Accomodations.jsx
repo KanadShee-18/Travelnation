@@ -272,6 +272,7 @@ import CategoryList from "../listingPages/CategoryList";
 import { fetchAllListings } from "../services/servercalls/listingApis";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ShimmerCardNumber from "../component/common/ShimmerCardNumber";
+import ShimmerCard from "../component/common/ShimmerCard";
 import Spinner from "../component/common/Spinner";
 import { useNavigate } from "react-router-dom";
 import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
@@ -382,7 +383,11 @@ const Accomodations = () => {
   if (loading && listings.length === 0) {
     return (
       <div className="relative flex items-center justify-center w-screen h-screen mt-20">
-        <ShimmerCardNumber num={8} />
+        <div className="grid w-11/12 gap-4 mx-auto lg:w-10/12 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <ShimmerCard key={index} />
+          ))}
+        </div>
       </div>
     );
   }
