@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addToWishList,
+  toggleWishList,
   wishListData,
 } from "../../services/servercalls/authApis";
 import { toast } from "react-toastify";
@@ -34,7 +34,23 @@ const WishLists = () => {
   }, []);
 
   const handleLoveClick = async (ownerId, listingId) => {
-    const response = await addToWishList(token, listingId);
+    const response = await toggleWishList(token, listingId);
+    let updatedWishlists;
+    if (response) {
+      // If added to wishlist
+      updatedWishlists = [...userWishlists, listingId];
+    } else {
+      // If removed from wishlist
+      updatedWishlists = userWishlists.filter((id) => id !== listingId);
+    }
+
+    // Dispatch action to update Redux state
+    dispatch(setUserWishLists(updatedWishlists));
+
+    // Update user in localStorage to keep it in sync
+    const updatedUser = { ...user, wishLists: updatedWishlists };
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+
     // console.log("RESPONSE OF ADDWISHLIST: ", response);
 
     toast("Listing Has Been Removed Form Your Wishlist");

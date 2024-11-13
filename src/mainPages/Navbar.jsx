@@ -212,8 +212,6 @@ const Navbar = () => {
   const [openDash, setOpenDash] = useState(false);
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
 
-  // console.log("Opendash ", openDash);
-
   const { theme } = useSelector((state) => state.theme);
 
   useEffect(() => {
@@ -229,7 +227,7 @@ const Navbar = () => {
       className={`fixed top-0 min-w-[100vw] max-w-[100vw] z-[100] backdrop-blur-sm ${
         home
           ? "h-[86px]"
-          : "h-16 navBar bg-opacity-80 border-b-2 border-pink-500 dark:border-slate-500"
+          : "h-16 navBar bg-opacity-80  shadow-md shadow-slate-300"
       }`}
     >
       <div className="flex items-center justify-between w-11/12 h-full mx-auto">
@@ -241,16 +239,20 @@ const Navbar = () => {
           {/* Mobile menu toggle */}
           <button
             onClick={() => setIsNavbarOpen(!isNavbarOpen)}
-            className="absolute text-xl text-blue-200 md:hidden left-16 top-5"
+            className="absolute text-xl text-slate-800 md:hidden left-16 top-5"
           >
             {isNavbarOpen ? <IoIosArrowDropdown /> : <FaBars />}
           </button>
           {/* Nav links */}
           <div
             className={`${
-              isNavbarOpen ? "flex bg-slate-900" : "hidden md:flex"
-            } md:flex-row flex-col font-imprima items-center gap-x-4 absolute md:relative left-16 md:left-0 top-12 md:top-0 md:bg-transparent rounded-lg md:rounded-none bg-opacity-55 md:bg-opacity-100 ${
-              home ? "text-blue-200" : "text-blue-300 tracking-wide font-medium"
+              isNavbarOpen
+                ? "flex bg-slate-300 backdrop-blur-md"
+                : "hidden md:flex"
+            } md:flex-row flex-col md:text-base text-sm font-inter items-center gap-x-4 absolute md:relative left-16 md:left-0 top-12 md:top-0 md:bg-transparent  rounded-lg md:rounded-none bg-opacity-85 md:bg-opacity-100 ${
+              home
+                ? "text-blue-200"
+                : "text-slate-800 tracking-wide font-medium"
             }`}
           >
             <Link to="/" className="px-4 py-2 hover:text-[#ff4784] rounded-2xl">
@@ -311,7 +313,7 @@ const Navbar = () => {
             <div className="relative">
               <button
                 onClick={() => setOpenDash(!openDash)}
-                className="text-xl text-blue-300"
+                className="text-xl text-slate-800"
               >
                 <RxDropdownMenu />
               </button>

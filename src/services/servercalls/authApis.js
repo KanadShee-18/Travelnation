@@ -50,9 +50,9 @@ export const addToWishList = async (token, listingId) => {
     }
 
     if (response.data.wishListed) {
-      toast("Listing Has Been Added to Wishlisted");
+      toast("Listing Has Been Added to Wishlist");
     } else {
-      toast("Listing Has Been Removed to Wishlisted");
+      toast("Listing Has Been Removed to Wishlist");
     }
     // console.log(response);
 
@@ -60,6 +60,36 @@ export const addToWishList = async (token, listingId) => {
   } catch (error) {
     // console.log("ADD TO WISHLIST API ERROR: ", error);
     toast("Not able to add this listing to your Wishlist");
+  }
+};
+
+export const toggleWishList = async (token, listingId) => {
+  try {
+    const response = await apiConnect(
+      "POST",
+      ADD_TO_WISHLIST_API,
+      { listingId },
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    );
+
+    if (!response.data.success) {
+      throw new Error("Failed to update wishlist status.");
+    }
+
+    const { wishListed } = response.data;
+    if (wishListed) {
+      toast("Listing has been added to your wishlist.");
+    } else {
+      toast("Listing has been removed from your wishlist.");
+    }
+
+    return wishListed;
+  } catch (error) {
+    console.error("Wishlist API Error:", error);
+    toast("Unable to update wishlist. Please try again.");
+    return null; // Explicitly return null on error
   }
 };
 

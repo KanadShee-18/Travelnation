@@ -67,7 +67,7 @@ const CategoryList = () => {
       transition={{
         delay: 6,
       }}
-      className="flex flex-wrap items-center justify-center mx-auto mt-6 md:flex-row w-fit gap-x-3 lg:gap-x-6 gap-y-3"
+      className="flex flex-wrap items-center justify-center mx-auto mt-6 md:flex-row w-fit gap-x-3 md:gap-x-6 gap-y-3"
     >
       {categories.map((category, index) => (
         <motion.div
@@ -79,9 +79,10 @@ const CategoryList = () => {
             once: true,
           }}
           custom={index}
-          className="flex flex-col items-center text-xs font-poppins text-[#7094a8] hover:text-[#7a95f0] tracking-wider opacity-95 hover:opacity-100 hover:cursor-pointer"
+          className="flex flex-col relative items-center text-xs font-poppins text-[#f3424d] hover:text-[#f3424d] tracking-wider group text-opacity-70 hover:opacity-100 hover:cursor-pointer"
           onClick={() => navigate(`/${category.name}/stays`)}
         >
+          <div className="absolute w-0 group-hover:w-full duration-200 transition-all h-[2px] bg-[#ff385c] invisible group-hover:visible -bottom-2"></div>
           {category.icon}
           <span>{category.name.split(" ")[0]}</span>
         </motion.div>
