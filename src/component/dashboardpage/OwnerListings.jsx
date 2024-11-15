@@ -37,7 +37,7 @@ const OwnerListings = () => {
   }
 
   return (
-    <div className="relative flex flex-col w-10/12 min-h-screen gap-4 mx-auto my-6">
+    <div className="relative flex flex-col w-10/12 min-h-screen gap-4 mx-auto my-24">
       <h1 className="md:text-4xl text-2xl font-semibold text-start text-transparent md:text-start font-poppins bg-gradient-to-r from-[#9077ff] via-[#a8a6ff] to-[#a89be6] drop-shadow-2xl bg-clip-text">
         Your Listings
       </h1>

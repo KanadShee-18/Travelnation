@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchListingCategories } from "../../services/servercalls/categoryApis";
 import { RiMoneyRupeeCircleLine } from "react-icons/ri";
 import UploadImages from "../common/UploadImages";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 import {
   createListing,
   editExistingListing,
@@ -11,6 +14,7 @@ import {
 import Spinner from "../common/Spinner";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import MultipleDatePicker from "../../listingPages/MultipleDatePicker";
 
 const CreateListing = () => {
   const dispatch = useDispatch();
@@ -50,7 +54,7 @@ const CreateListing = () => {
 
   const onSubmit = async (data) => {
     const listingValues = getValues();
-    // console.log("Listing Values are: ", listingValues);
+    console.log("Listing Values are: ", listingValues);
 
     const formData = new FormData();
 
@@ -60,12 +64,16 @@ const CreateListing = () => {
     formData.append("location", listingValues?.location);
     formData.append("country", listingValues?.country);
     formData.append("categoryId", listingValues?.category);
+    formData.append(
+      "availableDates",
+      JSON.stringify(listingValues?.availableDates)
+    );
 
     listingValues?.images.forEach((file, index) => {
       formData.append(`images[${index}]`, file);
     });
 
-    // console.log("Formdata coming as: ", formData);
+    console.log("Formdata coming as: ", formData);
 
     setLoading(true);
     const result = await createListing(formData, token);
@@ -81,7 +89,7 @@ const CreateListing = () => {
   };
 
   return (
-    <div className="relative mt-6">
+    <div className="relative pt-20 mb-6">
       <div className="max-w-[500px] mx-auto flex items-center justify-center">
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -250,6 +258,14 @@ const CreateListing = () => {
               )}
             </div>
           </div>
+
+          <MultipleDatePicker
+            errors={errors}
+            getValues={getValues}
+            setValue={setValue}
+            register={register}
+          />
+
           <UploadImages
             name="images"
             label={"Listing Images (not more than 5)"}

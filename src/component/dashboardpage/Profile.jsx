@@ -17,7 +17,7 @@ const Profile = () => {
         stiffness: 40,
         // damping: 20,
       }}
-      className="relative h-screen pt-16 text-blue-500"
+      className="relative h-screen pt-20 text-blue-500"
     >
       <div className="relative z-20 gap-y-7 max-w-[400px] mx-auto mt-10 flex flex-col p-8 rounded-xl shadow-md bg-opacity-30 bg-[#3f467a]  shadow-[#4953a5] hover:shadow-slate-950 transition-all duration-200 hover:scale-95">
         <div className="absolute w-3/4 h-4/5 bg-gradient-to-br from-[#6644ff] via-[#615fff] to-[#ff1f88]  rounded-t-2xl rounded-br-3xl blur-[90px] opacity-25 bottom-0 right-0 translate-x-[50%] translate-y-[50%]"></div>

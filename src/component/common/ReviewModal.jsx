@@ -49,7 +49,7 @@ const ReviewModal = ({ listingId }) => {
   return (
     <div className="flex flex-col min-w-full">
       <div className="mb-3">
-        <p className="text-lg font-semibold text-start text-transparent md:text-start font-poppins bg-gradient-to-r from-[#9077ff] via-[#a8a6ff] to-[#a89be6] drop-shadow-2xl bg-clip-text">
+        <p className="text-lg font-semibold text-start text-transparent md:text-start font-poppins bg-gradient-to-r from-[#3a3842] via-[#3c3c50] to-[#383641] drop-shadow-2xl bg-clip-text">
           Add a Review For this Listing
         </p>
       </div>
@@ -58,7 +58,9 @@ const ReviewModal = ({ listingId }) => {
         onSubmit={handleSubmit(onSubmit)}
         className="flex w-full flex-col pb-10  px-4 place-items-center items-center justify-around py-2 bg-[#5460be] bg-opacity-25 rounded-xl shadow-md shadow-slate-950 m-auto text-[#937aff]"
       >
-        <h1 className="text-slate-400 font-poppins">Add Your Rating</h1>
+        <h1 className="font-semibold text-slate-600 font-poppins">
+          Add Your Rating
+        </h1>
         <ReactStars
           count={5}
           onChange={ratingChanged}
@@ -70,7 +72,7 @@ const ReviewModal = ({ listingId }) => {
         <div className="flex flex-col items-center w-full mt-2">
           <label
             htmlFor="review"
-            className="w-full font-semibold text-start text-slate-400 font-poppins"
+            className="w-full font-semibold text-start text-slate-700 font-poppins"
           >
             Add Your Review
           </label>
@@ -78,7 +80,7 @@ const ReviewModal = ({ listingId }) => {
             id="review"
             placeholder="Write your review"
             {...register("review", { required: true })}
-            className="w-full text-sm p-2 bg-[#313a6d] scrollbar-hide rounded-md tracking-wide text-blue-300 text-[15px] placeholder-purple-400 outline-none placeholder-opacity-70 shadow-md shadow-slate-900 backdrop-blur-lg min-h-[70px]"
+            className="w-full text-sm p-2 bg-[#7278a1] scrollbar-hide rounded-md tracking-wide text-blue-50 text-[15px] placeholder-slate-200 outline-none placeholder-opacity-70 shadow-md shadow-slate-900 backdrop-blur-lg min-h-[70px]"
           />
           {errors.review && (
             <span className="text-xs tracking-wider text-pink-500 ">

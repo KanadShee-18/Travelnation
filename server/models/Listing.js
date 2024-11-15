@@ -42,6 +42,25 @@ const listingSchema = new mongoose.Schema({
       ref: "Review",
     },
   ],
+  availability: [
+    {
+      date: {
+        type: Date,
+        required: true,
+      },
+      status: {
+        type: String,
+        enum: ["available", "requested", "booked"],
+        default: "available",
+      },
+      requestedUser: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+      ],
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now,

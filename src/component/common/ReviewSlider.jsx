@@ -89,7 +89,7 @@ const ReviewSlider = ({ Reviews, Id }) => {
           </div>
         </div>
       ) : (
-        <p className="text-xl text-center text-purple-200">No Reviews.</p>
+        <p className="text-sm text-center text-slate-600">No Reviews.</p>
       )}
     </div>
   );

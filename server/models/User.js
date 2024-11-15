@@ -20,6 +20,25 @@ const userSchema = new mongoose.Schema({
     enum: ["Admin", "Owner", "Visitor"],
     required: true,
   },
+  bookedStays: [
+    {
+      listing: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Listing",
+      },
+      status: {
+        type: String,
+        enum: ["requested", "booked"],
+        required: true,
+      },
+    },
+  ],
+  bookingRequests: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Listing",
+    },
+  ],
   wishLists: [
     {
       type: mongoose.Schema.Types.ObjectId,

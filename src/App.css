@@ -162,7 +162,7 @@
 }
 
 .listingCard {
-  box-shadow: 10px 10px 1px rgb(74, 80, 134) !important;
+  box-shadow: 6px 6px 1px rgb(153, 158, 196) !important;
 }
 
 .mainAcco {
@@ -182,4 +182,33 @@
 
 .swiper-pagination-bullet-active {
   background-color: #ff3477 !important;
+}
+
+/* datepicker.css */
+/* datepicker.css */
+
+.react-datepicker {
+  /* @apply bg-white border border-gray-300 rounded-md shadow-lg; */
+  background-color: #33395d !important;
+  border: 1px solid #837177 !important;
+  box-shadow: 2px 2px 5px slategray;
+}
+
+.react-datepicker__header {
+  /* @apply bg-gray-100 border-b border-gray-200; */
+  background-color: #a0a3ff !important;
+}
+
+/* .react-datepicker__day--selected {
+  background-color: blue !important;
+} */
+
+/* .react-datepicker__day--keyboard-selected {
+  @apply text-white bg-blue-400;
+} */
+
+.react-datepicker__day--today {
+  /* @apply border border-blue-500; */
+  border: 1px solid lightcyan !important;
+  border-radius: 4px !important;
 }

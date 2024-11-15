@@ -13,6 +13,7 @@ const {
   RESET_PASSWORD_API,
   ADD_TO_WISHLIST_API,
   WISHLIST_DATA_API,
+  BOOKED_LISTINGS_API,
 } = authEndPoints;
 
 export const wishListData = async (token) => {
@@ -30,6 +31,24 @@ export const wishListData = async (token) => {
     return response.data;
   } catch (error) {
     // console.log("WISHLISTS DATA API ERROR: ", error);
+    toast("Not able to fetch wishlist data.");
+  }
+};
+export const bookedListings = async (token) => {
+  try {
+    const response = await apiConnect("POST", BOOKED_LISTINGS_API, null, {
+      Authorization: `Bearer ${token}`,
+    });
+    // console.log("BOOKED LISTINGS DATA API RESPONSE: ", response);
+
+    if (!response.data.success) {
+      throw new Error("ERROR IN BOOKED LISTINGS API: ", error);
+    }
+
+    toast("Booked Listings have been fetched successfully for you.");
+    return response.data;
+  } catch (error) {
+    // console.log("BOOKED LISTINGS API ERROR: ", error);
     toast("Not able to fetch wishlist data.");
   }
 };

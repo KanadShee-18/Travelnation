@@ -11,6 +11,7 @@ export const authEndPoints = {
   RESET_PASSWORD_API: BASE_URL + "/auth/resetPassword",
   ADD_TO_WISHLIST_API: BASE_URL + "/auth/addToWishlist",
   WISHLIST_DATA_API: BASE_URL + "/auth/wishlistedItems",
+  BOOKED_LISTINGS_API: BASE_URL + "/auth/bookedListings",
 };
 
 // Category Endpoints:
@@ -27,6 +28,9 @@ export const listingEndpoints = {
   CREATE_LISTING_API: BASE_URL + "/listing/createListing",
   MODIFY_LISTING_API: BASE_URL + "/listing/modifyListing",
   DELETE_LISTING_API: BASE_URL + "/listing/destroyListing",
+  BOOKING_LISTING_API: BASE_URL + "/listing/requestBooking",
+  OWNER_BOOKING_API: BASE_URL + "/listing/owner-requested-listings",
+  VERIFY_BOOKING_API: BASE_URL + "/listing/verifyBooking",
 };
 
 // Rating and Reviews Endpoints:

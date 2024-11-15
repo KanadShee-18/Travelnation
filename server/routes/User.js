@@ -11,6 +11,8 @@ const {
   allWishListedData,
 } = require("../controllers/Auth");
 
+const { getBookedListings } = require("../controllers/Listing");
+
 // Reset Password Controllers
 const {
   resetPasswordToken,
@@ -32,5 +34,6 @@ router.post("/reset-password-token", resetPasswordToken);
 router.post("/resetPassword", resetPassword);
 router.post("/addToWishlist", auth, addToWishlist);
 router.post("/wishlistedItems", auth, allWishListedData);
+router.post("/bookedListings", auth, isViewer, getBookedListings);
 
 module.exports = router;

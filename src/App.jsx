@@ -30,6 +30,9 @@ import Accomodations from "./mainPages/Accomodations";
 import CategoryPage from "./component/categoryPages/CategoryPage";
 import WishLists from "./component/categoryPages/WishLists";
 import About from "./mainPages/About";
+import BookedListings from "./listingPages/BookedListings";
+import OwnerRequests from "./listingPages/OwnerRequests";
+import ListingsFacts from "./listingPages/ListingsFacts";
 
 // Lazy Loading Components:
 const Homepage = lazy(() => import("./mainPages/Homepage"));
@@ -111,6 +114,8 @@ function App() {
                   <Route path="listings" element={<OwnerListings />} />
                   <Route path="wishlists" element={<WishLists />} />
                   <Route path="add-listing" element={<CreateListing />} />
+                  <Route path="bookingRequests" element={<OwnerRequests />} />
+                  <Route path="facts" element={<ListingsFacts />} />
                   <Route
                     path="modify-listing/:id"
                     element={<ModifyListing />}
@@ -121,6 +126,7 @@ function App() {
               {user?.accountType === ACCOUNT_TYPE.VISITOR && (
                 <>
                   <Route path="wishlists" element={<WishLists />} />
+                  <Route path="booked-listings" element={<BookedListings />} />
                   <Route path="stay" element={<UserStay />} />
                   <Route path="contact" element={<ContactUs />} />
                 </>

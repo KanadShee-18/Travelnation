@@ -10,6 +10,9 @@ const {
   DELETE_LISTING_API,
   FETCH_ALL_LISTINGS,
   FETCH_SINGLE_LISTING,
+  BOOKING_LISTING_API,
+  OWNER_BOOKING_API,
+  VERIFY_BOOKING_API,
 } = listingEndpoints;
 
 export const createListing = async (data, token) => {
@@ -157,4 +160,95 @@ export const fetchAllListings = async (page, limit) => {
     toast("Some error occurred while fetching all listings.");
   }
   return result;
+};
+
+export const listingBooking = async (
+  listingId,
+  bookingId,
+  bookingStatus,
+  token
+) => {
+  try {
+    const response = await apiConnect(
+      "POST",
+      BOOKING_LISTING_API,
+      {
+        listingId,
+        bookingId,
+        bookingStatus,
+      },
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    );
+    // console.log("LISTING BOOKING API RESPONSE: ", response);
+
+    if (!response.data.success) {
+      throw new Error(response.data.message || "Error occurred while booking");
+    }
+
+    return response.data;
+  } catch (error) {
+    // console.log("LISTING BOOKING API ERROR: ", error);
+    if (error.response) {
+      toast(error.response.data.message);
+    } else {
+      toast("Problem occurred while booking listing.");
+    }
+  }
+};
+
+export const verifyBooking = async (
+  listingId,
+  bookingId,
+  bookingStatus,
+  userId,
+  token
+) => {
+  try {
+    const response = await apiConnect(
+      "POST",
+      VERIFY_BOOKING_API,
+      {
+        listingId,
+        bookingId,
+        bookingStatus,
+        userId,
+      },
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    );
+    // console.log("LISTING BOOKING API RESPONSE: ", response);
+
+    if (!response.data.success) {
+      throw new Error(response.data.message || "Error occurred while booking");
+    }
+
+    return response.data;
+  } catch (error) {
+    // console.log("LISTING BOOKING API ERROR: ", error);
+    toast("Problem occurred while booking listing");
+  }
+};
+
+export const ownerRequestedListings = async (token) => {
+  try {
+    const response = await apiConnect("GET", OWNER_BOOKING_API, null, {
+      Authorization: `Bearer ${token}`,
+    });
+
+    // console.log("OWNER REQUESTED LISTINIGS API RESPONSE: ", response);
+
+    if (!response.data.success) {
+      throw new Error(response.data.message);
+    }
+
+    // toast("All Listings Fetched Successfully!");
+
+    return response;
+  } catch (error) {
+    // console.log("Owner requested listings error: ", error);
+    toast("Some Problem occurred while fetching owner requests.");
+  }
 };

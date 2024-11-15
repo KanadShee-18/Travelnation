@@ -4,6 +4,7 @@ import { CgProfile, CgListTree } from "react-icons/cg";
 import { VscGitPullRequestCreate, VscFeedback } from "react-icons/vsc";
 import { MdOutlineSettingsPhone } from "react-icons/md";
 import { BsBalloonHeartFill } from "react-icons/bs";
+import { FaQuinscape } from "react-icons/fa6";
 
 const OwnerSidebarLinks = () => {
   const location = useLocation();
@@ -72,9 +73,9 @@ const OwnerSidebarLinks = () => {
             Wishlists
           </NavLink>
         </li>
-        {/* <li>
+        <li>
           <NavLink
-            to="/dashboard/user-feedbacks"
+            to="/dashboard/bookingRequests"
             className={({ isActive }) =>
               `px-2 py-4 rounded transition items-center gap-x-2 flex duration-200 hover:bg-[#3d3b97] ${
                 isActive
@@ -87,9 +88,10 @@ const OwnerSidebarLinks = () => {
             Requests
           </NavLink>
         </li>
+
         <li>
           <NavLink
-            to="/dashboard/user-feedbacks"
+            to="/dashboard/facts"
             className={({ isActive }) =>
               `px-2 py-4 rounded transition items-center gap-x-2 flex duration-200 hover:bg-[#3d3b97] ${
                 isActive
@@ -98,10 +100,10 @@ const OwnerSidebarLinks = () => {
               }`
             }
           >
-            <VscFeedback className="text-xl" />
-            Feedbacks
+            <FaQuinscape className="text-xl" />
+            FAQs
           </NavLink>
-        </li> */}
+        </li>
         {/* Add more links as needed */}
       </ul>
     </div>

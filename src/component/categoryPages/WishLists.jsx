@@ -83,7 +83,7 @@ const WishLists = () => {
 
   return (
     <div>
-      <div className="w-full p-4 mx-auto mt-16">
+      <div className="w-full p-4 mx-auto my-24">
         <h2 className="relative w-10/12 mx-auto mb-4 text-4xl font-semibold text-blue-400 xl:w-3/4">
           Your Wishlists
         </h2>

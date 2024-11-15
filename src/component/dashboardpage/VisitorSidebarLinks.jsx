@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { FaHome, FaHeart, FaComments, FaInfoCircle } from "react-icons/fa"; // Import any icons suitable for visitor navigation
 import { FaShieldHeart } from "react-icons/fa6";
+import { IoBookmarks } from "react-icons/io5";
 
 const VisitorSidebarLinks = () => {
   const location = useLocation();
@@ -37,6 +38,21 @@ const VisitorSidebarLinks = () => {
           >
             <FaShieldHeart className="text-xl" />
             <p>Favorites</p>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/dashboard/booked-listings"
+            className={({ isActive }) =>
+              `px-2 py-4 rounded transition items-center gap-x-2 flex duration-200 hover:bg-[#3d3b97] ${
+                isActive
+                  ? "items-center justify-start bg-[#5460be] bg-opacity-25 rounded-md shadow-md shadow-slate-950 w-full m-auto text-sm font-poppins font-medium"
+                  : "items-center justify-start shadow-inner shadow-[#545bb9] bg-[#3e4264] bg-opacity-25 rounded-md opacity-75 w-full m-auto text-sm font-poppins font-medium"
+              }`
+            }
+          >
+            <IoBookmarks className="text-xl" />
+            <p>Booked Listings</p>
           </NavLink>
         </li>
         <li>
