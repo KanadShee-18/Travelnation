@@ -24,6 +24,7 @@ The front end is built using ReactJS, offering dynamic and responsive interfaces
 
 ![Wanderlust](Images/viewlisting.png)
 ![Wanderlust](Images/booked.png)
+![Wanderlust](Images/wishlists.png)
 
 - **Homepage**: Showcases featured listings and categories for easy browsing.
 - **Listing Catalog**: Allows users to view and filter accommodations by category or popularity.
