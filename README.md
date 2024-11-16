@@ -22,18 +22,22 @@ The front end is built using ReactJS, offering dynamic and responsive interfaces
 
 ### Pages for Visitors
 
-![Wanderlust](Images/wanderlust-listing.png)
+![Wanderlust](Images/viewlisting.png)
+![Wanderlust](Images/booked.png)
 
 - **Homepage**: Showcases featured listings and categories for easy browsing.
 - **Listing Catalog**: Allows users to view and filter accommodations by category or popularity.
 - **Wishlist**: Saves favorite listings for future reference.
 - **Profile**: Displays visitor details and enables personal info updates.
+- **Booked**: Can see their requested and booked listings.
 
 ### Pages for Property Owners
 
 - **Dashboard**: Offers insights into listing views, feedback, and performance metrics.
 - **Listing Management**: Enables owners to create, edit, and delete their accommodations.
 - **Profile Management**: Allows owners to manage their personal details and contact information.
+  ![Wanderlust](Images/createListing.png)
+  ![Wanderlust](Images/ownListings.png)
 
 ### Front-end Tools and Libraries
 

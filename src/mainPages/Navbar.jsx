@@ -91,7 +91,7 @@ const Navbar = () => {
                     home ? "bg-slate-600" : "bg-slate-300"
                   } backdrop-blur-md`
                 : "hidden md:flex"
-            } md:flex-row flex-col md:text-base text-sm font-inter items-center gap-x-4 absolute md:relative left-16 shadow-md shadow-slate-900 md:left-0 top-12 md:top-0 md:bg-transparent  rounded-lg md:rounded-none bg-opacity-85 md:bg-opacity-100 ${
+            } md:flex-row flex-col md:text-base text-sm font-inter items-center gap-x-4 absolute md:relative left-16 shadow-md md:shadow-none shadow-slate-900 md:left-0 top-12 md:top-0 md:bg-transparent  rounded-lg md:rounded-none bg-opacity-85 md:bg-opacity-100 ${
               home
                 ? "text-blue-200"
                 : "text-slate-800 tracking-wide font-medium"

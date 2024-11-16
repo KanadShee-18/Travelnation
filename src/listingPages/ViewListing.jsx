@@ -174,7 +174,7 @@ const ViewListing = () => {
           <h2 className="md:text-4xl sm:text-2xl text-xl font-semibold text-start text-transparent md:text-start font-poppins bg-gradient-to-r from-pink-600 via-[#ff4372] to-[#ff4d79] drop-shadow-2xl bg-clip-text">
             Insights of {listing?.title}
           </h2>
-          <div className="imgsContainer w-full md:h-[450px] h-[250px] bg-slate-200 flex items-center justify-center">
+          <div className="imgsContainer w-full md:h-[350px] h-[250px] bg-slate-200 flex items-center justify-center">
             {listing?.image && (
               <ImageGallery images={listing.image.map((img) => img.url)} />
             )}

@@ -139,7 +139,7 @@ const WishLists = () => {
                         )}
                       </button>
                     </div> */}
-                    <h2 className="text-lg mb-2 font-semibold text-transparent font-poppins bg-gradient-to-r from-[#c4b7ff] via-[#8381ff] to-[#8971f7] drop-shadow-2xl bg-clip-text">
+                    <h2 className="text-lg mb-2 font-semibold text-transparent font-poppins bg-gradient-to-r from-[#c4b7ff] via-[#8381ff] to-[#8971f7] drop-shadow-2xl bg-clip-text text-nowrap text-ellipsis">
                       {listing?.title}
                     </h2>
                     <p className="text-[15px] mb-3 h-[40px] font-semibold text-transparent  font-inter bg-gradient-to-br from-[#c9beff] via-[#b5b2fd] to-[#c0b6f1] drop-shadow-2xl bg-clip-text">
