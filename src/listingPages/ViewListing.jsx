@@ -169,21 +169,21 @@ const ViewListing = () => {
             type: "spring",
             stiffness: 40,
           }}
-          className="relative lg:w-1/2 w-full mx-auto  mt-24 flex flex-col gap-y-3 items-start justify-center p-5 bg-gradient-to-br from-[#f7f7f7] via-[#f7f7f7] to-[#f7f7f7] shadow-md shadow-slate-950 backdrop-blur-sm text-[#6e52e9] listingCard border-[1px] border-slate-400"
+          className="relative lg:w-1/2 w-full mx-auto  mt-24 flex flex-col gap-y-3 items-start justify-center md:p-5 p-2 bg-gradient-to-br from-[#f7f7f7] via-[#f7f7f7] to-[#f7f7f7] shadow-md shadow-slate-950 backdrop-blur-sm text-[#6e52e9] listingCard border-[1px] border-slate-400"
         >
-          <h2 className="text-4xl font-semibold text-start text-transparent md:text-start font-poppins bg-gradient-to-r from-pink-600 via-[#ff4372] to-[#ff4d79] drop-shadow-2xl bg-clip-text">
+          <h2 className="md:text-4xl sm:text-2xl text-xl font-semibold text-start text-transparent md:text-start font-poppins bg-gradient-to-r from-pink-600 via-[#ff4372] to-[#ff4d79] drop-shadow-2xl bg-clip-text">
             Insights of {listing?.title}
           </h2>
-          <div className="imgsContainer w-full h-[450px] bg-slate-200 flex items-center justify-center">
+          <div className="imgsContainer w-full md:h-[450px] h-[250px] bg-slate-200 flex items-center justify-center">
             {listing?.image && (
               <ImageGallery images={listing.image.map((img) => img.url)} />
             )}
           </div>
           <div>
-            <p className="text-2xl font-semibold text-slate-900 font-poppins drop-shadow-2xl ">
+            <p className="text-lg font-semibold md:text-2xl text-slate-900 font-poppins drop-shadow-2xl ">
               {listing?.title}
             </p>
-            <p className="my-1 text-sm font-medium tracking-wide text-transparent font-poppins bg-gradient-to-br from-slate-700 to-slate-800 drop-shadow-2xl bg-clip-text text-start">
+            <p className="my-1 text-xs font-medium tracking-wide text-transparent md:text-sm font-poppins bg-gradient-to-br from-slate-700 to-slate-800 drop-shadow-2xl bg-clip-text text-start">
               {listing?.description}
             </p>
           </div>
@@ -191,7 +191,7 @@ const ViewListing = () => {
             <div>
               <div className="justify-start ">
                 <h1 className="text-start text-slate-600">
-                  <span className="text-lg font-semibold text-[#404350]">
+                  <span className="md:text-lg text-base font-semibold text-[#404350]">
                     Owner:
                   </span>{" "}
                   {listing?.owner?.name}
@@ -199,13 +199,13 @@ const ViewListing = () => {
               </div>
               <div>
                 <p className="text-start text-slate-600">
-                  <span className="text-lg font-semibold text-[#404350]">
+                  <span className="md:text-lg text-base font-semibold text-[#404350]">
                     Located at:{" "}
                   </span>{" "}
                   {listing?.location} - {listing?.country}
                 </p>
               </div>
-              <div className="text-xl font-semibold">
+              <div className="text-lg font-semibold md:text-xl">
                 &#8377; {listing?.price.toLocaleString()}
               </div>
             </div>
@@ -214,14 +214,14 @@ const ViewListing = () => {
                 <div className="flex flex-row gap-2">
                   <button
                     onClick={() => handleEditClick()}
-                    className="flex flex-row items-center px-4 py-2 text-sm font-medium rounded-md shadow-md hover:bg-slate-800 shadow-slate-950 gap-x-2 bg-[#c9d9ec]"
+                    className="flex flex-row items-center px-4 py-2 md:text-sm text-xs font-medium rounded-md shadow-md hover:bg-slate-800 shadow-slate-950 gap-x-2 bg-[#c9d9ec]"
                   >
                     <MdRebaseEdit className="text-lg" />
                     EDIT
                   </button>
                   <button
                     onClick={() => handleDeleteClick()}
-                    className="flex flex-row items-center px-4 py-2 text-sm font-medium text-pink-500 rounded-md shadow-md hover:bg-slate-800 shadow-slate-950 gap-x-2 bg-[#c9d9ec]"
+                    className="flex flex-row items-center px-4 py-2 text-xs md:text-sm font-medium text-pink-500 rounded-md shadow-md hover:bg-slate-800 shadow-slate-950 gap-x-2 bg-[#c9d9ec]"
                   >
                     <FaTrash className="text-lg" />
                     DELETE
@@ -243,7 +243,7 @@ const ViewListing = () => {
                     onClick={() =>
                       handleDateClick(listing._id, item._id, item.status)
                     }
-                    className={`p-2 m-2 text-xs font-medium tracking-wider shadow-md shadow-slate-900 rounded-md ${
+                    className={`p-2 m-2 md:text-xs text-[10px] font-medium tracking-wider shadow-md shadow-slate-900 rounded-md ${
                       item.status === "available"
                         ? "bg-gradient-to-r from-[#5553d4] via-[#615fff] to-[#5553d4] hover:bg-gradient-to-br hover:from-[#3d3b97] hover:via-[#615fff] hover:to-[#3d3b97] active:bg-gradient-to-bl active:from-[#3d3b97] active:via-[#615fff] active:to-[#3d3b97] text-gray-300 hover:bg-green-700"
                         : item.status === "requested"
@@ -265,8 +265,8 @@ const ViewListing = () => {
         </motion.div>
 
         <div className="flex flex-col w-full lg:w-1/2">
-          <motion.div className="relative w-full md:w-4/5  lg:h-[50vh] h-[500px] mx-auto  mt-24 flex flex-col gap-y-3 items-start justify-center p-5 bg-[#f7f7f7] border-[1px] border-slate-300 bg-opacity-85 shadow-sm shadow-slate-950 backdrop-blur-sm text-[#937aff] listingCard">
-            <h2 className="text-3xl font-semibold text-start text-transparent md:text-start font-poppins bg-gradient-to-r from-[#403e47] via-[#444457] to-[#2a292e] drop-shadow-2xl bg-clip-text">
+          <motion.div className="relative w-full md:w-4/5  lg:h-[50vh] h-[500px] mx-auto  md:mt-24 mt-12 flex flex-col gap-y-3 items-start justify-center p-5 bg-[#f7f7f7] border-[1px] border-slate-300 bg-opacity-85 shadow-sm shadow-slate-950 backdrop-blur-sm text-[#937aff] listingCard">
+            <h2 className="lg:text-3xl md:text-2xl text-xl font-semibold text-start text-transparent md:text-start font-poppins bg-gradient-to-r from-[#403e47] via-[#444457] to-[#2a292e] drop-shadow-2xl bg-clip-text">
               Have a Look in its Exact Location
             </h2>
             <div

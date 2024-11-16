@@ -383,10 +383,14 @@ const Accomodations = () => {
   if (loading && listings.length === 0) {
     return (
       <div className="relative flex items-center justify-center w-screen h-screen mt-20">
-        <div className="grid w-11/12 gap-4 mx-auto lg:w-10/12 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
-          {Array.from({ length: 8 }).map((_, index) => (
-            <ShimmerCard key={index} />
-          ))}
+        <div className="w-11/12 mx-auto lg:w-10/12">
+          <div className="w-2/3 h-8 bg-gray-400 rounded-md shimmer lg:w-1/3"></div>
+
+          <div className="grid gap-4 mt-6 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
+            {Array.from({ length: 8 }).map((_, index) => (
+              <ShimmerCard key={index} />
+            ))}
+          </div>
         </div>
       </div>
     );

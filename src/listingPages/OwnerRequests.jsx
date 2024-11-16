@@ -25,18 +25,15 @@ const OwnerRequests = () => {
       setLoading(false);
     };
     fetchListings();
-  }, [token]); // Re-fetch when token changes
+  }, [token]);
 
-  // Handle the "Mark as Booked" action
   const handleDateClick = async (listingId, itemId, itemStatus, userId) => {
-    // Start loading
     setLoading(true);
 
-    // Call verifyBooking to mark the availability as booked
     const response = await verifyBooking(
       listingId,
       itemId,
-      "booked", // Mark as booked
+      "booked",
       userId,
       token
     );

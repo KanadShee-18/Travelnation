@@ -17,6 +17,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const dropdownRef = useRef(null);
+  const navLinksRef = useRef(null);
   const { user } = useSelector((state) => state.user);
   const [home, setHome] = useState(true);
   const [openDash, setOpenDash] = useState(false);
@@ -35,7 +36,7 @@ const Navbar = () => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setOpenDash(false); // Close the dropdown
+        setOpenDash(false);
       }
     };
 
@@ -43,6 +44,18 @@ const Navbar = () => {
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutsideNav = (event) => {
+      if (navLinksRef.current && !navLinksRef.current.contains(event.target)) {
+        setIsNavbarOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutsideNav);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutsideNav);
     };
   }, []);
 
@@ -63,17 +76,22 @@ const Navbar = () => {
           {/* Mobile menu toggle */}
           <button
             onClick={() => setIsNavbarOpen(!isNavbarOpen)}
-            className="absolute text-xl text-slate-800 md:hidden left-16 top-5"
+            className={`absolute text-xl ${
+              home ? "text-slate-300" : "text-slate-800"
+            } md:hidden left-16 top-5`}
           >
             {isNavbarOpen ? <IoIosArrowDropdown /> : <FaBars />}
           </button>
           {/* Nav links */}
           <div
+            ref={navLinksRef}
             className={`${
               isNavbarOpen
-                ? "flex bg-slate-300 backdrop-blur-md"
+                ? `flex ${
+                    home ? "bg-slate-600" : "bg-slate-300"
+                  } backdrop-blur-md`
                 : "hidden md:flex"
-            } md:flex-row flex-col md:text-base text-sm font-inter items-center gap-x-4 absolute md:relative left-16 md:left-0 top-12 md:top-0 md:bg-transparent  rounded-lg md:rounded-none bg-opacity-85 md:bg-opacity-100 ${
+            } md:flex-row flex-col md:text-base text-sm font-inter items-center gap-x-4 absolute md:relative left-16 shadow-md shadow-slate-900 md:left-0 top-12 md:top-0 md:bg-transparent  rounded-lg md:rounded-none bg-opacity-85 md:bg-opacity-100 ${
               home
                 ? "text-blue-200"
                 : "text-slate-800 tracking-wide font-medium"
@@ -160,13 +178,13 @@ const Navbar = () => {
                     dispatch(logOut(navigate));
                     setOpenDash(false);
                   }}
-                  className="w-full bg-slate-700 shadow-md shadow-slate-950 px-3 py-2 text-left hover:bg-[#ee135c] rounded-lg mb-2"
+                  className="w-full md:text-base text-xs bg-slate-700 shadow-md shadow-slate-950 md:px-3 px-2 py-2 md:text-left text-center hover:bg-[#ee135c] rounded-lg mb-2"
                 >
                   Log Out
                 </button>
                 <button
                   onClick={() => navigate("/dashboard/profile")}
-                  className="w-full px-3 py-2 bg-slate-700 text-left shadow-md shadow-slate-950 hover:bg-[#ee135c] rounded-lg"
+                  className="w-full px-2 md:px-3 py-2 bg-slate-700 md:text-left text-center md:text-base text-xs shadow-md shadow-slate-950 hover:bg-[#ee135c] rounded-lg"
                 >
                   Dashboard
                 </button>

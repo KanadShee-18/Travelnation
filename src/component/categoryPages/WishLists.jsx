@@ -83,13 +83,13 @@ const WishLists = () => {
 
   return (
     <div>
-      <div className="w-full p-4 mx-auto my-24">
-        <h2 className="relative w-10/12 mx-auto mb-4 text-4xl font-semibold text-blue-400 xl:w-3/4">
+      <div className="w-full p-0 mx-auto my-24 md:p-4">
+        <h2 className="relative w-11/12 mx-auto mb-4 text-4xl font-semibold text-blue-400 md:w-10/12 xl:w-3/4">
           Your Wishlists
         </h2>
         {/* <h2>Your Wishlists</h2> */}
         {listings.length > 0 ? (
-          <div className="relative grid w-10/12 h-full grid-cols-1 gap-4 py-2 mx-auto scroll-smooth place-items-center lg:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4 xl:w-3/4 scrollbar-hide">
+          <div className="relative grid w-11/12 h-full grid-cols-1 gap-4 py-2 mx-auto md:w-10/12 scroll-smooth place-items-center lg:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4 xl:w-3/4 scrollbar-hide">
             {listings.map((listing, index) => {
               const images = listing?.image || [];
               const firstImage = images[0]?.url;
