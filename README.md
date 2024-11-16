@@ -34,11 +34,12 @@ The front end is built using ReactJS, offering dynamic and responsive interfaces
 
 ### Pages for Property Owners
 
+![Wanderlust](Images/createListing.png)
+![Wanderlust](Images/ownListings.png)
+
 - **Dashboard**: Offers insights into listing views, feedback, and performance metrics.
 - **Listing Management**: Enables owners to create, edit, and delete their accommodations.
 - **Profile Management**: Allows owners to manage their personal details and contact information.
-  ![Wanderlust](Images/createListing.png)
-  ![Wanderlust](Images/ownListings.png)
 
 ### Front-end Tools and Libraries
 
